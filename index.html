@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veris Mixing Board — Type 6: The Loyalist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,700;1,6..96,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ── Brand Tokens ── */
+:root {
+  --deep-sage: #4A5D5E;
+  --warm-taupe: #B5967D;
+  --soft-cream: #F5F1E8;
+  --terracotta: #D87854;
+  --dark-sage: #2F3E3F;
+  --very-dark-sage: #1F2D2E;
+  --white: #FFFFFF;
+  --type-accent: #4A5D5E;
+
+  --font-heading: 'Bodoni Moda', 'Georgia', serif;
+  --font-body: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  --shadow-card: 0 1px 3px rgba(31, 45, 46, 0.08);
+  --shadow-thumb: 0 2px 6px rgba(31, 45, 46, 0.15);
+  --shadow-panel: 0 2px 8px rgba(31, 45, 46, 0.06);
+
+  --track-height: 240px;
+  --fader-col-width: 90px;
+  --fader-gap: 10px;
+}
+
+/* ── Base ── */
+html {
+  background: var(--soft-cream);
+}
+body {
+  font-family: var(--font-body);
+  color: var(--dark-sage);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ── Print ── */
+@media print {
+  .header-bar { position: relative !important; }
+  .print-btn, .screen-only { display: none !important; }
+  .feedback-panel { break-inside: avoid; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* ── Header ── */
+.header-bar {
+  background: var(--very-dark-sage);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-lg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.type-badge {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.type-badge-number {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--warm-taupe);
+  letter-spacing: 0.12em;
+}
+
+.type-badge-name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--soft-cream);
+  line-height: 1.15;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.budget-display {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-xs);
+}
+
+.budget-text {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--soft-cream);
+  letter-spacing: 0.04em;
+}
+
+.budget-bar-container {
+  width: 160px;
+  height: 8px;
+  background: rgba(74, 93, 94, 0.12);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.budget-bar-fill {
+  width: 100%;
+  height: 100%;
+  background: var(--deep-sage);
+  border-radius: 4px;
+  transition: background 400ms ease;
+}
+
+.budget-bar-fill.strained { background: var(--warm-taupe); }
+.budget-bar-fill.extreme { background: rgba(216, 120, 84, 0.6); }
+
+.budget-warning {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--warm-taupe);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  white-space: nowrap;
+}
+.budget-warning.visible { opacity: 1; }
+
+.print-btn {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border: 1px solid rgba(245, 241, 232, 0.3);
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--soft-cream);
+  transition: background 0.2s, border-color 0.2s;
+}
+.print-btn:hover {
+  background: rgba(245, 241, 232, 0.1);
+  border-color: rgba(245, 241, 232, 0.5);
+}
+
+/* ── Main Content ── */
+.main-content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-lg) var(--space-3xl);
+}
+
+/* ── Depersonalization Frame ── */
+.depersonalization-frame {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: var(--shadow-card);
+}
+
+.depersonalization-frame p {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--warm-taupe);
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ── Fader Row ── */
+.fader-row {
+  display: flex;
+  justify-content: center;
+  gap: var(--fader-gap);
+  margin-bottom: var(--space-xl);
+}
+
+/* ── Single Fader ── */
+.fader-column {
+  width: var(--fader-col-width);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.fader-center-line {
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.fader-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--deep-sage);
+  text-align: center;
+  line-height: 1.25;
+  min-height: 36px;
+  max-width: 90px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2px;
+}
+
+.fader-track-container {
+  position: relative;
+  width: 48px;
+  height: var(--track-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.fader-track-container:active { cursor: grabbing; }
+
+.fader-track {
+  width: 6px;
+  height: 100%;
+  background: rgba(74, 93, 94, 0.12);
+  border-radius: 3px;
+  position: relative;
+  overflow: visible;
+}
+
+.fader-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 3px;
+  background: rgba(74, 93, 94, 0.4);
+  transition: background 300ms ease;
+}
+
+.fader-fill.compressed {
+  background: rgba(216, 120, 84, 0.2);
+}
+
+.fader-fill.intense {
+  background: rgba(74, 93, 94, 0.6);
+}
+
+/* Recommendation marker */
+.rec-marker {
+  position: absolute;
+  left: -8px;
+  width: 22px;
+  height: 2px;
+  background: var(--warm-taupe);
+  opacity: 0;
+  transition: opacity 400ms ease-out;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.rec-marker.visible { opacity: 1; }
+
+.rec-label {
+  position: absolute;
+  right: -30px;
+  top: -6px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 9px;
+  color: var(--warm-taupe);
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transition: opacity 400ms ease-out;
+  pointer-events: none;
+}
+
+.rec-label.visible { opacity: 1; }
+
+/* Gap region */
+.gap-region {
+  position: absolute;
+  left: -1px;
+  width: 8px;
+  background: rgba(216, 120, 84, 0.15);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.gap-region.visible { opacity: 1; }
+
+/* Thumb */
+.fader-thumb {
+  position: absolute;
+  width: 36px;
+  height: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--white);
+  border: 2px solid var(--deep-sage);
+  border-radius: 4px;
+  box-shadow: var(--shadow-thumb);
+  z-index: 5;
+  transition: border-color 300ms ease, border-width 200ms ease, transform 200ms ease, background 200ms ease;
+  pointer-events: none;
+}
+
+.fader-thumb.hover {
+  border-color: var(--dark-sage);
+  box-shadow: 0 2px 8px rgba(31, 45, 46, 0.22);
+}
+
+.fader-thumb.active {
+  background: var(--soft-cream);
+  border-color: var(--dark-sage);
+  transform: translateX(-50%) scale(1.05);
+}
+
+.fader-thumb.at-limit {
+  border-color: var(--terracotta);
+}
+
+.fader-thumb.at-extreme {
+  border-color: var(--terracotta);
+  border-width: 3px;
+}
+
+.fader-value {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--dark-sage);
+  text-align: center;
+  min-width: 30px;
+}
+
+/* ── Feedback Panel ── */
+.feedback-panel {
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: var(--shadow-panel);
+  padding: var(--space-lg);
+  min-height: 120px;
+  margin-bottom: var(--space-lg);
+  position: relative;
+}
+
+.feedback-content {
+  transition: opacity 200ms ease;
+}
+
+.feedback-content.fading { opacity: 0; }
+
+.feedback-intro {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--dark-sage);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.feedback-dynamic {
+  display: none;
+}
+
+.feedback-dynamic.active {
+  display: block;
+}
+
+.feedback-dial-name {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--very-dark-sage);
+  margin-bottom: var(--space-sm);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+.feedback-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--dark-sage);
+  line-height: 1.5;
+  margin-bottom: var(--space-md);
+}
+
+.feedback-aggregate {
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid rgba(74, 93, 94, 0.1);
+}
+
+.feedback-aggregate-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--deep-sage);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* ── Recommendation Reveal ── */
+.reveal-trigger {
+  text-align: center;
+  margin-top: var(--space-lg);
+}
+
+.reveal-btn {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--deep-sage);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: var(--space-sm) var(--space-md);
+  transition: color 200ms ease;
+}
+
+.reveal-btn:hover { color: var(--very-dark-sage); }
+.reveal-btn:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.reveal-summary {
+  display: none;
+}
+
+.reveal-summary.active {
+  display: block;
+}
+
+.reveal-summary-heading {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--very-dark-sage);
+  margin-bottom: var(--space-md);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+.reveal-summary-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--dark-sage);
+  line-height: 1.5;
+  margin-bottom: var(--space-md);
+}
+
+.coaching-question {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--deep-sage);
+  line-height: 1.5;
+  margin-bottom: var(--space-sm);
+  padding-left: var(--space-md);
+  border-left: 2px solid var(--warm-taupe);
+}
+
+.coaching-trap {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--warm-taupe);
+  line-height: 1.5;
+  margin-bottom: var(--space-md);
+}
+
+.cta-link {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--terracotta);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: var(--space-sm) 0;
+  margin-top: var(--space-md);
+  transition: opacity 200ms ease;
+}
+.cta-link:hover { opacity: 0.8; }
+
+/* ── Email Gate (architecture, disabled v1) ── */
+.email-gate {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(31, 45, 46, 0.2);
+  align-items: center;
+  justify-content: center;
+}
+
+.email-gate.active { display: flex; }
+
+.email-gate-card {
+  background: var(--white);
+  box-shadow: var(--shadow-card);
+  border-radius: 8px;
+  width: 320px;
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+.email-gate-card h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--very-dark-sage);
+  margin-bottom: var(--space-md);
+}
+
+.email-gate-card input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(74, 93, 94, 0.3);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  margin-bottom: var(--space-md);
+}
+
+.email-gate-card button {
+  width: 100%;
+  padding: 12px;
+  background: var(--terracotta);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: opacity 200ms ease;
+}
+
+.email-gate-card button:hover { opacity: 0.9; }
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding: var(--space-lg);
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--warm-taupe);
+  letter-spacing: 0.06em;
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}
+
+/* ── Tablet ── */
+@media (max-width: 959px) and (min-width: 600px) {
+  :root {
+    --track-height: 200px;
+    --fader-col-width: 72px;
+    --fader-gap: 8px;
+  }
+  .fader-label { font-size: 10px; letter-spacing: 0.03em; }
+  .type-badge-name { font-size: 22px; }
+  .fader-row {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    padding: 0 var(--space-md);
+    mask-image: linear-gradient(to right, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 599px) {
+  :root {
+    --track-height: 180px;
+    --fader-gap: 12px;
+  }
+
+  .header-bar {
+    height: auto;
+    padding: var(--space-md) var(--space-md);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    position: relative;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .budget-display { align-items: flex-start; }
+
+  .budget-bar-container { width: 100%; }
+
+  .type-badge-name { font-size: 22px; }
+
+  .main-content {
+    padding: var(--space-lg) var(--space-md) var(--space-2xl);
+  }
+
+  .fader-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg) var(--space-md);
+    justify-items: center;
+  }
+
+  .fader-column {
+    width: 100%;
+    max-width: 100px;
+  }
+
+  .fader-label {
+    font-size: 10px;
+    min-height: 28px;
+  }
+
+  .fader-value { font-size: 13px; }
+
+  .feedback-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 -2px 12px rgba(31, 45, 46, 0.12);
+    max-height: 40vh;
+    overflow-y: auto;
+    transform: translateY(calc(100% - 48px));
+    transition: transform 300ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .feedback-panel.expanded {
+    transform: translateY(0);
+  }
+
+  .feedback-drag-handle {
+    display: flex;
+    justify-content: center;
+    padding: var(--space-sm) 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .feedback-drag-handle-bar {
+    width: 32px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(74, 93, 94, 0.3);
+  }
+
+  .depersonalization-frame {
+    margin-bottom: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .depersonalization-frame p { font-size: 11px; }
+
+  .main-content {
+    padding-bottom: 80px;
+  }
+}
+
+/* ── Landscape Mobile ── */
+@media (max-width: 599px) and (orientation: landscape) {
+  :root { --track-height: 140px; }
+  .fader-row {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    grid-template-columns: unset;
+    mask-image: linear-gradient(to right, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
+  }
+  .fader-column { width: 64px; flex-shrink: 0; }
+}
+
+/* ── Focus Visible ── */
+*:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Keyboard nav for faders ── */
+.fader-track-container:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header-bar" role="banner">
+  <div class="type-badge">
+    <span class="type-badge-number">Type 6</span>
+    <span class="type-badge-name">The Loyalist</span>
+  </div>
+  <div class="header-right">
+    <div class="budget-display">
+      <span class="budget-text">Budget: 45 / 45</span>
+      <div class="budget-bar-container" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="45" aria-label="Energy budget allocation">
+        <div class="budget-bar-fill" id="budgetBarFill"></div>
+      </div>
+      <span class="budget-warning" id="budgetWarning">Every gain has a cost.</span>
+    </div>
+    <button class="print-btn" onclick="window.print()" aria-label="Print or save as PDF">Save PDF</button>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="main-content">
+
+  <!-- Depersonalization Frame -->
+  <div class="depersonalization-frame">
+    <p>These observations describe common patterns for your Enneagram type. They are not judgments about you as a person. Some will resonate. Some will not. The ones that land are worth exploring.</p>
+  </div>
+
+  <!-- Fader Row -->
+  <div class="fader-row" id="faderRow" role="group" aria-label="Life dial adjustments">
+    <!-- Faders injected by JS -->
+  </div>
+
+  <!-- Feedback Panel -->
+  <div class="feedback-panel" id="feedbackPanel">
+    <div class="feedback-drag-handle screen-only" id="dragHandle" style="display:none;" aria-label="Expand or collapse feedback panel" role="button" tabindex="0">
+      <div class="feedback-drag-handle-bar"></div>
+    </div>
+    <div class="feedback-content" id="feedbackContent">
+      <p class="feedback-intro" id="feedbackIntro">Nine dimensions. One budget. Move the dials to reflect where you invest your energy today &mdash; but know that everything costs something. When one dial goes up, the others must adjust.</p>
+      <div class="feedback-dynamic" id="feedbackDynamic"></div>
+    </div>
+
+    <!-- Reveal Trigger -->
+    <div class="reveal-trigger" id="revealTrigger">
+      <button class="reveal-btn" id="revealBtn" aria-label="See type-specific recommendations">See what the data suggests</button>
+    </div>
+
+    <!-- Reveal Summary -->
+    <div class="reveal-summary" id="revealSummary"></div>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>&copy; 2026 Veris Coaching. The Mixing Board is a coaching framework, not a diagnostic tool.</p>
+</footer>
+
+<!-- Email Gate (architecture present, disabled in v1) -->
+<div class="email-gate" id="emailGate" aria-hidden="true">
+  <div class="email-gate-card">
+    <h3>See Your Type 6 Recommendations</h3>
+    <input type="email" placeholder="Your email address" aria-label="Email address">
+    <button type="button">Show My Results</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── Configuration ──
+  const TOTAL_BUDGET = 45;
+  const DIAL_MIN = 1.0;
+  const DIAL_MAX = 10.0;
+  const DIAL_START = 5.0;
+  const DIAL_COUNT = 9;
+  const REDISTRIBUTE_DURATION = 200;
+  const ENABLE_EMAIL_GATE = false;
+
+  // ── Type 6 Data ──
+  const TYPE6_DATA = {
+    type: 6,
+    name: "The Loyalist",
+    dials: [
+      {
+        id: "strategic-action",
+        label: "Strategic Action",
+        mobileLabel: "Strat. Action",
+        direction: "UP",
+        recommended: 6.5,
+        center: "body",
+        centerColor: "rgba(216, 120, 84, 0.6)",
+        coachingQuestion: "If you already knew enough to take the next step \u2014 and I suspect you do \u2014 what would you be waiting for?",
+        trap: "The Six dials up Strategic Action by taking on MORE projects at the planning stage rather than advancing existing ones. Activity without commitment is not strategic action \u2014 it is strategic avoidance.",
+        feedback: {
+          low: "You are in planning mode, and you have been here a while. Your preparation is thorough \u2014 no one is questioning that. But at some point, the next step is not more research. It is a step. What is the smallest action you could take this week that would move one of your stalled projects forward?",
+          mid: "You are finding your rhythm between thinking and doing. There is still a pull toward \u2018one more thing before I start,\u2019 but you are learning to override it. Keep noticing the moment when preparation stops yielding new insight and starts yielding new anxiety. That is your cue to move.",
+          high: "You are in motion, and that is good \u2014 but check in with yourself: are you acting from clarity, or are you acting to escape the discomfort of sitting with uncertainty? Action that comes from genuine conviction feels different from action that comes from anxiety. You know the difference. Which one is this?"
+        }
+      },
+      {
+        id: "communication-clarity",
+        label: "Communication Clarity",
+        mobileLabel: "Comm. Clarity",
+        direction: "UP",
+        recommended: 6.5,
+        center: "head",
+        centerColor: "var(--deep-sage)",
+        coachingQuestion: "When you share a concern with your team, are you looking for a solution, or are you looking for someone to tell you it will be okay?",
+        trap: "The Six dials up Communication Clarity by over-explaining and over-qualifying. More words are not clearer words. A Six who sends a five-paragraph email when three sentences would do is not communicating clearly \u2014 they are processing out loud.",
+        feedback: {
+          low: "You see risks that other people miss \u2014 that is genuinely valuable. Right now, though, your communication is leading with everything that could go wrong, and your team hears the doubts louder than the direction. The risks are real. But when every message starts with a caveat, people stop listening for the recommendation. Try this: lead with what you think they should do. Then add the risks as context, not as the headline.",
+          mid: "You are getting better at leading with your position rather than your concerns. People are starting to hear your confidence alongside your caution. The next edge: notice how often you add qualifiers \u2014 \u2018I think,\u2019 \u2018maybe,\u2019 \u2018I could be wrong.\u2019 You do not need to eliminate them. Just notice them. Some of them are honest humility. Some of them are the habit of hedging, just in case. You will know which is which.",
+          high: "Your communication is clear and direct \u2014 but make sure you are not performing certainty you do not feel. The goal is not to sound confident. The goal is to be clear about what you know, what you do not know, and what you recommend anyway. Authentic clarity includes acknowledging uncertainty. That is actually braver than pretending you have none."
+        }
+      },
+      {
+        id: "relational-presence",
+        label: "Relational Presence",
+        mobileLabel: "Rel. Presence",
+        direction: "UP",
+        recommended: 6.5,
+        center: "heart",
+        centerColor: "var(--warm-taupe)",
+        coachingQuestion: "In your most important relationships right now, what are you giving that has not been asked for \u2014 and what are you needing that you have not said?",
+        trap: "The Six dials up Relational Presence by becoming MORE attuned to others\u2019 emotional states \u2014 hypervigilant to every shift in mood. This feels like deepening connection but is actually deepening surveillance. Real presence is not reading the room. It is being in the room.",
+        feedback: {
+          low: "You are showing up for people dutifully \u2014 and people who know you recognize that your follow-through is genuine. But loyalty and presence are different things. Your people get your reliability. The question is whether they get your attention. When was the last time you had a conversation where your mind was not running a background process about something else?",
+          mid: "You are learning to be in a room without running a background threat assessment. That is harder than it sounds for you, and the fact that you are doing it matters. Notice what happens in your relationships when you stop monitoring and start connecting \u2014 people open up differently when they feel you are actually with them.",
+          high: "There is a difference between being genuinely curious about someone and tracking them for signs of trouble. If you are reading between every line and testing every response, your attention has shifted from connection to monitoring \u2014 and the people around you can feel the difference, even if they cannot name it."
+        }
+      },
+      {
+        id: "self-awareness",
+        label: "Self-Awareness",
+        mobileLabel: "Self-Aware",
+        direction: "UP",
+        recommended: 6.5,
+        center: "heart",
+        centerColor: "var(--warm-taupe)",
+        coachingQuestion: "When you notice yourself running worst-case scenarios, what do you do with that noticing? Does it change anything, or does it just add another layer?",
+        trap: "The Six dials up Self-Awareness by reading more about Type 6. They become an expert on their own type but the knowledge stays intellectual. Information is not transformation. A Six who can explain their anxiety loop but is still running it has not grown. They have just become a more articulate version of stuck.",
+        feedback: {
+          low: "You are running on autopilot right now \u2014 reacting to perceived threats without examining whether they are real. Your anxiety and your intuition sound identical from the inside, and you cannot currently tell them apart. This is not a character flaw. It is a pattern that has not been examined yet \u2014 and examining it is one of the most productive things you can do. Start by noticing: when you feel a surge of concern, pause and ask \u2014 is this a real signal, or is this my system doing its thing?",
+          mid: "You are developing the ability to observe your own patterns without being hijacked by them. You can sometimes catch yourself mid-spiral and say \u2018ah, there it is.\u2019 That is enormous progress. The next step is not more self-analysis \u2014 it is self-compassion. You can see the pattern now. Can you see it without judging yourself for having it?",
+          high: "You have a strong inner observer \u2014 you see your patterns clearly. But make sure that observer has not become another version of the scanning system. Self-awareness that leads to \u2018what will I do differently?\u2019 is growth. Self-awareness that leads to \u2018why am I like this?\u2019 is just the anxiety engine wearing a different hat. What are you going to do with what you see?"
+        }
+      },
+      {
+        id: "boundary-setting",
+        label: "Boundary Setting",
+        mobileLabel: "Boundaries",
+        direction: "UP",
+        recommended: 6.5,
+        center: "head",
+        centerColor: "var(--deep-sage)",
+        coachingQuestion: "What boundary do you need to set that you have been avoiding \u2014 and what are you afraid will happen if you set it?",
+        trap: "The Six dials up Boundary Setting by creating rigid, anxiety-driven rules. These sound healthy but are often rigid rather than responsive. Healthy boundaries flex. Walls do not.",
+        feedback: {
+          low: "You are carrying things that do not belong to you. Other people\u2019s problems, other people\u2019s anxiety, other people\u2019s deadlines. You take them on because saying no feels like a betrayal of loyalty. But here is the thing you already know and have not acted on: you cannot be loyal to everyone and everything simultaneously. Something has to give, and right now it is you.",
+          mid: "You are getting selective about what you carry, and the guilt is real but manageable. Some relationships have shifted as a result \u2014 not all of them comfortably. That is actually a sign you are doing it right. Boundaries that make everyone happy are not boundaries. They are just a new way of saying yes.",
+          high: "Your boundaries are firm. Check that they are not walls. There is a version of boundary-setting that looks like protection but is actually isolation \u2014 the Six who has been burned too many times and now lets nobody in. Healthy boundaries are permeable. They protect without imprisoning. Are yours keeping the wrong things out, or are they keeping you in?"
+        }
+      },
+      {
+        id: "emotional-steadiness",
+        label: "Emotional Steadiness",
+        mobileLabel: "Emot. Steady",
+        direction: "UP",
+        recommended: 6.5,
+        center: "integrative",
+        centerColor: "rgba(47, 62, 63, 0.5)",
+        coachingQuestion: "Your anxiety gave you a warning this week. Was it accurate? How do you know?",
+        trap: "The Six dials up Emotional Steadiness by performing calm. Performed calm is not emotional steadiness; it is the stress move to Three. If the body is tense, the jaw is clenched, and sleep is disrupted, that is not growth. That is suppression wearing a mindfulness costume.",
+        feedback: {
+          low: "Your emotional state is tracking your threat assessment, and right now the threat level is high. One piece of unexpected news can rearrange your entire day. This is not weakness \u2014 your system is doing exactly what it was designed to do. But it was designed for actual emergencies, and it is running on scenarios that may never happen. The gap between what is real and what is feared is where your energy is going. This week, try naming the gap out loud \u2014 \u2018this is real\u2019 or \u2018this is feared\u2019 \u2014 every time your system sounds an alarm. You do not need to respond differently yet. Just notice which alarm is which.",
+          mid: "You are learning to let the alarm ring without pulling the fire alarm. That takes genuine courage for you \u2014 sitting with the anxiety instead of acting on it. You are building a new skill: the ability to feel unsettled and function anyway. Not by suppressing the feeling, but by not letting it drive the car.",
+          high: "You are steady, and it shows. But steady does not mean flat. Make sure you have not achieved emotional stability by cutting off the signals your anxiety sends. Some of those signals are noise \u2014 but some of them are genuine perception. The goal is not to silence the system. It is to turn down the volume so you can hear the important signals without being overwhelmed by the static."
+        }
+      },
+      {
+        id: "decisiveness",
+        label: "Decisiveness",
+        mobileLabel: "Decisive",
+        direction: "UP",
+        recommended: 7.0,
+        center: "body",
+        centerColor: "rgba(216, 120, 84, 0.6)",
+        coachingQuestion: "What decision are you sitting on right now that you already know the answer to?",
+        trap: "The Six dials up Decisiveness by making decisions impulsively and then immediately second-guessing them. This is not decisiveness \u2014 it is a pendulum between the phobic and counter-phobic poles. Real decisiveness includes the follow-through: making the decision AND standing behind it when the inevitable doubt arrives.",
+        feedback: {
+          low: "You have decisions in a holding pattern right now, circling the runway, waiting for conditions that will never be perfect. Each one you defer costs you something \u2014 momentum, credibility, opportunity, sleep. You already have an opinion about most of these decisions. The problem is not that you do not know what to do. The problem is that you do not trust that you know.",
+          mid: "You are making decisions faster, and not all of them feel good \u2014 some of them feel downright terrifying. That is fine. The feeling of \u2018this might be wrong\u2019 is not a signal to stop. It is the permanent background noise of being someone who sees risk clearly. You are learning to decide alongside the doubt rather than waiting for the doubt to clear. It will not clear. Decide anyway.",
+          high: "You are committing and moving. Check the quality: are your decisions coming from genuine clarity, or are you pushing through doubt by sheer willpower? Counter-phobic decisiveness \u2014 deciding fast to prove you are not afraid \u2014 creates different problems than indecision. The best decisions for you come after a brief, honest check: \u2018Do I have enough information? Am I clear on the risk? Am I okay with being wrong?\u2019 If yes to all three, commit."
+        }
+      },
+      {
+        id: "intentional-rest",
+        label: "Intentional Rest",
+        mobileLabel: "Int. Rest",
+        direction: "UP",
+        recommended: 6.5,
+        center: "integrative",
+        centerColor: "rgba(47, 62, 63, 0.5)",
+        coachingQuestion: "When was the last time your mind actually stopped? Not slowed down \u2014 stopped. What were you doing?",
+        trap: "The Six dials up Intentional Rest by scheduling rest like a task and then becoming anxious about whether they are resting correctly. Productivity-optimized rest is not rest. If the Six is tracking their sleep score and reading articles about rest optimization, they have turned rest into another project to manage.",
+        feedback: {
+          low: "You are not resting. You may be off the clock, but your mind is not. The scenario-planning runs all night, and you wake up more tired than when you went to bed. This is not sustainable, and you know it \u2014 which is itself something you worry about, creating a worry loop about your inability to stop worrying. Here is the uncomfortable truth: you cannot think your way out of this. You have to practice letting go, and it will feel wrong at first.",
+          mid: "You are building windows of genuine rest \u2014 moments where the scanning actually stops. They may be short. They may feel unearned. But they are real, and your body knows the difference even if your mind does not trust it yet. Protect these windows. Productivity guilt and new concerns will try to close them \u2014 that is predictable, not a sign of failure. The fact that rest feels unearned is the pattern talking. Not the truth.",
+          high: "You are resting well, and it is changing your baseline. You are calmer, clearer, more grounded. Notice what has changed since you started resting well. The steadiness, the clarity, the groundedness \u2014 where do you think those came from? You might attribute them to something else. Sit with the possibility that it is the rest."
+        }
+      },
+      {
+        id: "strategic-thinking",
+        label: "Strategic Thinking",
+        mobileLabel: "Strat. Think",
+        direction: "DOWN",
+        recommended: 5.0,
+        center: "head",
+        centerColor: "var(--deep-sage)",
+        coachingQuestion: "Right now, is your thinking producing decisions \u2014 or is it producing more thinking?",
+        trap: "The Six dials down Strategic Thinking by switching to impulsive action rather than developing grounded decisiveness. They go from overthinking to under-thinking. The goal is not LESS processing. It is RIGHT-SIZED processing \u2014 enough to make a sound decision, then stop.",
+        feedback: {
+          low: "If this dial is genuinely low for you, something unusual is happening. You are either in a stress pattern \u2014 focused on doing rather than thinking \u2014 or you have been pushed into reactive mode by circumstances. This is not your natural state, and it will not last. But while you are here, notice that acting without processing is as uncomfortable for you as processing without acting. Both extremes miss something.",
+          mid: "This is your target zone. You are thinking enough to make good decisions without thinking so much that you never make them. The reflection serves the action instead of replacing it. If this feels uncomfortably fast or insufficient, that is your anxiety talking, not your strategic mind. Your strategic mind knows this is enough.",
+          high: "You are in your comfort zone, and it is costing you. Every hour you spend in additional analysis is an hour you did not spend acting, connecting, deciding, or resting. You are a genuinely strategic thinker \u2014 that is real. But right now, the strategic thinking has crossed over into something else. Strategic thinking ends in a decision. What you are doing ends in more thinking. Dial this down. Reallocate the energy. You know where it needs to go."
+        }
+      }
+    ],
+    aggregatePatterns: [
+      {
+        conditions: function(v) { return v[0] > 7 && v[5] < 4; },
+        text: "You are investing heavily in action while drawing down your emotional reserves. For Sixes, this often shows up as pushing through anxiety rather than addressing it \u2014 momentum as a coping mechanism."
+      },
+      {
+        conditions: function(v) { return v[7] < 3 && v[3] > 7; },
+        text: "High self-awareness without rest can become rumination. You see the patterns clearly but are not giving yourself space to process them."
+      },
+      {
+        conditions: function(v) { return v[4] > 7 && v[2] < 4; },
+        text: "Strong boundaries are essential \u2014 but watch whether protection is becoming isolation. Sixes can use vigilance as a substitute for vulnerability."
+      },
+      {
+        conditions: function(v) { return v[8] > 7 && v[6] < 4; },
+        text: "You are pouring energy into analysis while your decisions sit in a holding pattern. That is the Six\u2019s signature loop: more thinking does not produce a decision, it produces more thinking."
+      },
+      {
+        conditions: function(v) { return v[8] > 7 && v[7] < 3; },
+        text: "Strategic Thinking at this level with Rest this low is the 2am scenario-planning session. The anxiety engine is running unchecked, disguised as diligence. Your mind is working overtime, and you are calling it strategy."
+      },
+      {
+        conditions: function(v) { return v[0] < 3 && v[1] < 4; },
+        text: "Low action paired with hesitant communication: you are stalling on two fronts. Your team may be experiencing you as someone who sees every problem but moves on none of them. Lead with one recommendation this week \u2014 even a small one."
+      },
+      {
+        conditions: function(v) {
+          var aboveThree = v.filter(function(x) { return x < 3; }).length;
+          return aboveThree >= 3;
+        },
+        text: "Multiple dials compressed below 3. If you are spending more time optimizing your dial settings than reflecting on what they mean, that itself is data. Step back and look at the shape of your allocation \u2014 what does it tell you about where your energy is actually going?"
+      }
+    ],
+    ahaInsight: "The thing you are afraid of has already happened \u2014 and you survived it. You have a track record of handling exactly the things you fear, and your anxiety has not updated to reflect that. The question is not \u2018what if something goes wrong?\u2019 Things will go wrong. The question is: \u2018Do I trust myself to handle it when it does?\u2019"
+  };
+
+  // ── State ──
+  var values = [];
+  var isRevealed = false;
+  var hasInteracted = false;
+  var lastActiveDialIndex = -1;
+  var animationFrameId = null;
+  var isMobile = window.innerWidth < 600;
+
+  // Initialize values
+  for (var i = 0; i < DIAL_COUNT; i++) {
+    values.push(DIAL_START);
+  }
+
+  // ── DOM Refs ──
+  var faderRow = document.getElementById('faderRow');
+  var feedbackContent = document.getElementById('feedbackContent');
+  var feedbackIntro = document.getElementById('feedbackIntro');
+  var feedbackDynamic = document.getElementById('feedbackDynamic');
+  var feedbackPanel = document.getElementById('feedbackPanel');
+  var budgetBarFill = document.getElementById('budgetBarFill');
+  var budgetWarning = document.getElementById('budgetWarning');
+  var revealBtn = document.getElementById('revealBtn');
+  var revealTrigger = document.getElementById('revealTrigger');
+  var revealSummary = document.getElementById('revealSummary');
+  var dragHandle = document.getElementById('dragHandle');
+
+  // ── Build Faders ──
+  function buildFaders() {
+    TYPE6_DATA.dials.forEach(function(dial, index) {
+      var col = document.createElement('div');
+      col.className = 'fader-column';
+      col.setAttribute('data-index', index);
+
+      // Center of intelligence line
+      var centerLine = document.createElement('div');
+      centerLine.className = 'fader-center-line';
+      centerLine.style.background = dial.centerColor;
+      col.appendChild(centerLine);
+
+      // Label
+      var label = document.createElement('div');
+      label.className = 'fader-label';
+      label.id = 'label-' + dial.id;
+      label.textContent = isMobile ? dial.mobileLabel : dial.label;
+      col.appendChild(label);
+
+      // Track container
+      var trackContainer = document.createElement('div');
+      trackContainer.className = 'fader-track-container';
+      trackContainer.setAttribute('role', 'slider');
+      trackContainer.setAttribute('aria-valuemin', DIAL_MIN);
+      trackContainer.setAttribute('aria-valuemax', DIAL_MAX);
+      trackContainer.setAttribute('aria-valuenow', DIAL_START.toFixed(1));
+      trackContainer.setAttribute('aria-label', dial.label);
+      trackContainer.setAttribute('tabindex', '0');
+      trackContainer.setAttribute('data-index', index);
+
+      // Track
+      var track = document.createElement('div');
+      track.className = 'fader-track';
+
+      // Fill
+      var fill = document.createElement('div');
+      fill.className = 'fader-fill';
+      fill.id = 'fill-' + index;
+
+      // Gap region
+      var gapRegion = document.createElement('div');
+      gapRegion.className = 'gap-region';
+      gapRegion.id = 'gap-' + index;
+
+      // Rec marker
+      var recMarker = document.createElement('div');
+      recMarker.className = 'rec-marker';
+      recMarker.id = 'rec-' + index;
+
+      var recLabel = document.createElement('span');
+      recLabel.className = 'rec-label';
+      recLabel.id = 'rec-label-' + index;
+      recLabel.textContent = 'REC';
+
+      // Thumb
+      var thumb = document.createElement('div');
+      thumb.className = 'fader-thumb';
+      thumb.id = 'thumb-' + index;
+
+      track.appendChild(fill);
+      track.appendChild(gapRegion);
+      track.appendChild(recMarker);
+      track.appendChild(recLabel);
+      track.appendChild(thumb);
+      trackContainer.appendChild(track);
+      col.appendChild(trackContainer);
+
+      // Value display
+      var valueDisplay = document.createElement('div');
+      valueDisplay.className = 'fader-value';
+      valueDisplay.id = 'value-' + index;
+      valueDisplay.textContent = DIAL_START.toFixed(1);
+      col.appendChild(valueDisplay);
+
+      faderRow.appendChild(col);
+
+      // Events
+      setupFaderEvents(trackContainer, index);
+    });
+
+    updateAllFaderPositions();
+  }
+
+  // ── Fader Interaction ──
+  function setupFaderEvents(container, index) {
+    var isDragging = false;
+    var thumb = document.getElementById('thumb-' + index);
+
+    function getValueFromY(clientY) {
+      var rect = container.getBoundingClientRect();
+      var trackH = rect.height;
+      var offsetY = clientY - rect.top;
+      var ratio = 1 - (offsetY / trackH);
+      ratio = Math.max(0, Math.min(1, ratio));
+      var val = DIAL_MIN + ratio * (DIAL_MAX - DIAL_MIN);
+      return Math.round(val * 10) / 10;
+    }
+
+    function startDrag(clientY) {
+      isDragging = true;
+      thumb.classList.add('active');
+      document.body.style.cursor = 'grabbing';
+      handleDrag(clientY);
+    }
+
+    function handleDrag(clientY) {
+      if (!isDragging) return;
+      var newVal = getValueFromY(clientY);
+      setDialValue(index, newVal);
+    }
+
+    function endDrag() {
+      if (!isDragging) return;
+      isDragging = false;
+      thumb.classList.remove('active');
+      document.body.style.cursor = '';
+    }
+
+    // Mouse
+    container.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      startDrag(e.clientY);
+    });
+
+    container.addEventListener('mouseenter', function() {
+      thumb.classList.add('hover');
+    });
+
+    container.addEventListener('mouseleave', function() {
+      thumb.classList.remove('hover');
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (isDragging) {
+        e.preventDefault();
+        handleDrag(e.clientY);
+      }
+    });
+
+    document.addEventListener('mouseup', endDrag);
+
+    // Touch
+    container.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      startDrag(e.touches[0].clientY);
+    }, { passive: false });
+
+    document.addEventListener('touchmove', function(e) {
+      if (isDragging) {
+        e.preventDefault();
+        handleDrag(e.touches[0].clientY);
+      }
+    }, { passive: false });
+
+    document.addEventListener('touchend', endDrag);
+    document.addEventListener('touchcancel', endDrag);
+
+    // Keyboard
+    container.addEventListener('keydown', function(e) {
+      var step = 0.5;
+      var handled = false;
+      if (e.key === 'ArrowUp' || e.key === 'ArrowRight') {
+        setDialValue(index, Math.min(DIAL_MAX, values[index] + step));
+        handled = true;
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
+        setDialValue(index, Math.max(DIAL_MIN, values[index] - step));
+        handled = true;
+      } else if (e.key === 'Home') {
+        setDialValue(index, DIAL_MIN);
+        handled = true;
+      } else if (e.key === 'End') {
+        setDialValue(index, DIAL_MAX);
+        handled = true;
+      }
+      if (handled) e.preventDefault();
+    });
+  }
+
+  // ── Budget Controller ──
+  function setDialValue(index, newVal) {
+    newVal = Math.max(DIAL_MIN, Math.min(DIAL_MAX, newVal));
+
+    var oldVal = values[index];
+    var delta = newVal - oldVal;
+    if (Math.abs(delta) < 0.05) return;
+
+    // First interaction
+    if (!hasInteracted) {
+      hasInteracted = true;
+      feedbackIntro.style.opacity = '0';
+      setTimeout(function() {
+        feedbackIntro.style.display = 'none';
+        feedbackDynamic.classList.add('active');
+      }, 200);
+    }
+
+    lastActiveDialIndex = index;
+
+    // Set new value for the active dial
+    values[index] = newVal;
+
+    // Calculate how much we need to redistribute
+    var totalOthers = 0;
+    for (var i = 0; i < DIAL_COUNT; i++) {
+      if (i !== index) totalOthers += values[i];
+    }
+
+    var targetOthersTotal = TOTAL_BUDGET - newVal;
+
+    // Check if targetOthersTotal is feasible
+    var minPossible = (DIAL_COUNT - 1) * DIAL_MIN;
+    var maxPossible = (DIAL_COUNT - 1) * DIAL_MAX;
+
+    if (targetOthersTotal < minPossible) {
+      targetOthersTotal = minPossible;
+      values[index] = TOTAL_BUDGET - targetOthersTotal;
+      newVal = values[index];
+    }
+    if (targetOthersTotal > maxPossible) {
+      targetOthersTotal = maxPossible;
+      values[index] = TOTAL_BUDGET - targetOthersTotal;
+      newVal = values[index];
+    }
+
+    // Proportional redistribution
+    if (Math.abs(totalOthers) < 0.001) {
+      // Edge case: all others at 0 (shouldn't happen with min=1)
+      var evenShare = targetOthersTotal / (DIAL_COUNT - 1);
+      for (var j = 0; j < DIAL_COUNT; j++) {
+        if (j !== index) values[j] = Math.max(DIAL_MIN, Math.min(DIAL_MAX, evenShare));
+      }
+    } else {
+      var scale = targetOthersTotal / totalOthers;
+
+      // First pass: scale proportionally, enforce min/max
+      var clamped = [];
+      var clampedTotal = 0;
+      var unclampedIndices = [];
+      var unclampedTotal = 0;
+
+      for (var k = 0; k < DIAL_COUNT; k++) {
+        if (k === index) continue;
+        var scaled = values[k] * scale;
+        if (scaled < DIAL_MIN) {
+          clamped.push({ idx: k, val: DIAL_MIN });
+          clampedTotal += DIAL_MIN;
+        } else if (scaled > DIAL_MAX) {
+          clamped.push({ idx: k, val: DIAL_MAX });
+          clampedTotal += DIAL_MAX;
+        } else {
+          unclampedIndices.push(k);
+          unclampedTotal += values[k];
+        }
+      }
+
+      var remainingBudget = targetOthersTotal - clampedTotal;
+
+      // Apply clamped values
+      for (var c = 0; c < clamped.length; c++) {
+        values[clamped[c].idx] = clamped[c].val;
+      }
+
+      // Redistribute remaining among unclamped
+      if (unclampedIndices.length > 0 && unclampedTotal > 0.001) {
+        var remainScale = remainingBudget / unclampedTotal;
+        for (var u = 0; u < unclampedIndices.length; u++) {
+          var ui = unclampedIndices[u];
+          values[ui] = Math.max(DIAL_MIN, Math.min(DIAL_MAX, values[ui] * remainScale));
+        }
+      }
+    }
+
+    // Round all values
+    for (var r = 0; r < DIAL_COUNT; r++) {
+      values[r] = Math.round(values[r] * 10) / 10;
+    }
+
+    // Correct for rounding drift
+    var currentTotal = 0;
+    for (var s = 0; s < DIAL_COUNT; s++) currentTotal += values[s];
+    var drift = TOTAL_BUDGET - currentTotal;
+    if (Math.abs(drift) > 0.05) {
+      // Find the dial with the most room to adjust (not the active one)
+      var bestIdx = -1;
+      var bestRoom = 0;
+      for (var d = 0; d < DIAL_COUNT; d++) {
+        if (d === index) continue;
+        var room = drift > 0 ? (DIAL_MAX - values[d]) : (values[d] - DIAL_MIN);
+        if (room > bestRoom) { bestRoom = room; bestIdx = d; }
+      }
+      if (bestIdx >= 0) {
+        values[bestIdx] = Math.round((values[bestIdx] + drift) * 10) / 10;
+        values[bestIdx] = Math.max(DIAL_MIN, Math.min(DIAL_MAX, values[bestIdx]));
+      }
+    }
+
+    // Update UI
+    updateAllFaderPositions(index);
+    updateBudgetBar();
+    updateFeedback();
+    if (isRevealed) updateGapVisualization();
+  }
+
+  // ── Update Fader Positions ──
+  function updateAllFaderPositions(activeIndex) {
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    for (var i = 0; i < DIAL_COUNT; i++) {
+      var val = values[i];
+      var ratio = (val - DIAL_MIN) / (DIAL_MAX - DIAL_MIN);
+      var trackHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--track-height'));
+
+      var fill = document.getElementById('fill-' + i);
+      var thumb = document.getElementById('thumb-' + i);
+      var valueDisplay = document.getElementById('value-' + i);
+      var container = thumb.closest('.fader-track-container');
+
+      var fillHeight = ratio * trackHeight;
+      var thumbTop = (1 - ratio) * trackHeight - 10; // 10 = half thumb height
+
+      // Animate non-active dials
+      var shouldAnimate = (i !== activeIndex) && !reducedMotion;
+      var dur = shouldAnimate ? REDISTRIBUTE_DURATION + 'ms' : '0ms';
+
+      fill.style.transition = 'height ' + dur + ' ease-out, background 300ms ease';
+      fill.style.height = fillHeight + 'px';
+
+      thumb.style.transition = 'top ' + dur + ' ease-out, border-color 300ms ease, border-width 200ms ease, transform 200ms ease, background 200ms ease';
+      thumb.style.top = thumbTop + 'px';
+
+      valueDisplay.textContent = val.toFixed(1);
+      container.setAttribute('aria-valuenow', val.toFixed(1));
+
+      // Thumb state classes
+      thumb.classList.remove('at-limit', 'at-extreme');
+      fill.classList.remove('compressed', 'intense');
+
+      if (val >= 9) {
+        thumb.classList.add('at-extreme');
+        fill.classList.add('intense');
+      } else if (val <= 1.5) {
+        thumb.classList.add('at-limit');
+        fill.classList.add('compressed');
+      }
+
+      // Check if neighboring dials are compressed near min
+      if (val <= 2.0 && i !== activeIndex) {
+        fill.classList.add('compressed');
+      }
+    }
+  }
+
+  // ── Budget Bar ──
+  function updateBudgetBar() {
+    var maxVal = Math.max.apply(null, values);
+    var minVal = Math.min.apply(null, values);
+    var anyAtMin = values.some(function(v) { return v <= 1.0; });
+
+    budgetBarFill.classList.remove('strained', 'extreme');
+    budgetWarning.classList.remove('visible');
+
+    if (maxVal > 8.5 || anyAtMin) {
+      budgetBarFill.classList.add('extreme');
+      budgetWarning.classList.add('visible');
+    } else if (maxVal > 7) {
+      budgetBarFill.classList.add('strained');
+    }
+  }
+
+  // ── Feedback Engine ──
+  function updateFeedback() {
+    if (!hasInteracted) return;
+
+    var dial = TYPE6_DATA.dials[lastActiveDialIndex];
+    var val = values[lastActiveDialIndex];
+    var tier;
+    if (val <= 3) tier = 'low';
+    else if (val >= 7) tier = 'high';
+    else tier = 'mid';
+
+    var feedbackText = dial.feedback[tier];
+
+    // Check for aggregate patterns
+    var aggregateText = '';
+    for (var p = 0; p < TYPE6_DATA.aggregatePatterns.length; p++) {
+      if (TYPE6_DATA.aggregatePatterns[p].conditions(values)) {
+        aggregateText = TYPE6_DATA.aggregatePatterns[p].text;
+        break;
+      }
+    }
+
+    // Build feedback HTML
+    var html = '<div class="feedback-dial-name">' + dial.label + '</div>';
+    html += '<div class="feedback-text">' + feedbackText + '</div>';
+
+    if (aggregateText) {
+      html += '<div class="feedback-aggregate"><div class="feedback-aggregate-text">' + aggregateText + '</div></div>';
+    }
+
+    // If revealed, show gap info for this dial
+    if (isRevealed) {
+      var gap = Math.abs(val - dial.recommended);
+      if (gap > 1.5) {
+        var direction = val < dial.recommended ? 'below' : 'above';
+        html += '<div style="margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid rgba(74,93,94,0.1);">';
+        html += '<div style="font-size: 13px; color: var(--warm-taupe); margin-bottom: var(--space-sm);">You set ' + dial.label + ' at ' + val.toFixed(1) + ' \u2014 the Type 6 data suggests ' + dial.recommended.toFixed(1) + '. That gap is worth exploring.</div>';
+        html += '<div class="coaching-question">' + dial.coachingQuestion + '</div>';
+        html += '</div>';
+      }
+    }
+
+    feedbackDynamic.innerHTML = html;
+
+    // Mobile: auto-expand panel briefly
+    if (isMobile) {
+      feedbackPanel.classList.add('expanded');
+      clearTimeout(feedbackPanel._autoCollapseTimer);
+      feedbackPanel._autoCollapseTimer = setTimeout(function() {
+        if (!feedbackPanel._manualExpand) {
+          feedbackPanel.classList.remove('expanded');
+        }
+      }, 3000);
+    }
+  }
+
+  // ── Recommendation Reveal ──
+  function revealRecommendations() {
+    isRevealed = true;
+    revealTrigger.style.display = 'none';
+
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Stagger recommendation markers
+    TYPE6_DATA.dials.forEach(function(dial, index) {
+      var delay = reducedMotion ? 0 : index * 50;
+
+      setTimeout(function() {
+        var trackHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--track-height'));
+        var recRatio = (dial.recommended - DIAL_MIN) / (DIAL_MAX - DIAL_MIN);
+        var recTop = (1 - recRatio) * trackHeight;
+
+        var recMarker = document.getElementById('rec-' + index);
+        var recLabel = document.getElementById('rec-label-' + index);
+
+        recMarker.style.top = recTop + 'px';
+        recMarker.classList.add('visible');
+
+        recLabel.style.top = (recTop - 6) + 'px';
+        recLabel.classList.add('visible');
+
+        updateGapForDial(index, trackHeight);
+      }, delay);
+    });
+
+    // Show summary after all markers
+    var summaryDelay = reducedMotion ? 0 : DIAL_COUNT * 50 + 400;
+    setTimeout(function() {
+      buildRevealSummary();
+    }, summaryDelay);
+  }
+
+  function updateGapForDial(index, trackHeight) {
+    if (!trackHeight) {
+      trackHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--track-height'));
+    }
+    var dial = TYPE6_DATA.dials[index];
+    var val = values[index];
+    var recVal = dial.recommended;
+
+    var valRatio = (val - DIAL_MIN) / (DIAL_MAX - DIAL_MIN);
+    var recRatio = (recVal - DIAL_MIN) / (DIAL_MAX - DIAL_MIN);
+
+    var valTop = (1 - valRatio) * trackHeight;
+    var recTop = (1 - recRatio) * trackHeight;
+
+    var gap = document.getElementById('gap-' + index);
+    var topPos = Math.min(valTop, recTop);
+    var height = Math.abs(valTop - recTop);
+
+    gap.style.top = topPos + 'px';
+    gap.style.height = height + 'px';
+
+    // Scale opacity by gap size
+    var gapSize = Math.abs(val - recVal);
+    var opacity = Math.min(1, gapSize / 4) * 0.15;
+    gap.style.background = 'rgba(216, 120, 84, ' + (0.08 + opacity) + ')';
+    gap.classList.add('visible');
+  }
+
+  function updateGapVisualization() {
+    for (var i = 0; i < DIAL_COUNT; i++) {
+      updateGapForDial(i);
+    }
+  }
+
+  function buildRevealSummary() {
+    // Find largest gaps
+    var gaps = [];
+    TYPE6_DATA.dials.forEach(function(dial, index) {
+      gaps.push({
+        index: index,
+        dial: dial,
+        gap: dial.recommended - values[index],
+        absGap: Math.abs(dial.recommended - values[index])
+      });
+    });
+
+    gaps.sort(function(a, b) { return b.absGap - a.absGap; });
+    var bigGaps = gaps.filter(function(g) { return g.absGap > 0.5; });
+    var smallGaps = gaps.filter(function(g) { return g.absGap <= 0.5; });
+
+    var html = '<div class="reveal-summary-heading">What the Data Suggests</div>';
+    html += '<div class="reveal-summary-text">Based on Type 6 patterns, here is where the coaching data suggests focusing your investment. You can still adjust the dials \u2014 the recommendations stay visible for comparison.</div>';
+
+    // Show all dials with significant gaps — full detail
+    if (bigGaps.length > 0) {
+      html += '<div style="margin-bottom: var(--space-lg);">';
+      bigGaps.forEach(function(g) {
+        var direction = g.gap > 0 ? 'higher' : 'lower';
+        html += '<div style="margin-bottom: var(--space-lg);">';
+        html += '<div style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; color: var(--very-dark-sage); margin-bottom: var(--space-xs);">' + g.dial.label + '</div>';
+        html += '<div style="font-size: 13px; color: var(--deep-sage); margin-bottom: var(--space-sm);">You: ' + values[g.index].toFixed(1) + ' &rarr; Suggested: ' + g.dial.recommended.toFixed(1) + ' (' + g.absGap.toFixed(1) + ' points ' + direction + ')</div>';
+        html += '<div class="coaching-question">' + g.dial.coachingQuestion + '</div>';
+        html += '<div class="coaching-trap"><strong>The trap to watch:</strong> ' + g.dial.trap + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
+    // Show remaining dials (small or no gap) — compact summary
+    if (smallGaps.length > 0) {
+      html += '<div style="margin-bottom: var(--space-lg); padding: var(--space-md); background: rgba(74,93,94,0.03); border-radius: 8px;">';
+      html += '<div style="font-family: var(--font-heading); font-weight: 600; font-size: 14px; color: var(--deep-sage); margin-bottom: var(--space-sm);">Aligned with the data</div>';
+      smallGaps.forEach(function(g) {
+        html += '<div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(181,150,125,0.15);">';
+        html += '<span style="font-size: 13px; font-weight: 500; color: var(--dark-sage);">' + g.dial.label + '</span>';
+        html += '<span style="font-size: 12px; color: var(--warm-taupe);">You: ' + values[g.index].toFixed(1) + ' / Suggested: ' + g.dial.recommended.toFixed(1) + '</span>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
+    // Aha insight
+    html += '<div style="padding: var(--space-lg); background: rgba(74,93,94,0.04); border-radius: 8px; margin-bottom: var(--space-md);">';
+    html += '<div style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; color: var(--very-dark-sage); margin-bottom: var(--space-sm);">The Insight Worth Sitting With</div>';
+    html += '<div style="font-size: 14px; color: var(--dark-sage); line-height: 1.6; font-style: italic;">' + TYPE6_DATA.ahaInsight + '</div>';
+    html += '</div>';
+
+    // CTA
+    html += '<div style="text-align: center;"><a href="https://veriscoaching.com" class="cta-link" target="_blank" rel="noopener">Want to explore what your dials mean? Book a conversation.</a></div>';
+
+    revealSummary.innerHTML = html;
+    revealSummary.classList.add('active');
+  }
+
+  // ── Mobile Bottom Sheet ──
+  function setupMobileSheet() {
+    if (!isMobile) return;
+    dragHandle.style.display = 'flex';
+
+    feedbackPanel._manualExpand = false;
+
+    dragHandle.addEventListener('click', function() {
+      feedbackPanel._manualExpand = !feedbackPanel._manualExpand;
+      feedbackPanel.classList.toggle('expanded', feedbackPanel._manualExpand);
+    });
+
+    dragHandle.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        feedbackPanel._manualExpand = !feedbackPanel._manualExpand;
+        feedbackPanel.classList.toggle('expanded', feedbackPanel._manualExpand);
+      }
+    });
+  }
+
+  // ── Responsive Label Update ──
+  function updateLabels() {
+    var wasMobile = isMobile;
+    isMobile = window.innerWidth < 600;
+    if (wasMobile !== isMobile) {
+      TYPE6_DATA.dials.forEach(function(dial, index) {
+        var label = document.getElementById('label-' + dial.id);
+        if (label) label.textContent = isMobile ? dial.mobileLabel : dial.label;
+      });
+      if (isMobile) {
+        dragHandle.style.display = 'flex';
+      } else {
+        dragHandle.style.display = 'none';
+        feedbackPanel.classList.remove('expanded');
+        feedbackPanel.style.transform = '';
+      }
+    }
+    updateAllFaderPositions(lastActiveDialIndex);
+    if (isRevealed) {
+      updateGapVisualization();
+      // Reposition rec markers
+      var trackHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--track-height'));
+      TYPE6_DATA.dials.forEach(function(dial, idx) {
+        var recRatio = (dial.recommended - DIAL_MIN) / (DIAL_MAX - DIAL_MIN);
+        var recTop = (1 - recRatio) * trackHeight;
+        var recMarker = document.getElementById('rec-' + idx);
+        var recLabel = document.getElementById('rec-label-' + idx);
+        recMarker.style.top = recTop + 'px';
+        recLabel.style.top = (recTop - 6) + 'px';
+      });
+    }
+  }
+
+  // ── Event Listeners ──
+  revealBtn.addEventListener('click', revealRecommendations);
+
+  var resizeTimeout;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(updateLabels, 150);
+  });
+
+  // ── Init ──
+  buildFaders();
+  setupMobileSheet();
+  updateBudgetBar();
+
+})();
+</script>
+</body>
+</html>
