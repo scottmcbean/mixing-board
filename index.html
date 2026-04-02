@@ -358,6 +358,23 @@ body {
   border-width: 3px;
 }
 
+/* Strength indicator dot on fader */
+.fader-strength-dot {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--warm-taupe);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+
+.fader-strength-dot.visible { opacity: 1; }
+
 .fader-value {
   font-family: var(--font-body);
   font-weight: 500;
@@ -365,6 +382,73 @@ body {
   color: var(--dark-sage);
   text-align: center;
   min-width: 30px;
+}
+
+/* ── Profile Detection Badge ── */
+.profile-badge {
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 300ms ease, max-height 400ms ease, padding 300ms ease, margin 300ms ease;
+}
+
+.profile-badge.active {
+  opacity: 1;
+  max-height: 400px;
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.profile-badge-label {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--warm-taupe);
+  margin-bottom: var(--space-xs);
+}
+
+.profile-badge-name {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--very-dark-sage);
+  line-height: 1.2;
+  margin-bottom: var(--space-sm);
+}
+
+.profile-badge-meaning {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--dark-sage);
+  line-height: 1.5;
+  margin-bottom: var(--space-sm);
+}
+
+.profile-badge-insight {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--deep-sage);
+  line-height: 1.5;
+  padding-left: var(--space-md);
+  border-left: 2px solid var(--warm-taupe);
+}
+
+.profile-badge-move {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--terracotta);
+  line-height: 1.5;
+  margin-top: var(--space-sm);
 }
 
 /* ── Feedback Panel ── */
@@ -420,6 +504,72 @@ body {
   color: var(--dark-sage);
   line-height: 1.5;
   margin-bottom: var(--space-md);
+}
+
+.feedback-section {
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid rgba(74, 93, 94, 0.08);
+}
+
+.feedback-section-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--warm-taupe);
+  margin-bottom: var(--space-xs);
+}
+
+.feedback-section-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--deep-sage);
+  line-height: 1.5;
+}
+
+.feedback-strength {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--warm-taupe);
+  line-height: 1.5;
+  margin-top: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(181, 150, 125, 0.08);
+  border-radius: 6px;
+}
+
+.feedback-combo {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--dark-sage);
+  line-height: 1.5;
+  margin-top: var(--space-sm);
+}
+
+.feedback-consequence {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--deep-sage);
+  line-height: 1.5;
+  font-style: italic;
+  margin-top: var(--space-sm);
+}
+
+.feedback-tradeoff {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--deep-sage);
+  line-height: 1.5;
+  margin-top: var(--space-sm);
+  padding-left: var(--space-md);
+  border-left: 2px solid rgba(216, 120, 84, 0.3);
 }
 
 .feedback-aggregate {
@@ -713,6 +863,8 @@ body {
   .main-content {
     padding-bottom: 80px;
   }
+
+  .profile-badge { margin-left: 0; margin-right: 0; }
 }
 
 /* ── Landscape Mobile ── */
@@ -778,6 +930,15 @@ body {
     <!-- Faders injected by JS -->
   </div>
 
+  <!-- Profile Detection Badge -->
+  <div class="profile-badge" id="profileBadge">
+    <div class="profile-badge-label">Your current pattern</div>
+    <div class="profile-badge-name" id="profileName"></div>
+    <div class="profile-badge-meaning" id="profileMeaning"></div>
+    <div class="profile-badge-insight" id="profileInsight"></div>
+    <div class="profile-badge-move" id="profileMove"></div>
+  </div>
+
   <!-- Feedback Panel -->
   <div class="feedback-panel" id="feedbackPanel">
     <div class="feedback-drag-handle screen-only" id="dragHandle" style="display:none;" aria-label="Expand or collapse feedback panel" role="button" tabindex="0">
@@ -818,16 +979,31 @@ body {
   'use strict';
 
   // ── Configuration ──
-  const TOTAL_BUDGET = 45;
-  const DIAL_MIN = 1.0;
-  const DIAL_MAX = 10.0;
-  const DIAL_START = 5.0;
-  const DIAL_COUNT = 9;
-  const REDISTRIBUTE_DURATION = 200;
-  const ENABLE_EMAIL_GATE = false;
+  var TOTAL_BUDGET = 45;
+  var DIAL_MIN = 1.0;
+  var DIAL_MAX = 10.0;
+  var DIAL_START = 5.0;
+  var DIAL_COUNT = 9;
+  var REDISTRIBUTE_DURATION = 200;
+  var ENABLE_EMAIL_GATE = false;
 
-  // ── Type 6 Data ──
-  const TYPE6_DATA = {
+  // Dial index constants for readability
+  var D = {
+    STRATEGIC_ACTION: 0,
+    COMMUNICATION_CLARITY: 1,
+    RELATIONAL_PRESENCE: 2,
+    SELF_AWARENESS: 3,
+    BOUNDARY_SETTING: 4,
+    EMOTIONAL_STEADINESS: 5,
+    DECISIVENESS: 6,
+    INTENTIONAL_REST: 7,
+    STRATEGIC_THINKING: 8
+  };
+
+  // ══════════════════════════════════════════════════
+  // TYPE 6 DATA — Dials, feedback, recommendations
+  // ══════════════════════════════════════════════════
+  var TYPE6_DATA = {
     type: 6,
     name: "The Loyalist",
     dials: [
@@ -976,51 +1152,553 @@ body {
         }
       }
     ],
-    aggregatePatterns: [
-      {
-        conditions: function(v) { return v[0] > 7 && v[5] < 4; },
-        text: "You are investing heavily in action while drawing down your emotional reserves. For Sixes, this often shows up as pushing through anxiety rather than addressing it \u2014 momentum as a coping mechanism."
-      },
-      {
-        conditions: function(v) { return v[7] < 3 && v[3] > 7; },
-        text: "High self-awareness without rest can become rumination. You see the patterns clearly but are not giving yourself space to process them."
-      },
-      {
-        conditions: function(v) { return v[4] > 7 && v[2] < 4; },
-        text: "Strong boundaries are essential \u2014 but watch whether protection is becoming isolation. Sixes can use vigilance as a substitute for vulnerability."
-      },
-      {
-        conditions: function(v) { return v[8] > 7 && v[6] < 4; },
-        text: "You are pouring energy into analysis while your decisions sit in a holding pattern. That is the Six\u2019s signature loop: more thinking does not produce a decision, it produces more thinking."
-      },
-      {
-        conditions: function(v) { return v[8] > 7 && v[7] < 3; },
-        text: "Strategic Thinking at this level with Rest this low is the 2am scenario-planning session. The anxiety engine is running unchecked, disguised as diligence. Your mind is working overtime, and you are calling it strategy."
-      },
-      {
-        conditions: function(v) { return v[0] < 3 && v[1] < 4; },
-        text: "Low action paired with hesitant communication: you are stalling on two fronts. Your team may be experiencing you as someone who sees every problem but moves on none of them. Lead with one recommendation this week \u2014 even a small one."
-      },
-      {
-        conditions: function(v) {
-          var aboveThree = v.filter(function(x) { return x < 3; }).length;
-          return aboveThree >= 3;
-        },
-        text: "Multiple dials compressed below 3. If you are spending more time optimizing your dial settings than reflecting on what they mean, that itself is data. Step back and look at the shape of your allocation \u2014 what does it tell you about where your energy is actually going?"
-      }
-    ],
     ahaInsight: "The thing you are afraid of has already happened \u2014 and you survived it. You have a track record of handling exactly the things you fear, and your anxiety has not updated to reflect that. The question is not \u2018what if something goes wrong?\u2019 Things will go wrong. The question is: \u2018Do I trust myself to handle it when it does?\u2019"
   };
 
-  // ── State ──
+  // ══════════════════════════════════════════════════
+  // COACHING INTELLIGENCE ENGINE — Marlowe's Logic
+  // ══════════════════════════════════════════════════
+
+  // Strengths Acknowledgment: fire when a dial is at the Six's natural level
+  var STRENGTHS = [
+    {
+      dial: D.STRATEGIC_THINKING,
+      test: function(v) { return v[D.STRATEGIC_THINKING] >= 7; },
+      text: "This is already in your nature. Sixes do not learn strategic thinking \u2014 they live inside it. You do not need to force this dial higher. The question is whether you are running it, or it is running you."
+    },
+    {
+      dial: D.SELF_AWARENESS,
+      test: function(v) { return v[D.SELF_AWARENESS] >= 5 && v[D.SELF_AWARENESS] <= 7; },
+      text: "Your pattern-recognition instinct is strong. You notice shifts in mood, inconsistencies in stories, and the gap between what was said and what was meant. This is natural for your wiring. The growth edge is using it selectively rather than constantly."
+    },
+    {
+      dial: D.COMMUNICATION_CLARITY,
+      test: function(v) { return v[D.COMMUNICATION_CLARITY] >= 5 && v[D.COMMUNICATION_CLARITY] <= 7; },
+      text: "You see risks that other people walk past. That is real value \u2014 not pessimism. Your challenge is not seeing problems. It is communicating them in a way that leads with the solution, not the alarm. The radar is fine. The broadcast signal needs tuning."
+    },
+    {
+      dial: D.RELATIONAL_PRESENCE,
+      test: function(v) { return v[D.RELATIONAL_PRESENCE] >= 5 && v[D.RELATIONAL_PRESENCE] <= 7; },
+      text: "Your follow-through in relationships is structural, not performative. People who know you trust it. This is your wiring doing what it does. The growth is not more loyalty \u2014 it is genuine presence alongside the loyalty."
+    },
+    {
+      dial: D.EMOTIONAL_STEADINESS,
+      test: function(v) { return v[D.EMOTIONAL_STEADINESS] >= 6; },
+      text: "Sixes tend to underestimate their own composure under real pressure. When the worst case actually arrives, your system shifts from scanning to handling. That is not an accident \u2014 it is a strength you probably do not give yourself credit for."
+    },
+    {
+      dial: D.BOUNDARY_SETTING,
+      test: function(v) { return v[D.BOUNDARY_SETTING] >= 4 && v[D.BOUNDARY_SETTING] <= 6; },
+      text: "You have a sense of what is yours to carry and what is not \u2014 but the lines may follow duty and obligation more than self-care. The boundaries are there. The question is whether they are protecting the right things."
+    },
+    {
+      dial: D.DECISIVENESS,
+      test: function(v) { return v[D.DECISIVENESS] >= 6; },
+      text: "This is earned, not wired. Sixes do not come by decisiveness naturally \u2014 the internal committee always has another objection. If you are deciding at this level, you have built something. Acknowledge it."
+    },
+    {
+      dial: D.INTENTIONAL_REST,
+      test: function(v) { return v[D.INTENTIONAL_REST] >= 6; },
+      text: "Rest does not come easily to the Six mind. If you are genuinely resting at this level \u2014 not performing rest, not scheduling rest as a task, but actually letting the scanning stop \u2014 that is significant growth. The world did not fall apart while you were not watching it."
+    },
+    {
+      dial: D.STRATEGIC_ACTION,
+      test: function(v) { return v[D.STRATEGIC_ACTION] >= 6; },
+      text: "Action despite uncertainty is the Six\u2019s growth edge, not their comfort zone. If you are here, you are doing the hard thing. The preparation that feels missing is probably the preparation you already did. Trust the work you put in."
+    }
+  ];
+
+  // Pairwise Combo Rules (20 rules from Marlowe)
+  var COMBO_RULES = [
+    {
+      id: "st-high-dec-low",
+      test: function(v) { return v[D.STRATEGIC_THINKING] >= 7 && v[D.DECISIVENESS] <= 3; },
+      dials: [D.STRATEGIC_THINKING, D.DECISIVENESS],
+      priority: 10,
+      feedback: "You are in the classic Six loop: thinking more to feel ready, but the readiness never arrives. Strategic thinking that does not end in a decision is not strategy \u2014 it is rumination in business clothes. You already know enough. The next insight you need comes from acting, not analyzing.",
+      suggestion: "Drop Strategic Thinking by 2\u20133 points. Move those points directly into Decisiveness. The discomfort is the point."
+    },
+    {
+      id: "st-low-dec-high",
+      test: function(v) { return v[D.STRATEGIC_THINKING] <= 3 && v[D.DECISIVENESS] >= 7; },
+      dials: [D.STRATEGIC_THINKING, D.DECISIVENESS],
+      priority: 7,
+      feedback: "You are moving fast, but check the quality. For a Six, acting without adequate processing usually means something pushed you out of your comfort zone \u2014 and you overcorrected. Slow down just enough to ask: am I deciding from clarity, or from the need to prove I am not afraid?",
+      suggestion: "Bring Strategic Thinking up to 4\u20135. Not back to your comfort zone \u2014 just enough to ground the decisions."
+    },
+    {
+      id: "st-high-es-high",
+      test: function(v) { return v[D.STRATEGIC_THINKING] >= 7 && v[D.EMOTIONAL_STEADINESS] >= 7; },
+      dials: [D.STRATEGIC_THINKING, D.EMOTIONAL_STEADINESS],
+      priority: 9,
+      feedback: "You have both thinking and steadiness dialed high, and for a Six, that combination often backfires. The thinking time that is supposed to create calm generates more scenarios to manage. And the steadiness required to hold all that thinking together is exhausting. Check: is the steadiness real, or are you white-knuckling your way through a mind that will not stop?",
+      suggestion: "Drop Strategic Thinking by 2\u20133 points. If the steadiness is genuine, it will hold without the constant thinking to manage."
+    },
+    {
+      id: "st-low-es-low",
+      test: function(v) { return v[D.STRATEGIC_THINKING] <= 3 && v[D.EMOTIONAL_STEADINESS] <= 3; },
+      dials: [D.STRATEGIC_THINKING, D.EMOTIONAL_STEADINESS],
+      priority: 10,
+      feedback: "Something has overwhelmed your usual coping systems. You are not thinking clearly and you are not steady. This is not your permanent state \u2014 it is what happens when the engine runs too hot for too long. The first priority is not strategy or decisions. It is rest.",
+      suggestion: "Prioritize Intentional Rest above everything else. Thinking and steadiness rebuild from rest, not from willpower."
+    },
+    {
+      id: "st-high-rest-low",
+      test: function(v) { return v[D.STRATEGIC_THINKING] >= 7 && v[D.INTENTIONAL_REST] <= 3; },
+      dials: [D.STRATEGIC_THINKING, D.INTENTIONAL_REST],
+      priority: 10,
+      feedback: "You are trading rest for thinking, and your body is keeping the score. Lying in bed running worst-case scenarios is not rest \u2014 it is work. Every point you pour into Strategic Thinking while starving Intentional Rest makes you less sharp, less steady, and more anxious tomorrow. The thinking is consuming the very resource it needs to function.",
+      suggestion: "This is the single unhealthiest trade-off for a Six. Move at least 2 points from Strategic Thinking to Intentional Rest."
+    },
+    {
+      id: "dec-high-sa-high",
+      test: function(v) { return v[D.DECISIVENESS] >= 7 && v[D.STRATEGIC_ACTION] >= 7; },
+      dials: [D.DECISIVENESS, D.STRATEGIC_ACTION],
+      priority: 6,
+      feedback: "You are deciding and moving \u2014 that is significant for a Six. Now check the quality: are these decisions coming from genuine conviction, or from the need to stop feeling uncertain? Action from clarity feels different from action from anxiety. You know the difference in your body.",
+      suggestion: "If this feels sustainable and grounded \u2014 keep going. If it feels frantic \u2014 bring Strategic Thinking up to 4\u20135 to ground the momentum."
+    },
+    {
+      id: "dec-low-sa-low",
+      test: function(v) { return v[D.DECISIVENESS] <= 3 && v[D.STRATEGIC_ACTION] <= 3; },
+      dials: [D.DECISIVENESS, D.STRATEGIC_ACTION],
+      priority: 10,
+      feedback: "Nothing is moving. You are not deciding and you are not acting, and each day that passes makes both harder. The longer you wait for certainty, the more evidence your mind generates for why waiting is the right call. This loop does not break from the inside. Pick the smallest decision you have been sitting on and make it today.",
+      suggestion: "Move Decisiveness up first. Even by 1\u20132 points. Action follows decisions, but decisions come first."
+    },
+    {
+      id: "es-high-rest-low",
+      test: function(v) { return v[D.EMOTIONAL_STEADINESS] >= 7 && v[D.INTENTIONAL_REST] <= 3; },
+      dials: [D.EMOTIONAL_STEADINESS, D.INTENTIONAL_REST],
+      priority: 9,
+      feedback: "You look steady, but check the foundation. Steadiness without rest is performance, not regulation. If you are calm at work and wired at night, the steadiness is a costume. Your body tells the truth your composure does not \u2014 tension, clenching, insomnia. Those are the real data.",
+      suggestion: "Move 2\u20133 points from Emotional Steadiness into Intentional Rest. Genuine steadiness is built on recovery, not willpower."
+    },
+    {
+      id: "bs-low-rp-high",
+      test: function(v) { return v[D.BOUNDARY_SETTING] <= 3 && v[D.RELATIONAL_PRESENCE] >= 7; },
+      dials: [D.BOUNDARY_SETTING, D.RELATIONAL_PRESENCE],
+      priority: 8,
+      feedback: "You are deeply present for the people in your life, and they feel it. But presence without boundaries is not generosity \u2014 it is self-abandonment. You are carrying things that are not yours to carry, and the weight is showing. The most loyal thing you can do for the people you care about is stay healthy enough to keep showing up.",
+      suggestion: "Move 2\u20133 points from Relational Presence into Boundary Setting. You can be present AND protected. Those are not opposites."
+    },
+    {
+      id: "bs-high-rp-low",
+      test: function(v) { return v[D.BOUNDARY_SETTING] >= 7 && v[D.RELATIONAL_PRESENCE] <= 3; },
+      dials: [D.BOUNDARY_SETTING, D.RELATIONAL_PRESENCE],
+      priority: 8,
+      feedback: "Your boundaries are firm \u2014 and they may be keeping the wrong things out. There is a version of protection that looks like strength but is actually isolation. Healthy boundaries flex. Walls do not. Ask yourself: are these boundaries protecting your energy, or are they keeping people at a distance because closeness feels dangerous?",
+      suggestion: "Bring Relational Presence up by 1\u20132 points. You do not have to lower the boundaries \u2014 just make them permeable enough to let the right people in."
+    },
+    {
+      id: "sa-low-cc-low",
+      test: function(v) { return v[D.STRATEGIC_ACTION] <= 3 && v[D.COMMUNICATION_CLARITY] <= 3; },
+      dials: [D.STRATEGIC_ACTION, D.COMMUNICATION_CLARITY],
+      priority: 7,
+      feedback: "Right now you are pointing out risks instead of addressing them. Your team hears the concerns but does not see the action. This combination is how Sixes get labeled as negative \u2014 not because they are wrong about the risks, but because they share the risks without sharing the plan. Name the biggest risk. Then walk toward it.",
+      suggestion: "Move both dials up together. Lead communication with a recommendation, then take the first action on it."
+    },
+    {
+      id: "sa-high-cc-high",
+      test: function(v) { return v[D.STRATEGIC_ACTION] >= 7 && v[D.COMMUNICATION_CLARITY] >= 7; },
+      dials: [D.STRATEGIC_ACTION, D.COMMUNICATION_CLARITY],
+      priority: 4,
+      feedback: "You are doing the thing Sixes are built for at their best: seeing what could go wrong, naming it clearly, and moving forward anyway. This is not recklessness \u2014 this is strategic courage. The combination of clear thinking and committed action is your superpower when you let it run.",
+      suggestion: "If this feels grounded and sustainable \u2014 you have found your stride. If it feels frantic \u2014 back off Strategic Action by 1\u20132 points."
+    },
+    {
+      id: "aw-high-es-low",
+      test: function(v) { return v[D.SELF_AWARENESS] >= 7 && v[D.EMOTIONAL_STEADINESS] <= 3; },
+      dials: [D.SELF_AWARENESS, D.EMOTIONAL_STEADINESS],
+      priority: 8,
+      feedback: "You see the pattern. You can name it in real time. And it is still running you. That is not a failure of awareness \u2014 it is a reminder that insight alone does not produce change. You do not need to understand the pattern better. You need to practice responding to it differently.",
+      suggestion: "Hold Self-Awareness where it is but invest in Emotional Steadiness. Awareness identifies the pattern. Regulation changes the response to it."
+    },
+    {
+      id: "aw-low-es-high",
+      test: function(v) { return v[D.SELF_AWARENESS] <= 3 && v[D.EMOTIONAL_STEADINESS] >= 7; },
+      dials: [D.SELF_AWARENESS, D.EMOTIONAL_STEADINESS],
+      priority: 6,
+      feedback: "You are steady, but do you know what is underneath it? Steadiness without self-awareness can be genuine regulation \u2014 or it can be a very effective lid on a pot that is still boiling. The only way to know which one you have is to look.",
+      suggestion: "Bring Self-Awareness up by 2 points. You do not need to destabilize yourself \u2014 just get curious about what is actually going on underneath the composure."
+    },
+    {
+      id: "dec-high-es-low",
+      test: function(v) { return v[D.DECISIVENESS] >= 7 && v[D.EMOTIONAL_STEADINESS] <= 3; },
+      dials: [D.DECISIVENESS, D.EMOTIONAL_STEADINESS],
+      priority: 8,
+      feedback: "You are making decisions from a reactive state. They are committing to courses of action while emotionally volatile. Decisions made in this state tend to be impulsive and regretted.",
+      suggestion: "Bring Emotional Steadiness up before pushing Decisiveness higher. Grounded decisions stick. Reactive ones create cleanup."
+    },
+    {
+      id: "dec-low-es-high",
+      test: function(v) { return v[D.DECISIVENESS] <= 3 && v[D.EMOTIONAL_STEADINESS] >= 7; },
+      dials: [D.DECISIVENESS, D.EMOTIONAL_STEADINESS],
+      priority: 6,
+      feedback: "You are steady \u2014 and that is hard-won ground for a Six. Now what are you going to do with it? Emotional regulation is not the destination. It is the foundation. The decisions you have been deferring are still waiting. You are calmer now than you have been in a while. This is the right time to make them.",
+      suggestion: "Move Decisiveness up by 2\u20133 points. The calm you built is there so you can use it, not so you can maintain it indefinitely."
+    },
+    {
+      id: "bs-low-aw-low",
+      test: function(v) { return v[D.BOUNDARY_SETTING] <= 3 && v[D.SELF_AWARENESS] <= 3; },
+      dials: [D.BOUNDARY_SETTING, D.SELF_AWARENESS],
+      priority: 7,
+      feedback: "You are carrying weight that is not yours, and you may not even know it. Without clear boundaries and without the awareness to see your patterns, you are running on other people\u2019s fuel \u2014 their anxieties, their deadlines, their emergencies.",
+      suggestion: "Start with Self-Awareness. Once you can see what you are carrying, you can start deciding what to put down."
+    },
+    {
+      id: "sa-high-rest-low",
+      test: function(v) { return v[D.STRATEGIC_ACTION] >= 7 && v[D.INTENTIONAL_REST] <= 3; },
+      dials: [D.STRATEGIC_ACTION, D.INTENTIONAL_REST],
+      priority: 9,
+      feedback: "You are in overdrive \u2014 moving forward aggressively but not recovering. This is often the stress move to Type 3: workaholism as anxiety management. The Six stays in constant motion because stopping feels dangerous.",
+      suggestion: "Move 2 points from Strategic Action to Intentional Rest. The version of you that slept well makes better decisions than the version of you running on adrenaline."
+    },
+    {
+      id: "aw-high-st-high",
+      test: function(v) { return v[D.SELF_AWARENESS] >= 7 && v[D.STRATEGIC_THINKING] >= 7; },
+      dials: [D.SELF_AWARENESS, D.STRATEGIC_THINKING],
+      priority: 7,
+      feedback: "You are thinking about everything \u2014 including yourself thinking about everything. This is the Six mind at maximum RPM. The analysis is thorough, but the engine is overheating. You do not need to understand yourself AND the situation this deeply at the same time. Pick one. Preferably, pick neither and go do something.",
+      suggestion: "Drop both by 1\u20132 points. Channel the freed energy into Strategic Action or Intentional Rest."
+    },
+    {
+      id: "bs-high-dec-high",
+      test: function(v) { return v[D.BOUNDARY_SETTING] >= 7 && v[D.DECISIVENESS] >= 7; },
+      dials: [D.BOUNDARY_SETTING, D.DECISIVENESS],
+      priority: 4,
+      feedback: "You have a clear sense of what is yours and what is not, and you are making decisions about your priorities. This combination is where Sixes operate at their best in leadership roles. The question to check: are the boundaries and decisions coming from grounded clarity, or from a need to control your environment?",
+      suggestion: "Hold this if it feels grounded. If it feels defensive, soften Boundary Setting by 1 point and notice what opens up."
+    },
+    {
+      id: "cc-high-dec-low",
+      test: function(v) { return v[D.COMMUNICATION_CLARITY] >= 7 && v[D.DECISIVENESS] <= 3; },
+      dials: [D.COMMUNICATION_CLARITY, D.DECISIVENESS],
+      priority: 7,
+      feedback: "You can articulate your thinking clearly but cannot commit. You give excellent analysis, thorough risk assessments, and beautifully reasoned recommendations \u2014 then wait for someone else to decide. Your own recommendation is sitting right there. Act on it.",
+      suggestion: "Move Decisiveness up to match Communication Clarity. If you can articulate the recommendation, you can commit to it."
+    },
+    {
+      id: "rp-high-rest-low",
+      test: function(v) { return v[D.RELATIONAL_PRESENCE] >= 7 && v[D.INTENTIONAL_REST] <= 3; },
+      dials: [D.RELATIONAL_PRESENCE, D.INTENTIONAL_REST],
+      priority: 8,
+      feedback: "You are showing up for everyone else and not for yourself. Your presence in relationships is costing you your recovery. Sixes often use connection as a regulation strategy: if I stay close to the people I trust, I feel safe enough to breathe. But that makes your calm dependent on other people\u2019s availability.",
+      suggestion: "Move 1\u20132 points from Relational Presence to Intentional Rest. You can be deeply connected to people AND recover independently."
+    }
+  ];
+
+  // Dynamic Consequence Statements (20 from Marlowe)
+  var CONSEQUENCES = [
+    {
+      test: function(v) { return v[D.STRATEGIC_THINKING] > 7 && v[D.DECISIVENESS] < 4; },
+      priority: 9,
+      text: "Your thinking just crossed into territory where it stops producing decisions and starts producing more thinking. The gap between your analysis and your action is where your energy disappears."
+    },
+    {
+      test: function(v) { return v[D.STRATEGIC_THINKING] > 7 && v[D.INTENTIONAL_REST] < 3; },
+      priority: 10,
+      text: "You are running the engine at full RPM with no oil in the system. The thinking is consuming the rest you need to think clearly. This is a downward spiral with a predictable ending."
+    },
+    {
+      test: function(v) { return v[D.EMOTIONAL_STEADINESS] > 7 && v[D.STRATEGIC_THINKING] > 7; },
+      priority: 8,
+      text: "For a Six, this combination often backfires. The thinking time that should produce calm generates more scenarios to manage. Check whether the steadiness is real or whether you are just getting better at hiding the turbulence."
+    },
+    {
+      test: function(v) { return v[D.DECISIVENESS] > 7 && v[D.EMOTIONAL_STEADINESS] < 3; },
+      priority: 9,
+      text: "You are making decisions from a reactive state. A Six deciding while dysregulated is not being decisive \u2014 they are trying to make the discomfort stop. These decisions tend to get revisited at 3 AM."
+    },
+    {
+      test: function(v) { return v[D.BOUNDARY_SETTING] < 3 && v[D.RELATIONAL_PRESENCE] > 7; },
+      priority: 8,
+      text: "You are wide open to the people in your life and have no floor underneath you. This combination is how Sixes end up carrying everyone else\u2019s weight and calling it love."
+    },
+    {
+      test: function(v) { return v[D.STRATEGIC_ACTION] > 7 && v[D.INTENTIONAL_REST] < 3; },
+      priority: 9,
+      text: "You are in the stress pattern \u2014 constant motion, no recovery. This looks like productivity from the outside. From the inside, it is a sprint to stay ahead of the anxiety. The crash is not a question of if."
+    },
+    {
+      test: function(v) { return v[D.SELF_AWARENESS] > 8 && v[D.STRATEGIC_THINKING] > 7; },
+      priority: 7,
+      text: "You are analyzing the world and analyzing yourself analyzing the world. That is a lot of processing for one mind. The cognitive load alone is exhausting. You need to do something with this awareness, not just accumulate more of it."
+    },
+    {
+      test: function(v) { return v[D.COMMUNICATION_CLARITY] > 7 && v[D.DECISIVENESS] < 3; },
+      priority: 7,
+      text: "You can articulate exactly what should happen and you are waiting for someone else to make the call. Your own recommendation is sitting right there. The clarity is done. The decision is not."
+    },
+    {
+      test: function(v) { return v[D.RELATIONAL_PRESENCE] > 7 && v[D.INTENTIONAL_REST] < 3; },
+      priority: 8,
+      text: "You are available to everyone except yourself. The presence you offer others is coming directly from the recovery you are denying yourself. Sixes often use connection as a substitute for rest \u2014 closeness as a regulation strategy. It works until it doesn\u2019t."
+    },
+    {
+      test: function(v) { return v[D.EMOTIONAL_STEADINESS] > 7 && v[D.INTENTIONAL_REST] < 3; },
+      priority: 9,
+      text: "Composure without rest is performance. You look steady. Check whether your jaw is clenched, your sleep is disrupted, and your body is telling a different story than your face."
+    },
+    {
+      test: function(v) { return v[D.BOUNDARY_SETTING] > 8 && v[D.RELATIONAL_PRESENCE] < 3; },
+      priority: 8,
+      text: "The walls are doing their job \u2014 nothing gets in. Including the people you need. Protection and isolation look the same from the outside. They feel different from the inside. Which one is this?"
+    },
+    {
+      test: function(v) { return v[D.STRATEGIC_ACTION] < 3 && v[D.COMMUNICATION_CLARITY] < 3; },
+      priority: 7,
+      text: "You are neither moving nor communicating, and your team sees stalling wrapped in caution. This is how Sixes earn a reputation for negativity \u2014 not by being wrong about the risks, but by naming them without walking toward them."
+    },
+    {
+      test: function(v) { return v[D.DECISIVENESS] > 7 && v[D.STRATEGIC_THINKING] < 3; },
+      priority: 7,
+      text: "You are deciding without processing, and for a Six, that usually means something pushed you over the edge. Counter-phobic decisiveness \u2014 acting fast to prove you are not afraid \u2014 creates a different set of problems than indecision."
+    },
+    {
+      test: function(v) { return v[D.SELF_AWARENESS] < 3 && v[D.EMOTIONAL_STEADINESS] < 3; },
+      priority: 8,
+      text: "You are reactive and you do not know why. Your system is responding to threats you have not examined. The first step is not a strategy \u2014 it is a pause. What are you actually feeling right now, underneath the urgency?"
+    },
+    {
+      test: function(v) { return v[D.INTENTIONAL_REST] > 7 && v[D.STRATEGIC_ACTION] < 3; },
+      priority: 5,
+      text: "Rest is essential, and Sixes often undersupply it. But rest that extends indefinitely without returning to engagement has a different name. Check whether you are recovering or avoiding."
+    },
+    {
+      test: function(v) { return v[D.STRATEGIC_THINKING] < 4 && v[D.SELF_AWARENESS] < 3; },
+      priority: 7,
+      text: "Something has disrupted your usual operating system. You are not processing and you are not self-aware, which for a Six is an unusual and uncomfortable state. Check in: are you okay, or are you just busy?"
+    },
+    {
+      test: function(v) { return v[D.EMOTIONAL_STEADINESS] > 7 && v[D.SELF_AWARENESS] < 3; },
+      priority: 6,
+      text: "You are calm and you do not know how you got there. That is either growth or suppression, and without self-awareness, you cannot tell which one. Get curious about it. The answer matters."
+    },
+    {
+      test: function(v) { return v[D.BOUNDARY_SETTING] < 3 && v[D.SELF_AWARENESS] < 3; },
+      priority: 7,
+      text: "You are absorbing things that are not yours and you do not see it happening. Without boundaries or awareness, other people\u2019s anxiety becomes your anxiety \u2014 and you cannot tell the difference."
+    },
+    {
+      test: function(v) { return v[D.STRATEGIC_ACTION] > 7 && v[D.DECISIVENESS] > 7 && v[D.INTENTIONAL_REST] < 3; },
+      priority: 10,
+      text: "You are deciding and acting at full speed with no recovery in the system. This is the counter-phobic overdrive \u2014 impressive to watch, expensive to maintain. The quality holds for a while. Then it does not."
+    },
+    {
+      test: function(v) {
+        for (var i = 0; i < DIAL_COUNT; i++) {
+          if (v[i] < 4 || v[i] > 7) return false;
+        }
+        return v[D.STRATEGIC_THINKING] <= 6;
+      },
+      priority: 3,
+      text: "This is the growth configuration for a Six \u2014 balanced, grounded, and present. Nothing is maxed out, nothing is starved. If this feels uncomfortably moderate, that discomfort is your pattern wanting to crank something up. Resist the urge. This moderation IS the move."
+    }
+  ];
+
+  // Profile Shapes (7 from Marlowe)
+  var PROFILES = [
+    {
+      id: "overthinker",
+      name: "The Overthinker",
+      test: function(v) { return v[D.STRATEGIC_THINKING] >= 8 && v[D.STRATEGIC_ACTION] <= 3 && v[D.DECISIVENESS] <= 3; },
+      meaning: "This is the Six\u2019s default mode \u2014 all processing, no output. Your mind is running at full capacity, but nothing is moving. Every hour you spend in additional analysis is an hour you did not spend acting, connecting, deciding, or resting.",
+      insight: "You have done enough research. That is not a guess \u2014 it is a pattern. Sixes consistently over-prepare by 30\u201350% before they feel ready. You felt ready two research sessions ago and talked yourself out of it.",
+      move: "Drop Strategic Thinking to 5\u20136. Move the freed points into Decisiveness and Strategic Action."
+    },
+    {
+      id: "loyalist-on-empty",
+      name: "The Loyalist on Empty",
+      test: function(v) { return v[D.RELATIONAL_PRESENCE] >= 7 && v[D.BOUNDARY_SETTING] <= 3 && v[D.INTENTIONAL_REST] <= 3; },
+      meaning: "You are all-in for the people around you and running on fumes. Your loyalty is consuming your energy because you have not built the structures to protect it. Everyone else gets your best. You get what is left.",
+      insight: "The most loyal thing you can do for the people you care about is stop depleting yourself on their behalf. The guilt you feel about pulling back is the pattern talking \u2014 not the truth about what your relationships need from you.",
+      move: "Move 2\u20133 points from Relational Presence into Boundary Setting and Intentional Rest."
+    },
+    {
+      id: "counter-phobic-charger",
+      name: "The Counter-Phobic Charger",
+      test: function(v) { return v[D.STRATEGIC_ACTION] >= 7 && v[D.DECISIVENESS] >= 7 && v[D.STRATEGIC_THINKING] <= 3 && v[D.EMOTIONAL_STEADINESS] <= 4; },
+      meaning: "You are in motion, and the motion is the management strategy. Acting fast, deciding fast, moving before the fear catches up. This looks like confidence from the outside. From the inside, it is a sprint to stay ahead of the anxiety.",
+      insight: "Counter-phobic energy gets things done. But the quality of the decisions matters more than the speed. You are making moves before you have checked whether they are the right moves.",
+      move: "Bring Strategic Thinking up to 4\u20135 and Emotional Steadiness to 5\u20136. Reduce Strategic Action by 1\u20132 points."
+    },
+    {
+      id: "fortress-builder",
+      name: "The Fortress Builder",
+      test: function(v) { return v[D.BOUNDARY_SETTING] >= 8 && v[D.EMOTIONAL_STEADINESS] >= 7 && v[D.RELATIONAL_PRESENCE] <= 3; },
+      meaning: "You have built excellent defenses, and they are working \u2014 nothing gets in. Including the people and experiences you actually need. This is what happens when a Six gets burned enough times: the walls go up, the composure locks in, and the vulnerability disappears.",
+      insight: "The boundaries protected you when you needed them. The question is whether you still need all of them at this height. Protection that costs you connection has become its own kind of threat.",
+      move: "Lower Boundary Setting by 2 points. Move those into Relational Presence. Start with one person you trust."
+    },
+    {
+      id: "exhausted-performer",
+      name: "The Exhausted Performer",
+      test: function(v) { return v[D.EMOTIONAL_STEADINESS] >= 7 && v[D.STRATEGIC_ACTION] >= 6 && v[D.INTENTIONAL_REST] <= 2 && v[D.SELF_AWARENESS] <= 3; },
+      meaning: "You are performing at a high level and it is costing you everything. This is the stress move to Type 3 \u2014 the Six who looks competent, composed, and in control while running on empty. The performance is real. The sustainability is not.",
+      insight: "The crash does not announce itself politely. It arrives as illness, as a blown relationship, as an emotional break that surprises everyone including you. Look at your rest. Look at yourself. Before the battery decides for you.",
+      move: "Move Intentional Rest to at least 4\u20135. Bring Self-Awareness up to 4\u20135. Reduce Strategic Action or Emotional Steadiness by 2\u20133 points."
+    },
+    {
+      id: "balanced-six",
+      name: "The Balanced Six",
+      test: function(v) {
+        for (var i = 0; i < DIAL_COUNT; i++) {
+          if (v[i] < 4 || v[i] > 7) return false;
+        }
+        return v[D.STRATEGIC_THINKING] <= 6;
+      },
+      meaning: "This is the Six in their growth direction \u2014 moving toward the healthy qualities of Type 9. Calm, grounded, present. Thinking serves doing. Loyalty is balanced with self-care. The scanning has quieted enough to be in the room, not just surveilling it.",
+      insight: "This balance did not come naturally to you. It is built. And it is worth acknowledging. Sixes tend to move past their wins without registering them. Stop for a moment and notice what this feels like.",
+      move: "No major moves needed. Fine-tune based on current priorities. The maintenance work is noticing when Strategic Thinking creeps back up \u2014 because it will."
+    },
+    {
+      id: "frozen-six",
+      name: "The Frozen Six",
+      test: function(v) { return v[D.STRATEGIC_THINKING] >= 7 && v[D.SELF_AWARENESS] >= 6 && v[D.STRATEGIC_ACTION] <= 3 && v[D.DECISIVENESS] <= 3 && v[D.INTENTIONAL_REST] <= 3; },
+      meaning: "You can see everything \u2014 the patterns, the risks, the dynamics, your own loops. And you are paralyzed by it. This is the Six who has achieved awareness without agency. You understand perfectly why you are stuck. And you are still stuck.",
+      insight: "Understanding your pattern is not the same as changing it. You have done the thinking. You have done the self-examination. The next step is not more insight \u2014 it is one action. Not a big one. Not the perfect one. Just one.",
+      move: "Drop Strategic Thinking by 3 points. Move 2 into Decisiveness, 1 into Strategic Action."
+    }
+  ];
+
+  // Contextual Trade-off Suggestions (for each dial at 7+)
+  var TRADEOFFS = [
+    {
+      dial: D.STRATEGIC_ACTION,
+      test: function(v) { return v[D.STRATEGIC_ACTION] >= 7; },
+      best: D.STRATEGIC_THINKING,
+      worst: D.INTENTIONAL_REST,
+      feedback: "If you want to stay in action, the fuel comes from dialing down the overthinking, not the rest. Acting on less sleep is not strategic \u2014 it is borrowed time."
+    },
+    {
+      dial: D.COMMUNICATION_CLARITY,
+      test: function(v) { return v[D.COMMUNICATION_CLARITY] >= 7; },
+      best: D.STRATEGIC_THINKING,
+      worst: D.SELF_AWARENESS,
+      feedback: "Your communication is strongest when you know your own patterns well enough to catch the caveat habit in real time. Keep the self-awareness. Reduce the processing."
+    },
+    {
+      dial: D.RELATIONAL_PRESENCE,
+      test: function(v) { return v[D.RELATIONAL_PRESENCE] >= 7; },
+      best: D.STRATEGIC_THINKING,
+      worst: D.BOUNDARY_SETTING,
+      feedback: "Presence and boundaries are not opposites \u2014 they are partners. You can be fully here with someone AND know where you end and they begin."
+    },
+    {
+      dial: D.SELF_AWARENESS,
+      test: function(v) { return v[D.SELF_AWARENESS] >= 7; },
+      best: D.STRATEGIC_THINKING,
+      worst: D.EMOTIONAL_STEADINESS,
+      feedback: "Awareness without regulation is just a better-lit room to panic in. Keep the steadiness if you are going to keep the observer running."
+    },
+    {
+      dial: D.BOUNDARY_SETTING,
+      test: function(v) { return v[D.BOUNDARY_SETTING] >= 7; },
+      best: D.STRATEGIC_THINKING,
+      worst: D.RELATIONAL_PRESENCE,
+      feedback: "Boundaries exist to protect your capacity for connection, not to replace it. If the boundaries are so high that nobody gets through, you have not protected yourself \u2014 you have cut yourself off."
+    },
+    {
+      dial: D.EMOTIONAL_STEADINESS,
+      test: function(v) { return v[D.EMOTIONAL_STEADINESS] >= 7; },
+      best: D.STRATEGIC_THINKING,
+      worst: D.INTENTIONAL_REST,
+      feedback: "If you want genuine steadiness, fund it with rest, not willpower. The version of calm built on a good night\u2019s sleep is structurally different from the version built on white-knuckling through the day."
+    },
+    {
+      dial: D.DECISIVENESS,
+      test: function(v) { return v[D.DECISIVENESS] >= 7; },
+      best: D.STRATEGIC_THINKING,
+      worst: D.SELF_AWARENESS,
+      feedback: "Decide faster by thinking less \u2014 not by thinking less carefully. Your observer tells you which thoughts are producing insight and which are just producing delay."
+    },
+    {
+      dial: D.INTENTIONAL_REST,
+      test: function(v) { return v[D.INTENTIONAL_REST] >= 7; },
+      best: D.STRATEGIC_THINKING,
+      worst: D.SELF_AWARENESS,
+      feedback: "The biggest threat to your rest is your own mind. Dialing down the strategic processing gives the rest a chance to actually land. But keep enough awareness to know the difference between rest and retreat."
+    },
+    {
+      dial: D.STRATEGIC_THINKING,
+      test: function(v) { return v[D.STRATEGIC_THINKING] >= 7; },
+      best: D.STRATEGIC_THINKING,
+      worst: null,
+      feedback: "Your strategic mind is one of your greatest assets. The question is whether you are deploying it deliberately or whether it is running on autopilot. Dialing this down does not mean thinking less. It means thinking on purpose."
+    }
+  ];
+
+
+  // ══════════════════════════════════════════════════
+  // PATTERN MATCHING ENGINE
+  // ══════════════════════════════════════════════════
+
+  function evaluateStrengths(vals, activeDial) {
+    var results = [];
+    for (var i = 0; i < STRENGTHS.length; i++) {
+      if (STRENGTHS[i].dial === activeDial && STRENGTHS[i].test(vals)) {
+        results.push(STRENGTHS[i]);
+      }
+    }
+    return results;
+  }
+
+  function evaluateCombos(vals, activeDial) {
+    var results = [];
+    for (var i = 0; i < COMBO_RULES.length; i++) {
+      var rule = COMBO_RULES[i];
+      if (rule.test(vals) && rule.dials.indexOf(activeDial) !== -1) {
+        results.push(rule);
+      }
+    }
+    // Sort by priority (highest first)
+    results.sort(function(a, b) { return b.priority - a.priority; });
+    return results;
+  }
+
+  function evaluateConsequences(vals) {
+    var results = [];
+    for (var i = 0; i < CONSEQUENCES.length; i++) {
+      if (CONSEQUENCES[i].test(vals)) {
+        results.push(CONSEQUENCES[i]);
+      }
+    }
+    results.sort(function(a, b) { return b.priority - a.priority; });
+    return results;
+  }
+
+  function evaluateProfile(vals) {
+    // Check profiles in order — more specific ones first (frozen > overthinker)
+    var order = [6, 4, 2, 0, 1, 3, 5]; // frozen, exhausted, counter-phobic, overthinker, loyalist-empty, fortress, balanced
+    for (var i = 0; i < order.length; i++) {
+      if (PROFILES[order[i]].test(vals)) {
+        return PROFILES[order[i]];
+      }
+    }
+    return null;
+  }
+
+  function evaluateTradeoffs(vals, activeDial) {
+    var results = [];
+    for (var i = 0; i < TRADEOFFS.length; i++) {
+      if (TRADEOFFS[i].dial === activeDial && TRADEOFFS[i].test(vals)) {
+        results.push(TRADEOFFS[i]);
+      }
+    }
+    return results;
+  }
+
+
+  // ══════════════════════════════════════════════════
+  // STATE
+  // ══════════════════════════════════════════════════
   var values = [];
   var isRevealed = false;
   var hasInteracted = false;
   var lastActiveDialIndex = -1;
-  var animationFrameId = null;
   var isMobile = window.innerWidth < 600;
 
-  // Initialize values
   for (var i = 0; i < DIAL_COUNT; i++) {
     values.push(DIAL_START);
   }
@@ -1037,8 +1715,15 @@ body {
   var revealTrigger = document.getElementById('revealTrigger');
   var revealSummary = document.getElementById('revealSummary');
   var dragHandle = document.getElementById('dragHandle');
+  var profileBadge = document.getElementById('profileBadge');
+  var profileName = document.getElementById('profileName');
+  var profileMeaning = document.getElementById('profileMeaning');
+  var profileInsight = document.getElementById('profileInsight');
+  var profileMove = document.getElementById('profileMove');
 
-  // ── Build Faders ──
+  // ══════════════════════════════════════════════════
+  // BUILD FADERS
+  // ══════════════════════════════════════════════════
   function buildFaders() {
     TYPE6_DATA.dials.forEach(function(dial, index) {
       var col = document.createElement('div');
@@ -1122,7 +1807,9 @@ body {
     updateAllFaderPositions();
   }
 
-  // ── Fader Interaction ──
+  // ══════════════════════════════════════════════════
+  // FADER INTERACTION
+  // ══════════════════════════════════════════════════
   function setupFaderEvents(container, index) {
     var isDragging = false;
     var thumb = document.getElementById('thumb-' + index);
@@ -1217,7 +1904,9 @@ body {
     });
   }
 
-  // ── Budget Controller ──
+  // ══════════════════════════════════════════════════
+  // BUDGET CONTROLLER
+  // ══════════════════════════════════════════════════
   function setDialValue(index, newVal) {
     newVal = Math.max(DIAL_MIN, Math.min(DIAL_MAX, newVal));
 
@@ -1265,7 +1954,6 @@ body {
 
     // Proportional redistribution
     if (Math.abs(totalOthers) < 0.001) {
-      // Edge case: all others at 0 (shouldn't happen with min=1)
       var evenShare = targetOthersTotal / (DIAL_COUNT - 1);
       for (var j = 0; j < DIAL_COUNT; j++) {
         if (j !== index) values[j] = Math.max(DIAL_MIN, Math.min(DIAL_MAX, evenShare));
@@ -1273,7 +1961,6 @@ body {
     } else {
       var scale = targetOthersTotal / totalOthers;
 
-      // First pass: scale proportionally, enforce min/max
       var clamped = [];
       var clampedTotal = 0;
       var unclampedIndices = [];
@@ -1296,12 +1983,10 @@ body {
 
       var remainingBudget = targetOthersTotal - clampedTotal;
 
-      // Apply clamped values
       for (var c = 0; c < clamped.length; c++) {
         values[clamped[c].idx] = clamped[c].val;
       }
 
-      // Redistribute remaining among unclamped
       if (unclampedIndices.length > 0 && unclampedTotal > 0.001) {
         var remainScale = remainingBudget / unclampedTotal;
         for (var u = 0; u < unclampedIndices.length; u++) {
@@ -1321,7 +2006,6 @@ body {
     for (var s = 0; s < DIAL_COUNT; s++) currentTotal += values[s];
     var drift = TOTAL_BUDGET - currentTotal;
     if (Math.abs(drift) > 0.05) {
-      // Find the dial with the most room to adjust (not the active one)
       var bestIdx = -1;
       var bestRoom = 0;
       for (var d = 0; d < DIAL_COUNT; d++) {
@@ -1339,10 +2023,13 @@ body {
     updateAllFaderPositions(index);
     updateBudgetBar();
     updateFeedback();
+    updateProfileDetection();
     if (isRevealed) updateGapVisualization();
   }
 
-  // ── Update Fader Positions ──
+  // ══════════════════════════════════════════════════
+  // UPDATE FADER POSITIONS
+  // ══════════════════════════════════════════════════
   function updateAllFaderPositions(activeIndex) {
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1357,9 +2044,8 @@ body {
       var container = thumb.closest('.fader-track-container');
 
       var fillHeight = ratio * trackHeight;
-      var thumbTop = (1 - ratio) * trackHeight - 10; // 10 = half thumb height
+      var thumbTop = (1 - ratio) * trackHeight - 10;
 
-      // Animate non-active dials
       var shouldAnimate = (i !== activeIndex) && !reducedMotion;
       var dur = shouldAnimate ? REDISTRIBUTE_DURATION + 'ms' : '0ms';
 
@@ -1372,7 +2058,6 @@ body {
       valueDisplay.textContent = val.toFixed(1);
       container.setAttribute('aria-valuenow', val.toFixed(1));
 
-      // Thumb state classes
       thumb.classList.remove('at-limit', 'at-extreme');
       fill.classList.remove('compressed', 'intense');
 
@@ -1384,14 +2069,15 @@ body {
         fill.classList.add('compressed');
       }
 
-      // Check if neighboring dials are compressed near min
       if (val <= 2.0 && i !== activeIndex) {
         fill.classList.add('compressed');
       }
     }
   }
 
-  // ── Budget Bar ──
+  // ══════════════════════════════════════════════════
+  // BUDGET BAR
+  // ══════════════════════════════════════════════════
   function updateBudgetBar() {
     var maxVal = Math.max.apply(null, values);
     var minVal = Math.min.apply(null, values);
@@ -1408,7 +2094,27 @@ body {
     }
   }
 
-  // ── Feedback Engine ──
+  // ══════════════════════════════════════════════════
+  // PROFILE DETECTION
+  // ══════════════════════════════════════════════════
+  function updateProfileDetection() {
+    if (!hasInteracted) return;
+
+    var profile = evaluateProfile(values);
+    if (profile) {
+      profileName.textContent = profile.name;
+      profileMeaning.textContent = profile.meaning;
+      profileInsight.textContent = profile.insight;
+      profileMove.textContent = "\u2192 " + profile.move;
+      profileBadge.classList.add('active');
+    } else {
+      profileBadge.classList.remove('active');
+    }
+  }
+
+  // ══════════════════════════════════════════════════
+  // FEEDBACK ENGINE (v2 — layered coaching intelligence)
+  // ══════════════════════════════════════════════════
   function updateFeedback() {
     if (!hasInteracted) return;
 
@@ -1421,28 +2127,81 @@ body {
 
     var feedbackText = dial.feedback[tier];
 
-    // Check for aggregate patterns
-    var aggregateText = '';
-    for (var p = 0; p < TYPE6_DATA.aggregatePatterns.length; p++) {
-      if (TYPE6_DATA.aggregatePatterns[p].conditions(values)) {
-        aggregateText = TYPE6_DATA.aggregatePatterns[p].text;
-        break;
-      }
-    }
-
-    // Build feedback HTML
+    // ── Layer 1: Individual dial feedback ──
     var html = '<div class="feedback-dial-name">' + dial.label + '</div>';
     html += '<div class="feedback-text">' + feedbackText + '</div>';
 
-    if (aggregateText) {
-      html += '<div class="feedback-aggregate"><div class="feedback-aggregate-text">' + aggregateText + '</div></div>';
+    // ── Layer 2: Strengths acknowledgment ──
+    var strengths = evaluateStrengths(values, lastActiveDialIndex);
+    if (strengths.length > 0) {
+      html += '<div class="feedback-strength">';
+      html += '<span style="font-weight: 500; color: var(--dark-sage);">Already in your wiring:</span> ' + strengths[0].text;
+      html += '</div>';
     }
 
-    // If revealed, show gap info for this dial
+    // ── Layer 3: Combo alerts (max 2) ──
+    var combos = evaluateCombos(values, lastActiveDialIndex);
+    if (combos.length > 0) {
+      var comboCount = Math.min(2, combos.length);
+      for (var ci = 0; ci < comboCount; ci++) {
+        var combo = combos[ci];
+        html += '<div class="feedback-section">';
+        html += '<div class="feedback-section-label">Interaction effect</div>';
+        html += '<div class="feedback-combo">' + combo.feedback + '</div>';
+        if (combo.suggestion) {
+          html += '<div class="feedback-tradeoff">' + combo.suggestion + '</div>';
+        }
+        html += '</div>';
+      }
+    }
+
+    // ── Layer 4: Consequence statement (max 1, only if no combo shown or different content) ──
+    var consequences = evaluateConsequences(values);
+    if (consequences.length > 0 && combos.length < 2) {
+      // Show the top consequence that is not redundant with the combo
+      var shown = false;
+      for (var qi = 0; qi < consequences.length && !shown; qi++) {
+        var cText = consequences[qi].text;
+        // Skip if the consequence text is too similar to an already-shown combo
+        var isDuplicate = false;
+        for (var cj = 0; cj < Math.min(2, combos.length); cj++) {
+          if (combos[cj].feedback.substring(0, 40) === cText.substring(0, 40)) {
+            isDuplicate = true;
+            break;
+          }
+        }
+        if (!isDuplicate) {
+          html += '<div class="feedback-section">';
+          html += '<div class="feedback-section-label">What this means</div>';
+          html += '<div class="feedback-consequence">' + cText + '</div>';
+          html += '</div>';
+          shown = true;
+        }
+      }
+    }
+
+    // ── Layer 5: Contextual trade-off suggestion (only when dial is at 7+) ──
+    var tradeoffs = evaluateTradeoffs(values, lastActiveDialIndex);
+    if (tradeoffs.length > 0) {
+      var t = tradeoffs[0];
+      var bestDialName = TYPE6_DATA.dials[t.best].label;
+      html += '<div class="feedback-section">';
+      html += '<div class="feedback-section-label">Trade-off intelligence</div>';
+      html += '<div class="feedback-tradeoff">';
+      if (t.dial === t.best) {
+        // Strategic Thinking special case: recommend dialing itself down
+        html += t.feedback;
+      } else {
+        html += 'If you want ' + dial.label + ' this high, consider trading down <strong>' + bestDialName + '</strong>. ' + t.feedback;
+      }
+      html += '</div>';
+      html += '</div>';
+    }
+
+    // ── Revealed state: show gap info ──
     if (isRevealed) {
       var gap = Math.abs(val - dial.recommended);
       if (gap > 1.5) {
-        var direction = val < dial.recommended ? 'below' : 'above';
         html += '<div style="margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid rgba(74,93,94,0.1);">';
         html += '<div style="font-size: 13px; color: var(--warm-taupe); margin-bottom: var(--space-sm);">You set ' + dial.label + ' at ' + val.toFixed(1) + ' \u2014 the Type 6 data suggests ' + dial.recommended.toFixed(1) + '. That gap is worth exploring.</div>';
         html += '<div class="coaching-question">' + dial.coachingQuestion + '</div>';
@@ -1464,14 +2223,15 @@ body {
     }
   }
 
-  // ── Recommendation Reveal ──
+  // ══════════════════════════════════════════════════
+  // RECOMMENDATION REVEAL
+  // ══════════════════════════════════════════════════
   function revealRecommendations() {
     isRevealed = true;
     revealTrigger.style.display = 'none';
 
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Stagger recommendation markers
     TYPE6_DATA.dials.forEach(function(dial, index) {
       var delay = reducedMotion ? 0 : index * 50;
 
@@ -1493,7 +2253,6 @@ body {
       }, delay);
     });
 
-    // Show summary after all markers
     var summaryDelay = reducedMotion ? 0 : DIAL_COUNT * 50 + 400;
     setTimeout(function() {
       buildRevealSummary();
@@ -1521,7 +2280,6 @@ body {
     gap.style.top = topPos + 'px';
     gap.style.height = height + 'px';
 
-    // Scale opacity by gap size
     var gapSize = Math.abs(val - recVal);
     var opacity = Math.min(1, gapSize / 4) * 0.15;
     gap.style.background = 'rgba(216, 120, 84, ' + (0.08 + opacity) + ')';
@@ -1553,9 +2311,60 @@ body {
     var html = '<div class="reveal-summary-heading">What the Data Suggests</div>';
     html += '<div class="reveal-summary-text">Based on Type 6 patterns, here is where the coaching data suggests focusing your investment. You can still adjust the dials \u2014 the recommendations stay visible for comparison.</div>';
 
-    // Show all dials with significant gaps — full detail
+    // ── Profile shape in reveal ──
+    var profile = evaluateProfile(values);
+    if (profile) {
+      html += '<div style="padding: var(--space-md); background: rgba(181,150,125,0.08); border-radius: 8px; margin-bottom: var(--space-lg);">';
+      html += '<div style="font-family: var(--font-body); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--warm-taupe); margin-bottom: var(--space-xs);">Your pattern</div>';
+      html += '<div style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; color: var(--very-dark-sage); margin-bottom: var(--space-sm);">' + profile.name + '</div>';
+      html += '<div style="font-size: 14px; color: var(--dark-sage); line-height: 1.5;">' + profile.insight + '</div>';
+      html += '</div>';
+    }
+
+    // ── Top combo interactions in reveal ──
+    var allCombos = [];
+    for (var ci = 0; ci < COMBO_RULES.length; ci++) {
+      if (COMBO_RULES[ci].test(values)) {
+        allCombos.push(COMBO_RULES[ci]);
+      }
+    }
+    allCombos.sort(function(a, b) { return b.priority - a.priority; });
+
+    if (allCombos.length > 0) {
+      var showCombos = Math.min(3, allCombos.length);
+      html += '<div style="margin-bottom: var(--space-lg);">';
+      html += '<div style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; color: var(--very-dark-sage); margin-bottom: var(--space-sm);">Active Interactions</div>';
+      for (var ac = 0; ac < showCombos; ac++) {
+        var comboDialNames = allCombos[ac].dials.map(function(di) { return TYPE6_DATA.dials[di].label; }).join(' + ');
+        html += '<div style="margin-bottom: var(--space-md); padding: var(--space-sm) var(--space-md); background: rgba(74,93,94,0.03); border-radius: 6px;">';
+        html += '<div style="font-size: 12px; font-weight: 500; color: var(--warm-taupe); margin-bottom: var(--space-xs);">' + comboDialNames + '</div>';
+        html += '<div style="font-size: 14px; color: var(--dark-sage); line-height: 1.5;">' + allCombos[ac].feedback + '</div>';
+        html += '</div>';
+      }
+      html += '</div>';
+    }
+
+    // ── Strengths already working ──
+    var activeStrengths = [];
+    for (var si = 0; si < STRENGTHS.length; si++) {
+      if (STRENGTHS[si].test(values)) {
+        activeStrengths.push(STRENGTHS[si]);
+      }
+    }
+    if (activeStrengths.length > 0) {
+      html += '<div style="padding: var(--space-md); background: rgba(181,150,125,0.06); border-radius: 8px; margin-bottom: var(--space-lg);">';
+      html += '<div style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; color: var(--very-dark-sage); margin-bottom: var(--space-sm);">Strengths Already Working</div>';
+      for (var ss = 0; ss < activeStrengths.length; ss++) {
+        var sDialName = TYPE6_DATA.dials[activeStrengths[ss].dial].label;
+        html += '<div style="margin-bottom: var(--space-sm); font-size: 13px; color: var(--deep-sage); line-height: 1.5;"><strong>' + sDialName + ':</strong> ' + activeStrengths[ss].text + '</div>';
+      }
+      html += '</div>';
+    }
+
+    // ── Per-dial gaps ──
     if (bigGaps.length > 0) {
       html += '<div style="margin-bottom: var(--space-lg);">';
+      html += '<div style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; color: var(--very-dark-sage); margin-bottom: var(--space-sm);">Gaps Worth Exploring</div>';
       bigGaps.forEach(function(g) {
         var direction = g.gap > 0 ? 'higher' : 'lower';
         html += '<div style="margin-bottom: var(--space-lg);">';
@@ -1568,7 +2377,6 @@ body {
       html += '</div>';
     }
 
-    // Show remaining dials (small or no gap) — compact summary
     if (smallGaps.length > 0) {
       html += '<div style="margin-bottom: var(--space-lg); padding: var(--space-md); background: rgba(74,93,94,0.03); border-radius: 8px;">';
       html += '<div style="font-family: var(--font-heading); font-weight: 600; font-size: 14px; color: var(--deep-sage); margin-bottom: var(--space-sm);">Aligned with the data</div>';
@@ -1594,7 +2402,9 @@ body {
     revealSummary.classList.add('active');
   }
 
-  // ── Mobile Bottom Sheet ──
+  // ══════════════════════════════════════════════════
+  // MOBILE BOTTOM SHEET
+  // ══════════════════════════════════════════════════
   function setupMobileSheet() {
     if (!isMobile) return;
     dragHandle.style.display = 'flex';
@@ -1615,7 +2425,9 @@ body {
     });
   }
 
-  // ── Responsive Label Update ──
+  // ══════════════════════════════════════════════════
+  // RESPONSIVE LABEL UPDATE
+  // ══════════════════════════════════════════════════
   function updateLabels() {
     var wasMobile = isMobile;
     isMobile = window.innerWidth < 600;
@@ -1635,7 +2447,6 @@ body {
     updateAllFaderPositions(lastActiveDialIndex);
     if (isRevealed) {
       updateGapVisualization();
-      // Reposition rec markers
       var trackHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--track-height'));
       TYPE6_DATA.dials.forEach(function(dial, idx) {
         var recRatio = (dial.recommended - DIAL_MIN) / (DIAL_MAX - DIAL_MIN);
