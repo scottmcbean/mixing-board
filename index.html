@@ -384,6 +384,127 @@ body {
   min-width: 30px;
 }
 
+/* ── Clinical Guardrail Banner ── */
+.clinical-guardrail {
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
+  border-left: 3px solid var(--warm-taupe);
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 400ms ease, max-height 500ms ease, padding 300ms ease, margin 300ms ease;
+}
+
+.clinical-guardrail.active {
+  opacity: 1;
+  max-height: 200px;
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.clinical-guardrail-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--deep-sage);
+  line-height: 1.6;
+}
+
+/* ── Narrative Assessment Panel ── */
+.narrative-panel {
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(31, 45, 46, 0.1);
+  padding: 0;
+  margin-bottom: var(--space-lg);
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 400ms ease, max-height 600ms ease;
+}
+
+.narrative-panel.active {
+  opacity: 1;
+  max-height: 800px;
+  padding: var(--space-xl);
+}
+
+.narrative-panel-header {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--warm-taupe);
+  margin-bottom: var(--space-xs);
+}
+
+.narrative-panel-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--very-dark-sage);
+  line-height: 1.2;
+  margin-bottom: var(--space-md);
+}
+
+.narrative-panel-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--dark-sage);
+  line-height: 1.65;
+  margin-bottom: var(--space-md);
+}
+
+.narrative-panel-question {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--deep-sage);
+  line-height: 1.5;
+  padding: var(--space-md);
+  background: rgba(74, 93, 94, 0.04);
+  border-radius: 6px;
+  border-left: 2px solid var(--warm-taupe);
+}
+
+.narrative-panel-question strong {
+  display: block;
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--warm-taupe);
+  margin-bottom: var(--space-xs);
+}
+
+/* Modular generator sections */
+.modular-section {
+  margin-bottom: var(--space-md);
+}
+
+.modular-section-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--warm-taupe);
+  margin-bottom: var(--space-xs);
+}
+
+.modular-section-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--dark-sage);
+  line-height: 1.6;
+}
+
 /* ── Profile Detection Badge ── */
 .profile-badge {
   background: var(--white);
@@ -585,6 +706,75 @@ body {
   color: var(--deep-sage);
   line-height: 1.5;
   font-style: italic;
+}
+
+/* Ambiguity intelligence */
+.feedback-ambiguity {
+  margin-top: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(74, 93, 94, 0.03);
+  border-radius: 6px;
+  border-left: 2px solid rgba(74, 93, 94, 0.15);
+}
+
+.feedback-ambiguity-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--warm-taupe);
+  margin-bottom: var(--space-xs);
+}
+
+.feedback-ambiguity-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--deep-sage);
+  line-height: 1.5;
+}
+
+/* Growth vs Stress signature */
+.feedback-growth-stress {
+  margin-top: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 6px;
+}
+
+.feedback-growth-stress.growth {
+  background: rgba(74, 93, 94, 0.04);
+  border-left: 2px solid var(--deep-sage);
+}
+
+.feedback-growth-stress.stress {
+  background: rgba(216, 120, 84, 0.06);
+  border-left: 2px solid rgba(216, 120, 84, 0.4);
+}
+
+.feedback-growth-stress-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-xs);
+}
+
+.feedback-growth-stress.growth .feedback-growth-stress-label {
+  color: var(--deep-sage);
+}
+
+.feedback-growth-stress.stress .feedback-growth-stress-label {
+  color: var(--terracotta);
+}
+
+.feedback-growth-stress-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--deep-sage);
+  line-height: 1.5;
 }
 
 /* ── Recommendation Reveal ── */
@@ -865,6 +1055,10 @@ body {
   }
 
   .profile-badge { margin-left: 0; margin-right: 0; }
+
+  .narrative-panel.active { padding: var(--space-lg); }
+  .narrative-panel-title { font-size: 18px; }
+  .narrative-panel-text { font-size: 14px; }
 }
 
 /* ── Landscape Mobile ── */
@@ -930,6 +1124,16 @@ body {
     <!-- Faders injected by JS -->
   </div>
 
+  <!-- Clinical Guardrail Banner -->
+  <div class="clinical-guardrail" id="clinicalGuardrail">
+    <div class="clinical-guardrail-text" id="clinicalGuardrailText"></div>
+  </div>
+
+  <!-- Narrative Assessment Panel (v3 centerpiece) -->
+  <div class="narrative-panel" id="narrativePanel">
+    <div id="narrativePanelContent"></div>
+  </div>
+
   <!-- Profile Detection Badge -->
   <div class="profile-badge" id="profileBadge">
     <div class="profile-badge-label">Your current pattern</div>
@@ -986,6 +1190,7 @@ body {
   var DIAL_COUNT = 9;
   var REDISTRIBUTE_DURATION = 200;
   var ENABLE_EMAIL_GATE = false;
+  var NARRATIVE_DEBOUNCE_MS = 300;
 
   // Dial index constants for readability
   var D = {
@@ -1020,7 +1225,7 @@ body {
         feedback: {
           low: "You are in planning mode, and you have been here a while. Your preparation is thorough \u2014 no one is questioning that. But at some point, the next step is not more research. It is a step. What is the smallest action you could take this week that would move one of your stalled projects forward?",
           mid: "You are finding your rhythm between thinking and doing. There is still a pull toward \u2018one more thing before I start,\u2019 but you are learning to override it. Keep noticing the moment when preparation stops yielding new insight and starts yielding new anxiety. That is your cue to move.",
-          high: "You are in motion, and that is good \u2014 but check in with yourself: are you acting from clarity, or are you acting to escape the discomfort of sitting with uncertainty? Action that comes from genuine conviction feels different from action that comes from anxiety. You know the difference. Which one is this?"
+          high: "You have got action cranked high. Quick check \u2014 does everyone around you feel slow right now? If so, the pace might be yours, not theirs. The growth move is not to slow down the work. It is to increase relational presence by checking in with trusted people, including partners. Reaching out is the circuit breaker."
         }
       },
       {
@@ -1152,14 +1357,14 @@ body {
         }
       }
     ],
-    ahaInsight: "The thing you are afraid of has already happened \u2014 and you survived it. You have a track record of handling exactly the things you fear, and your anxiety has not updated to reflect that. The question is not \u2018what if something goes wrong?\u2019 Things will go wrong. The question is: \u2018Do I trust myself to handle it when it does?\u2019"
+    closingQuestion: "What is going to make you feel less uncertain and more confident?"
   };
 
   // ══════════════════════════════════════════════════
   // COACHING INTELLIGENCE ENGINE — Marlowe's Logic
   // ══════════════════════════════════════════════════
 
-  // Strengths Acknowledgment: fire when a dial is at the Six's natural level
+  // Strengths Acknowledgment
   var STRENGTHS = [
     {
       dial: D.STRATEGIC_THINKING,
@@ -1208,7 +1413,7 @@ body {
     }
   ];
 
-  // Pairwise Combo Rules (20 rules from Marlowe)
+  // Pairwise Combo Rules (22 rules from Marlowe)
   var COMBO_RULES = [
     {
       id: "st-high-dec-low",
@@ -1494,6 +1699,11 @@ body {
       },
       priority: 3,
       text: "This is the growth configuration for a Six \u2014 balanced, grounded, and present. Nothing is maxed out, nothing is starved. If this feels uncomfortably moderate, that discomfort is your pattern wanting to crank something up. Resist the urge. This moderation IS the move."
+    },
+    {
+      test: function(v) { return v[D.STRATEGIC_ACTION] <= 3 && v[D.DECISIVENESS] <= 3 && v[D.RELATIONAL_PRESENCE] <= 4 && v[D.INTENTIONAL_REST] >= 4; },
+      priority: 8,
+      text: "You are in low-energy territory \u2014 not moving, not deciding, not connecting. For a Six in this state, the path out is not willpower and it is not more thinking. It is two things: increase your relational presence by reaching out to one trusted person, and learn something \u2014 follow genuine curiosity, not strategy. Curiosity restarts the engine gently. Connection reality-tests the fears. Both are easier than action, and both lead to it."
     }
   ];
 
@@ -1562,7 +1772,7 @@ body {
     }
   ];
 
-  // Contextual Trade-off Suggestions (for each dial at 7+)
+  // Contextual Trade-off Suggestions
   var TRADEOFFS = [
     {
       dial: D.STRATEGIC_ACTION,
@@ -1631,6 +1841,411 @@ body {
 
 
   // ══════════════════════════════════════════════════
+  // v3: NARRATIVE ASSESSMENT TEMPLATES (15)
+  // ══════════════════════════════════════════════════
+  var NARRATIVES = [
+    {
+      id: "hurricane-six",
+      name: "The Hurricane Six",
+      specificity: 6,
+      test: function(v) {
+        return v[D.STRATEGIC_ACTION] >= 7 && v[D.DECISIVENESS] >= 6 && v[D.COMMUNICATION_CLARITY] >= 5 &&
+               v[D.RELATIONAL_PRESENCE] <= 4 && v[D.EMOTIONAL_STEADINESS] <= 5 && v[D.INTENTIONAL_REST] <= 4;
+      },
+      assessment: "You are in full forward motion \u2014 deciding, acting, communicating \u2014 and the people around you are getting blown sideways. This is a Six who has broken through the hesitation barrier, and that breakthrough is real. The growth is genuine. But growth without relational awareness becomes a one-person operation that leaves wreckage in its wake. When was the last time someone on your team pushed back on your pace? If the answer is never \u2014 that might not mean you are right. It might mean they stopped trying.",
+      question: "What is going to make you feel less uncertain and more confident?"
+    },
+    {
+      id: "withdrawn-ruminator",
+      name: "The Withdrawn Ruminator",
+      specificity: 6,
+      test: function(v) {
+        return v[D.STRATEGIC_THINKING] >= 7 && v[D.SELF_AWARENESS] >= 5 && v[D.RELATIONAL_PRESENCE] <= 3 &&
+               v[D.STRATEGIC_ACTION] <= 3 && v[D.DECISIVENESS] <= 4 && v[D.COMMUNICATION_CLARITY] <= 4;
+      },
+      assessment: "You have pulled into your head and closed the door. The thinking is running full-bore \u2014 scenarios, contingencies, self-analysis \u2014 but none of it is connected to another human being. This is not productive reflection. This is rumination in a sealed room. The isolation is not a side effect of the thinking \u2014 it is making the thinking worse, because there is nobody to reality-test against, nobody to say \u2018that fear is not real.\u2019 Every hour you spend alone with your thoughts, the thoughts become more convincing and less accurate. Your mind is not going to solve this from the inside. You need a voice that is not yours.",
+      question: "Who do you trust enough to call?"
+    },
+    {
+      id: "ambiguous-rest",
+      name: "The Ambiguous Rest",
+      specificity: 3,
+      test: function(v) {
+        return v[D.INTENTIONAL_REST] >= 7 && v[D.STRATEGIC_ACTION] <= 3 && v[D.DECISIVENESS] <= 4;
+      },
+      assessmentFork: true,
+      testHealthy: function(v) { return v[D.EMOTIONAL_STEADINESS] >= 5 && v[D.SELF_AWARENESS] >= 5; },
+      assessmentHealthy: "You are resting, and the rest appears to be doing its job. Your steadiness is holding, your self-awareness is online, and the fact that action and decisiveness are low may simply mean you are in recovery mode \u2014 choosing to let the engine cool before re-engaging. If that is what this is, honor it. Sixes rarely give themselves permission to stop, and the fact that you have is worth noticing. The question to sit with is timing: you will know when rest shifts from recovery to avoidance. Trust that you will know.",
+      assessmentStress: "This rest may not be rest. When a Six stops moving and stops deciding while their steadiness is low or their self-awareness is offline, the most common explanation is not self-care \u2014 it is shutdown. The system got overwhelmed and pulled the emergency brake. Everything feels like too much, so nothing is happening. This is not laziness and it is not choice. It is a stress response that looks like a vacation. The difference between recovery and withdrawal is whether you chose to stop or whether stopping chose you. Be honest with yourself about which one this is.",
+      question: "What is going to make you feel less uncertain and more confident?"
+    },
+    {
+      id: "genuine-expansion",
+      name: "The Genuine Expansion",
+      specificity: 7,
+      test: function(v) {
+        return v[D.STRATEGIC_THINKING] <= 6 && v[D.DECISIVENESS] >= 5 && v[D.STRATEGIC_ACTION] >= 5 &&
+               v[D.RELATIONAL_PRESENCE] >= 5 && v[D.INTENTIONAL_REST] >= 4 && v[D.EMOTIONAL_STEADINESS] >= 5 &&
+               v[D.SELF_AWARENESS] >= 4 && Math.min.apply(null, Object.keys(D).map(function(k) { return v[D[k]]; })) >= 3;
+      },
+      assessment: "Something has shifted. Your thinking has quieted enough to let the rest of you show up \u2014 you are deciding, acting, connecting, and resting without white-knuckling any of it. This is what growth looks like for a Six: not the absence of anxiety, but anxiety losing its vote on the board of directors. Your strategic mind is still online \u2014 it is just not running the show anymore. This balance did not come naturally to you. It was built, and it is worth acknowledging that building it took courage. Sixes tend to sprint past their own growth without noticing it. Stop. Notice this.",
+      question: "What is going to make you feel less uncertain and more confident?"
+    },
+    {
+      id: "survival-pattern",
+      name: "The Survival Pattern",
+      specificity: 5,
+      test: function(v) {
+        return v[D.STRATEGIC_THINKING] >= 8 && v[D.INTENTIONAL_REST] <= 2 && v[D.EMOTIONAL_STEADINESS] <= 4 &&
+               v[D.DECISIVENESS] <= 3 && v[D.STRATEGIC_ACTION] <= 3;
+      },
+      assessment: "Your system is in survival mode. The thinking is maxed out because the anxiety has nowhere else to go \u2014 you are not resting, you are not steady, you are not deciding, you are not acting. All the energy is being consumed by the scanning system, which is running at emergency frequency. This is not strategy. This is a mind that cannot stop because stopping feels dangerous. Everything you are spending on thinking right now is being stolen from the resources you need to actually get through this. The most important thing you can do today is not think harder. It is sleep. It is one meal you actually taste. It is five minutes where your mind has permission to stop scanning. The world will not collapse in those five minutes. You have evidence of that, even if your system does not believe it right now.",
+      question: "What is going to make you feel less uncertain and more confident?"
+    },
+    {
+      id: "controlled-collapse",
+      name: "The Controlled Collapse",
+      specificity: 5,
+      test: function(v) {
+        return v[D.EMOTIONAL_STEADINESS] >= 7 && v[D.STRATEGIC_ACTION] >= 6 && v[D.COMMUNICATION_CLARITY] >= 5 &&
+               v[D.INTENTIONAL_REST] <= 2 && v[D.SELF_AWARENESS] <= 3;
+      },
+      assessment: "From the outside, you look like you are thriving. Steady, active, communicating clearly. From the inside \u2014 and this is the part you are not looking at \u2014 the foundation is hollow. You are performing competence on a depleted battery, and because your self-awareness is low, you may not see the cracks forming. This is the Six\u2019s stress move to Three: image management replaces genuine regulation, productivity replaces processing, and the crash arrives as a surprise to everyone including you. Your body already knows what your composure is hiding \u2014 check for the tension, the clenching, the disrupted sleep. Those are the honest data points.",
+      question: "What would change if you admitted you are running on fumes?"
+    },
+    {
+      id: "looks-like-growth-charger",
+      name: "The Looks-Like-Growth Charger",
+      specificity: 5,
+      test: function(v) {
+        return v[D.STRATEGIC_ACTION] >= 7 && v[D.DECISIVENESS] >= 7 && v[D.STRATEGIC_THINKING] <= 3 &&
+               v[D.EMOTIONAL_STEADINESS] <= 4 && v[D.SELF_AWARENESS] <= 4;
+      },
+      assessment: "You are moving fast and deciding fast, and it looks like growth \u2014 a Six who has finally broken through the overthinking barrier. But check the engine. Your emotional steadiness is low and your self-awareness is offline, which means the action is not coming from grounded confidence. It is coming from counter-phobic reactivity \u2014 running toward the thing that scares you because running feels better than sitting with the fear. The tell is in the body: this kind of action feels frantic, not free. There is adrenaline underneath it, not calm. Genuine growth for a Six has a quality of steadiness to it. This has the quality of a sprint.",
+      question: "What are you running from?"
+    },
+    {
+      id: "productive-anxiety-loop",
+      name: "The Productive Anxiety Loop",
+      specificity: 5,
+      test: function(v) {
+        return v[D.STRATEGIC_THINKING] >= 7 && v[D.COMMUNICATION_CLARITY] >= 6 && v[D.SELF_AWARENESS] >= 6 &&
+               v[D.STRATEGIC_ACTION] <= 3 && v[D.DECISIVENESS] <= 3;
+      },
+      assessment: "You are doing the most seductive version of stuck: you can see the patterns, you can articulate them brilliantly, and you are not moving. Your strategic mind and your self-awareness are both running hot, and your communication is clear enough that other people probably think you have it together. You do \u2014 except for the part where nothing is actually happening. You have turned insight into a product instead of a tool. You write the analysis, you share the analysis, and then you write more analysis. The world does not need another draft of your thinking. It needs one decision and one step.",
+      question: "What recommendation have you already made that you are waiting for someone else to act on?"
+    },
+    {
+      id: "loyalty-drain",
+      name: "The Loyalty Drain",
+      specificity: 4,
+      test: function(v) {
+        return v[D.RELATIONAL_PRESENCE] >= 7 && v[D.BOUNDARY_SETTING] <= 3 && v[D.INTENTIONAL_REST] <= 3 &&
+               v[D.SELF_AWARENESS] <= 4;
+      },
+      assessment: "You are pouring yourself into the people around you and there is almost nothing left. Your loyalty is real and it is costing you everything. Without boundaries, you are absorbing other people\u2019s anxiety on top of your own. Without rest, you have no way to recover from the emotional labor. Without self-awareness, you cannot see that what feels like love is actually self-abandonment on autopilot. The people who matter to you do not need you depleted. They need you whole. The guilt you feel about pulling back is the pattern talking, not the truth about what your relationships require.",
+      question: "What would you do this week if taking care of yourself was not selfish?"
+    },
+    {
+      id: "frozen-seer",
+      name: "The Frozen Seer",
+      specificity: 6,
+      test: function(v) {
+        return v[D.STRATEGIC_THINKING] >= 8 && v[D.SELF_AWARENESS] >= 7 && v[D.EMOTIONAL_STEADINESS] >= 5 &&
+               v[D.STRATEGIC_ACTION] <= 2 && v[D.DECISIVENESS] <= 2 && v[D.INTENTIONAL_REST] <= 4;
+      },
+      assessment: "You see everything. You understand your own patterns better than most people ever will. You can describe exactly why you are stuck, what the anxiety is doing, and what you would need to do to move. And you are completely paralyzed. This is awareness without agency \u2014 the most frustrating state a Six can occupy. The thinking and the self-knowledge have become their own prison, because every potential action gets analyzed, every possible outcome gets mapped, and the map has become more real than the territory. You do not need more insight. You need to move. Not the right move. Not the perfect move. One move. The Six\u2019s deepest fear is that action will prove they are not ready. You are ready. You have been ready. The readiness was never the issue.",
+      question: "What is going to make you feel less uncertain and more confident?"
+    },
+    {
+      id: "quiet-rebuild",
+      name: "The Quiet Rebuild",
+      specificity: 6,
+      test: function(v) {
+        return v[D.INTENTIONAL_REST] >= 6 && v[D.EMOTIONAL_STEADINESS] >= 5 && v[D.SELF_AWARENESS] >= 5 &&
+               v[D.STRATEGIC_THINKING] <= 5 && v[D.STRATEGIC_ACTION] >= 3 && v[D.STRATEGIC_ACTION] <= 5 &&
+               v[D.DECISIVENESS] >= 3 && v[D.DECISIVENESS] <= 5;
+      },
+      assessment: "You are in rebuild mode, and the architecture looks sound. Rest is high, steadiness is holding, awareness is online, and the thinking has quieted to a sustainable hum. Action and decisiveness are not high yet, but they are not absent either \u2014 they are at the level of someone who is re-entering rather than charging. This is what healthy recovery looks like for a Six: not a dramatic comeback, but a gradual re-engagement with the volume turned down. The temptation will be to accelerate \u2014 to prove to yourself and others that you are back. Resist it. The slow re-entry is the sustainable one.",
+      question: "What is one small commitment you can make this week that you know you will keep?"
+    },
+    {
+      id: "fortress-of-competence",
+      name: "The Fortress of Competence",
+      specificity: 5,
+      test: function(v) {
+        return v[D.BOUNDARY_SETTING] >= 7 && v[D.STRATEGIC_THINKING] >= 6 && v[D.EMOTIONAL_STEADINESS] >= 6 &&
+               v[D.RELATIONAL_PRESENCE] <= 3 && v[D.COMMUNICATION_CLARITY] <= 4;
+      },
+      assessment: "You have built a professional identity that is airtight \u2014 competent, steady, boundaried, and thoroughly thought through. Nobody can fault your work. And almost nobody can reach you. The fortress you have constructed keeps the threats out, but it also keeps the connection out, and for a Six, that is a dangerous trade. Your anxiety system tells you that closeness is risk. But isolation amplifies the very anxiety the fortress was supposed to manage, because without trusted voices around you, every fear in your head goes unchallenged. You are safe. You are also alone.",
+      question: "Who have you shut out that you actually miss?"
+    },
+    {
+      id: "anxious-performer",
+      name: "The Anxious Performer",
+      specificity: 5,
+      test: function(v) {
+        return v[D.STRATEGIC_ACTION] >= 6 && v[D.COMMUNICATION_CLARITY] >= 6 && v[D.STRATEGIC_THINKING] >= 7 &&
+               v[D.EMOTIONAL_STEADINESS] <= 4 && v[D.INTENTIONAL_REST] <= 3;
+      },
+      assessment: "You are producing \u2014 acting, communicating, thinking \u2014 and the engine underneath is running hot. This is a Six who is getting things done through sheer force of will while the anxiety system screams in the background. The output is real. The cost is hidden. You are probably the person on the team who looks the most on top of things while feeling the most overwhelmed. The strategic thinking is not calming the anxiety \u2014 it is feeding it material. The action is not reducing the worry \u2014 it is creating more things to worry about. Something has to give, and right now, it is your rest and your steadiness. You are trading the foundation for the performance.",
+      question: "How long can you keep this up? Be honest."
+    },
+    {
+      id: "counter-phobic-leader",
+      name: "The Counter-Phobic Leader",
+      specificity: 7,
+      test: function(v) {
+        return v[D.STRATEGIC_ACTION] >= 7 && v[D.DECISIVENESS] >= 7 && v[D.BOUNDARY_SETTING] >= 6 &&
+               v[D.COMMUNICATION_CLARITY] >= 6 && v[D.EMOTIONAL_STEADINESS] >= 5 && v[D.SELF_AWARENESS] >= 5 &&
+               v[D.STRATEGIC_THINKING] <= 5;
+      },
+      assessment: "You are operating in a leadership configuration \u2014 decisive, boundaried, active, and communicating clearly. This is genuine capability, and it deserves to be named as such. The fact that you are a Six who has reached this level of engagement means you have done significant work on the patterns that usually hold your type back. The question to check, because it always applies for a Six in motion: is this coming from grounded confidence or from the need to prove something? You know the difference in your body. Grounded confidence has a quality of ease. Proving energy has a quality of performance. Both get results. One is sustainable.",
+      question: "Which one is this?"
+    },
+    {
+      id: "relational-anchor",
+      name: "The Relational Anchor",
+      specificity: 7,
+      test: function(v) {
+        return v[D.RELATIONAL_PRESENCE] >= 7 && v[D.COMMUNICATION_CLARITY] >= 6 && v[D.EMOTIONAL_STEADINESS] >= 5 &&
+               v[D.BOUNDARY_SETTING] >= 5 && v[D.SELF_AWARENESS] >= 5 && v[D.STRATEGIC_THINKING] <= 6 &&
+               v[D.STRATEGIC_ACTION] >= 4 && v[D.STRATEGIC_ACTION] <= 6;
+      },
+      assessment: "Your primary investment is in people, and the infrastructure around it is sound \u2014 your boundaries are holding, your awareness is online, your communication is clear, and your thinking is not running the show. This is a Six who has learned that connection is not the same as dependency and that loyalty does not require self-erasure. You are present for the people who matter without losing yourself in them. This is hard-won territory. The growth edge from here is action. Your relational world is strong. The question is what you are going to do with the stability it provides.",
+      question: "What project, decision, or commitment have you been waiting to feel safe enough to pursue? You are safe enough. Go."
+    }
+  ];
+
+  // ══════════════════════════════════════════════════
+  // v3: AMBIGUITY INTELLIGENCE (9 rules)
+  // ══════════════════════════════════════════════════
+  var AMBIGUITY_RULES = [
+    {
+      dial: D.INTENTIONAL_REST,
+      testApplies: function(v) { return v[D.INTENTIONAL_REST] >= 7; },
+      testA: function(v) { return v[D.STRATEGIC_ACTION] >= 4 && v[D.EMOTIONAL_STEADINESS] >= 5 && v[D.SELF_AWARENESS] >= 4; },
+      interpretationA: "You have given yourself permission to rest, and the rest of your board suggests you are doing it from a healthy place. Steadiness is holding, awareness is online, and you are still engaging with the world at a sustainable level. This is the growth move. Sixes almost never prioritize rest \u2014 the fact that you have is evidence of development, not decline.",
+      testB: function(v) { return v[D.STRATEGIC_ACTION] <= 3 && (v[D.EMOTIONAL_STEADINESS] <= 4 || v[D.SELF_AWARENESS] <= 3); },
+      interpretationB: "High rest alongside low action and low steadiness or awareness often means the system has pulled the emergency brake. This may not be rest \u2014 it may be withdrawal disguised as self-care. The tell is in how it feels: genuine rest has a quality of choice. Shutdown has a quality of collapse. Be honest about which one you are experiencing.",
+      summary: "Rest at this level for a Six can mean two very different things: you have learned to stop, or you have been forced to stop. The rest of your board helps tell the story."
+    },
+    {
+      dial: D.STRATEGIC_ACTION,
+      testApplies: function(v) { return v[D.STRATEGIC_ACTION] >= 7; },
+      testA: function(v) { return v[D.EMOTIONAL_STEADINESS] >= 5 && v[D.SELF_AWARENESS] >= 5 && v[D.STRATEGIC_THINKING] >= 4; },
+      interpretationA: "You are acting from a grounded place. Your steadiness is intact, your observer is online, and your thinking has not been abandoned \u2014 it has been right-sized. This is what it looks like when a Six converts processing energy into forward motion.",
+      testB: function(v) { return v[D.EMOTIONAL_STEADINESS] <= 4 && v[D.SELF_AWARENESS] <= 4 && v[D.STRATEGIC_THINKING] <= 3; },
+      interpretationB: "High action without steadiness, awareness, or adequate processing is usually counter-phobic reactivity \u2014 running toward the scary thing to prove you are not afraid of it. The motion looks decisive from the outside. From the inside, it has a frantic quality. Check whether you are acting from clarity or from adrenaline.",
+      summary: "A Six in high action is either breaking through or breaking away. The rest of the board tells the story: grounded action has steady hands. Reactive action has clenched fists."
+    },
+    {
+      dial: D.EMOTIONAL_STEADINESS,
+      testApplies: function(v) { return v[D.EMOTIONAL_STEADINESS] >= 7; },
+      testA: function(v) { return v[D.INTENTIONAL_REST] >= 5 && v[D.SELF_AWARENESS] >= 5; },
+      interpretationA: "Your steadiness is built on real foundations \u2014 rest and self-knowledge. This is regulation, not performance. The calm you feel is structural, not cosmetic. It will hold under pressure because it is funded by recovery and awareness.",
+      testB: function(v) { return v[D.INTENTIONAL_REST] <= 3 && v[D.SELF_AWARENESS] <= 3; },
+      interpretationB: "High steadiness without rest or self-awareness is the Six\u2019s stress move to Three \u2014 performing calm while the system runs at full alarm underneath. Check the body: tension, clenching, disrupted sleep, grinding teeth. Those are the data your composure is overriding. This version of steady has an expiration date.",
+      summary: "Steadiness at this level is either your strongest asset or your most convincing act. Rest and self-awareness tell you which."
+    },
+    {
+      dial: D.SELF_AWARENESS,
+      testApplies: function(v) { return v[D.SELF_AWARENESS] >= 7; },
+      testA: function(v) { return v[D.STRATEGIC_ACTION] >= 4 && v[D.DECISIVENESS] >= 4; },
+      interpretationA: "Your awareness is producing movement. You see the patterns and you are doing something about them. This is self-awareness in its most useful form \u2014 observation that leads to choice, not just observation.",
+      testB: function(v) { return v[D.STRATEGIC_ACTION] <= 3 && v[D.DECISIVENESS] <= 3; },
+      interpretationB: "You see the patterns clearly and you are paralyzed by them. High awareness without action becomes its own trap \u2014 you understand exactly why you are stuck, and the understanding adds another layer of frustration without changing anything. Self-awareness was supposed to be a tool. It has become a spectator sport.",
+      summary: "Self-awareness at this level for a Six is either a compass or a cage. If it is producing decisions and movement, it is working. If it is producing more self-analysis, it has turned inward."
+    },
+    {
+      dial: D.STRATEGIC_THINKING,
+      testApplies: function(v) { return v[D.STRATEGIC_THINKING] <= 3; },
+      testA: function(v) { return v[D.DECISIVENESS] >= 5 && v[D.EMOTIONAL_STEADINESS] >= 5 && v[D.SELF_AWARENESS] >= 4; },
+      interpretationA: "You have consciously dialed down the processing, and the rest of your board suggests you can afford to. Your decisions are grounded, your steadiness is holding, and your observer is watching. This is the growth move \u2014 choosing to think less and trust more. For a Six, this is significant.",
+      testB: function(v) { return v[D.DECISIVENESS] <= 3 && v[D.EMOTIONAL_STEADINESS] <= 4; },
+      interpretationB: "Low strategic thinking for a Six without steadiness or decision-making capacity usually means something has overwhelmed the usual operating system. Either the anxiety has escalated past the thinking\u2019s ability to manage it, or you are in the stress move to Three \u2014 doing without processing. Neither state produces good outcomes.",
+      summary: "A Six with low strategic thinking is either growing or in trouble. The rest of the board tells the difference."
+    },
+    {
+      dial: D.BOUNDARY_SETTING,
+      testApplies: function(v) { return v[D.BOUNDARY_SETTING] >= 7; },
+      testA: function(v) { return v[D.RELATIONAL_PRESENCE] >= 5 && v[D.COMMUNICATION_CLARITY] >= 5; },
+      interpretationA: "Your boundaries are firm and your relationships are intact. You are protecting your energy while staying connected and communicating clearly. This is boundaries done right \u2014 flexible, deliberate, and relational.",
+      testB: function(v) { return v[D.RELATIONAL_PRESENCE] <= 3 && v[D.COMMUNICATION_CLARITY] <= 4; },
+      interpretationB: "High boundaries with low relational presence and low communication usually means the walls went up after something went wrong. You are not setting boundaries \u2014 you are building a perimeter. The protection is real, but so is the isolation.",
+      summary: "Strong boundaries can be a fence or a fortress. A fence lets you see who is on the other side. A fortress does not."
+    },
+    {
+      dial: D.DECISIVENESS,
+      testApplies: function(v) { return v[D.DECISIVENESS] >= 7; },
+      testA: function(v) { return v[D.EMOTIONAL_STEADINESS] >= 5 && v[D.STRATEGIC_THINKING] >= 4 && v[D.SELF_AWARENESS] >= 4; },
+      interpretationA: "You are making decisions from a calm, informed, self-aware place. This is the Six at their best \u2014 all that processing capacity converted into clear, committed choices. These decisions will stick because they came from the right place.",
+      testB: function(v) { return v[D.EMOTIONAL_STEADINESS] <= 3 && v[D.STRATEGIC_THINKING] <= 3; },
+      interpretationB: "Fast decisions without steadiness or processing are usually counter-phobic snap calls \u2014 the Six trying to outrun the doubt by committing before the fear catches up. These decisions often get revisited at 3 AM.",
+      summary: "Decisiveness at this level for a Six is either a breakthrough or a bypass. The difference is in the body: grounded decisions feel like relief. Reactive decisions feel like escape."
+    },
+    {
+      dial: D.COMMUNICATION_CLARITY,
+      testApplies: function(v) { return v[D.COMMUNICATION_CLARITY] >= 7; },
+      testA: function(v) { return v[D.DECISIVENESS] >= 5 && v[D.STRATEGIC_ACTION] >= 4; },
+      interpretationA: "You are saying what needs to be said and following through on it. Your communication is connected to action and commitment. This is how a Six leads \u2014 clear thinking, clearly expressed, clearly executed.",
+      testB: function(v) { return v[D.DECISIVENESS] <= 3 && v[D.STRATEGIC_ACTION] <= 3; },
+      interpretationB: "You are communicating clearly but nothing is happening. The clarity is real \u2014 your thinking is organized and your words are precise. But communication without commitment is just analysis shared out loud.",
+      summary: "Clear communication for a Six is most powerful when it is connected to a decision and an action. If it is, you are leading. If it is not, you are narrating your own hesitation in high definition."
+    },
+    {
+      dial: D.RELATIONAL_PRESENCE,
+      testApplies: function(v) { return v[D.RELATIONAL_PRESENCE] >= 7; },
+      testA: function(v) { return v[D.BOUNDARY_SETTING] >= 5 && v[D.SELF_AWARENESS] >= 5 && v[D.INTENTIONAL_REST] >= 4; },
+      interpretationA: "You are deeply present for the people in your life and you have the infrastructure to sustain it. Boundaries are protecting your energy, awareness is keeping you honest about your patterns, and rest is funding the emotional labor. This is relational presence from abundance, not from anxiety.",
+      testB: function(v) { return v[D.BOUNDARY_SETTING] <= 3 && (v[D.SELF_AWARENESS] <= 3 || v[D.INTENTIONAL_REST] <= 3); },
+      interpretationB: "You are all-in for other people without the structures to protect yourself. High relational presence without boundaries, awareness, or rest is loyalty on autopilot \u2014 you are giving everything and monitoring your own account balance with your eyes closed.",
+      summary: "Deep relational presence for a Six can be a strength or a survival strategy. If your boundaries and self-care are intact, this is genuine connection. If they are depleted, this is the loyalty engine running without a governor."
+    }
+  ];
+
+  // ══════════════════════════════════════════════════
+  // v3: GROWTH vs STRESS SIGNATURES (9 dials)
+  // ══════════════════════════════════════════════════
+  var GROWTH_STRESS = [
+    {
+      dial: D.STRATEGIC_ACTION,
+      testApplies: function(v) { return v[D.STRATEGIC_ACTION] >= 7; },
+      testGrowth: function(v) { return v[D.EMOTIONAL_STEADINESS] >= 5 && v[D.SELF_AWARENESS] >= 4 && v[D.STRATEGIC_THINKING] >= 4 && v[D.STRATEGIC_THINKING] <= 6 && v[D.INTENTIONAL_REST] >= 4 && v[D.DECISIVENESS] >= 5; },
+      growthText: "You are acting from a grounded place \u2014 steady, aware, rested, and thinking just enough. This is what it looks like when a Six moves forward with their eyes open. The action has a quality of confidence because it is backed by real foundations. Keep going.",
+      testStress: function(v) { return v[D.EMOTIONAL_STEADINESS] <= 4 && v[D.SELF_AWARENESS] <= 3 && v[D.STRATEGIC_THINKING] <= 3 && v[D.INTENTIONAL_REST] <= 3 && v[D.RELATIONAL_PRESENCE] <= 3; },
+      stressText: "You are in motion but the infrastructure is missing. No steadiness, no awareness, no processing, no rest. This is counter-phobic overdrive \u2014 action as anxiety management. The tell is that this pace does not feel sustainable even to you. What would happen if you slowed down by 20% and checked in with your body?"
+    },
+    {
+      dial: D.DECISIVENESS,
+      testApplies: function(v) { return v[D.DECISIVENESS] >= 7; },
+      testGrowth: function(v) { return v[D.EMOTIONAL_STEADINESS] >= 5 && v[D.STRATEGIC_THINKING] >= 4 && v[D.SELF_AWARENESS] >= 4 && v[D.COMMUNICATION_CLARITY] >= 4; },
+      growthText: "Your decisions are grounded \u2014 informed by enough thinking, supported by steadiness, and monitored by self-awareness. This is the Six who has learned to decide alongside the doubt rather than waiting for the doubt to clear. These decisions will hold.",
+      testStress: function(v) { return v[D.EMOTIONAL_STEADINESS] <= 3 && v[D.STRATEGIC_THINKING] <= 3 && v[D.SELF_AWARENESS] <= 3 && v[D.INTENTIONAL_REST] <= 3; },
+      stressText: "You are making decisions to stop the discomfort, not because you have reached clarity. The speed feels good because uncertainty feels bad, and you are trading one for the other. These decisions will get second-guessed the moment the adrenaline fades."
+    },
+    {
+      dial: D.EMOTIONAL_STEADINESS,
+      testApplies: function(v) { return v[D.EMOTIONAL_STEADINESS] >= 7; },
+      testGrowth: function(v) { return v[D.INTENTIONAL_REST] >= 5 && v[D.SELF_AWARENESS] >= 5 && v[D.STRATEGIC_THINKING] <= 6 && v[D.RELATIONAL_PRESENCE] >= 4; },
+      growthText: "Your calm is funded \u2014 by rest, by self-knowledge, and by a mind that is not running at emergency frequency. This steadiness has depth to it. It will hold when tested because it is built on real recovery, not performance.",
+      testStress: function(v) { return v[D.INTENTIONAL_REST] <= 3 && v[D.SELF_AWARENESS] <= 3 && v[D.STRATEGIC_ACTION] >= 6 && v[D.STRATEGIC_THINKING] >= 7; },
+      stressText: "This composure is expensive. Without rest and without the ability to see what is happening underneath, you are maintaining a surface that is costing you more than the anxiety it is hiding. The tell is in what happens when you stop performing: does the calm hold, or does the turbulence rush in?"
+    },
+    {
+      dial: D.BOUNDARY_SETTING,
+      testApplies: function(v) { return v[D.BOUNDARY_SETTING] >= 7; },
+      testGrowth: function(v) { return v[D.RELATIONAL_PRESENCE] >= 4 && v[D.COMMUNICATION_CLARITY] >= 4 && v[D.EMOTIONAL_STEADINESS] >= 5 && v[D.SELF_AWARENESS] >= 4; },
+      growthText: "Your boundaries are responsive and relational \u2014 firm enough to protect your energy, flexible enough to let the right people in. You are communicating them clearly and staying connected. This is boundaries from a place of strength, not fear.",
+      testStress: function(v) { return v[D.RELATIONAL_PRESENCE] <= 3 && v[D.COMMUNICATION_CLARITY] <= 3 && v[D.STRATEGIC_THINKING] >= 7 && v[D.INTENTIONAL_REST] <= 4; },
+      stressText: "These boundaries were built by pain, not by choice. Something happened, the walls went up, and you have retreated behind them with your thinking running at full speed. The protection is real, but so is the loneliness."
+    },
+    {
+      dial: D.COMMUNICATION_CLARITY,
+      testApplies: function(v) { return v[D.COMMUNICATION_CLARITY] >= 7; },
+      testGrowth: function(v) { return v[D.DECISIVENESS] >= 5 && v[D.STRATEGIC_ACTION] >= 4 && v[D.RELATIONAL_PRESENCE] >= 4 && v[D.EMOTIONAL_STEADINESS] >= 4; },
+      growthText: "Your communication is connected to conviction and action. You are saying what you think, committing to it, and moving on it. This is the Six as communicator-leader: clear, decisive, and grounded.",
+      testStress: function(v) { return v[D.DECISIVENESS] <= 3 && v[D.STRATEGIC_ACTION] <= 3 && v[D.RELATIONAL_PRESENCE] <= 3 && v[D.SELF_AWARENESS] <= 4; },
+      stressText: "You are articulating beautifully and doing nothing about it. The communication has become an end in itself \u2014 a way to process out loud without committing to anything."
+    },
+    {
+      dial: D.INTENTIONAL_REST,
+      testApplies: function(v) { return v[D.INTENTIONAL_REST] >= 7; },
+      testGrowth: function(v) { return v[D.EMOTIONAL_STEADINESS] >= 5 && v[D.SELF_AWARENESS] >= 5 && v[D.STRATEGIC_ACTION] >= 3 && v[D.DECISIVENESS] >= 3; },
+      growthText: "You are resting and it is rebuilding you. The steadiness, the awareness, the capacity for engagement \u2014 they are returning because you gave yourself permission to recover. This is one of the hardest and most important things a Six can learn: that stopping is not the same as failing.",
+      testStress: function(v) { return v[D.EMOTIONAL_STEADINESS] <= 3 && v[D.SELF_AWARENESS] <= 3 && v[D.STRATEGIC_ACTION] <= 2 && v[D.DECISIVENESS] <= 2; },
+      stressText: "This rest has the quality of collapse, not choice. Everything else has gone quiet because the system could not sustain another minute of running. This is not self-care \u2014 it is the body overriding the mind\u2019s insistence that you can keep going."
+    },
+    {
+      dial: D.SELF_AWARENESS,
+      testApplies: function(v) { return v[D.SELF_AWARENESS] >= 7; },
+      testGrowth: function(v) { return v[D.STRATEGIC_ACTION] >= 4 && v[D.DECISIVENESS] >= 4 && v[D.EMOTIONAL_STEADINESS] >= 5 && v[D.INTENTIONAL_REST] >= 4; },
+      growthText: "Your awareness is producing change, not just observation. You see your patterns, and you are making different choices because of what you see. This is the cycle working as designed: notice, choose, act, adjust.",
+      testStress: function(v) { return v[D.STRATEGIC_ACTION] <= 2 && v[D.DECISIVENESS] <= 2 && v[D.STRATEGIC_THINKING] >= 8 && v[D.INTENTIONAL_REST] <= 3; },
+      stressText: "You have become the world\u2019s most articulate version of stuck. The awareness is sharp, the insight is deep, and nothing is changing."
+    },
+    {
+      dial: D.RELATIONAL_PRESENCE,
+      testApplies: function(v) { return v[D.RELATIONAL_PRESENCE] >= 7; },
+      testGrowth: function(v) { return v[D.BOUNDARY_SETTING] >= 5 && v[D.SELF_AWARENESS] >= 5 && v[D.INTENTIONAL_REST] >= 4 && v[D.EMOTIONAL_STEADINESS] >= 5; },
+      growthText: "You are connected to the people who matter, and the connection is not costing you yourself. Your boundaries are protecting your energy, your awareness is keeping you honest, and your rest is funding the presence.",
+      testStress: function(v) { return v[D.BOUNDARY_SETTING] <= 3 && v[D.SELF_AWARENESS] <= 3 && v[D.INTENTIONAL_REST] <= 3 && v[D.STRATEGIC_ACTION] <= 3; },
+      stressText: "You are pouring into other people because being alone with yourself feels unbearable right now. The presence is driven by the anxiety system \u2014 stay close to trusted people and the threat level drops. This is connection as medication, not connection as choice."
+    },
+    {
+      dial: D.STRATEGIC_THINKING,
+      testApplies: function(v) { return v[D.STRATEGIC_THINKING] >= 7; },
+      testGrowth: function(v) { return v[D.DECISIVENESS] >= 6 && v[D.STRATEGIC_ACTION] >= 5; },
+      growthText: "Your thinking is high but it is earning its place \u2014 decisions are being made, action is being taken, and the analysis is serving the work rather than replacing it.",
+      testStress: function(v) { return v[D.DECISIVENESS] <= 4 && v[D.STRATEGIC_ACTION] <= 4 && v[D.INTENTIONAL_REST] <= 4; },
+      stressText: "This is the Six\u2019s operating system running unchecked. The thinking is not producing decisions \u2014 it is producing more thinking. Every scenario spawns three more. You are being anxious in a way that looks strategic, and it is consuming the energy you need for everything else."
+    }
+  ];
+
+  // ══════════════════════════════════════════════════
+  // v3: MODULAR COACHING SUMMARY GENERATOR
+  // ══════════════════════════════════════════════════
+  var PRIMARY_OBSERVATIONS = [
+    { test: function(v) { return v[D.STRATEGIC_THINKING] >= 8 && (v[D.STRATEGIC_ACTION] <= 3 || v[D.DECISIVENESS] <= 3); }, priority: 8, text: "You are investing heavily in analysis while starving action and commitment." },
+    { test: function(v) { return v[D.STRATEGIC_ACTION] >= 7 && v[D.INTENTIONAL_REST] <= 3; }, priority: 8, text: "You are in constant forward motion with no recovery in the system." },
+    { test: function(v) { return v[D.RELATIONAL_PRESENCE] >= 7 && v[D.BOUNDARY_SETTING] <= 3; }, priority: 7, text: "You are pouring yourself into others without protecting what is yours." },
+    { test: function(v) { return v[D.EMOTIONAL_STEADINESS] >= 7 && v[D.INTENTIONAL_REST] <= 3 && v[D.SELF_AWARENESS] <= 3; }, priority: 9, text: "You look composed on the surface while running on fumes underneath." },
+    { test: function(v) { return v[D.STRATEGIC_ACTION] >= 7 && v[D.DECISIVENESS] >= 7 && v[D.EMOTIONAL_STEADINESS] <= 4; }, priority: 8, text: "You are moving fast and deciding fast, but the steadiness is not there." },
+    { test: function(v) { return v[D.INTENTIONAL_REST] >= 7 && v[D.STRATEGIC_ACTION] <= 3 && v[D.DECISIVENESS] <= 3; }, priority: 6, text: "You have stopped, and the question is whether you chose to stop or whether stopping chose you." },
+    { test: function(v) { return v[D.STRATEGIC_THINKING] >= 7 && v[D.SELF_AWARENESS] >= 7 && v[D.STRATEGIC_ACTION] <= 3; }, priority: 8, text: "You understand everything about your situation and you are not moving." },
+    { test: function(v) { return v[D.BOUNDARY_SETTING] >= 7 && v[D.RELATIONAL_PRESENCE] <= 3; }, priority: 7, text: "You are well-protected and increasingly alone." },
+    { test: function(v) { var allOk = true; for (var i = 0; i < DIAL_COUNT; i++) { if (v[i] < 4 || v[i] > 7) { allOk = false; break; } } return allOk && v[D.STRATEGIC_THINKING] <= 6; }, priority: 3, text: "Your board is balanced in a way that did not come naturally \u2014 this was built." },
+    { test: function(v) { return v[D.STRATEGIC_THINKING] >= 7 && v[D.INTENTIONAL_REST] <= 3; }, priority: 8, text: "Your mind is running at full capacity and your body is not getting what it needs." },
+    { test: function(v) { return v[D.EMOTIONAL_STEADINESS] <= 3 && v[D.SELF_AWARENESS] <= 3; }, priority: 9, text: "Your system is reactive and you are not seeing clearly right now." },
+    { test: function(v) { return v[D.COMMUNICATION_CLARITY] >= 7 && v[D.DECISIVENESS] <= 3; }, priority: 7, text: "You can articulate exactly what should happen and you are not committing to it." },
+    { test: function(v) { return v[D.RELATIONAL_PRESENCE] >= 7 && v[D.EMOTIONAL_STEADINESS] >= 6 && v[D.BOUNDARY_SETTING] >= 5; }, priority: 3, text: "Your relational world is strong and well-protected." }
+  ];
+
+  var STRENGTH_OBS = [
+    { test: function(v) { return v[D.STRATEGIC_THINKING] >= 6 && v[D.DECISIVENESS] >= 5; }, text: "Your analytical capacity is genuinely producing decisions, not just scenarios. That integration is real." },
+    { test: function(v) { return v[D.EMOTIONAL_STEADINESS] >= 6 && v[D.INTENTIONAL_REST] >= 5; }, text: "Your composure is funded by actual recovery. This is regulation, not performance." },
+    { test: function(v) { return v[D.SELF_AWARENESS] >= 6 && v[D.STRATEGIC_ACTION] >= 4; }, text: "You are using your self-knowledge to make different choices. Awareness is a tool, not a spectator sport." },
+    { test: function(v) { return v[D.RELATIONAL_PRESENCE] >= 6 && v[D.BOUNDARY_SETTING] >= 5; }, text: "Your relationships are healthy because you are protecting what you bring to them." },
+    { test: function(v) { return v[D.COMMUNICATION_CLARITY] >= 6 && v[D.DECISIVENESS] >= 5; }, text: "You are saying what you think and standing behind it. That is leadership." },
+    { test: function(v) { return v[D.STRATEGIC_ACTION] >= 6 && v[D.EMOTIONAL_STEADINESS] >= 5; }, text: "You are acting from a steady base. The action has quality because the foundation is solid." },
+    { test: function(v) { return v[D.INTENTIONAL_REST] >= 6; }, text: "You are resting, and for a Six, that is not a small thing." },
+    { test: function(v) { return v[D.DECISIVENESS] >= 6 && v[D.SELF_AWARENESS] >= 5; }, text: "Your decisions are self-aware \u2014 you know what is driving them. That makes them trustworthy." },
+    { test: function(v) { return v[D.STRATEGIC_THINKING] <= 6 && v[D.STRATEGIC_THINKING] >= 4; }, text: "Your thinking is right-sized \u2014 enough to inform, not enough to paralyze. For a Six, that is a significant achievement." }
+  ];
+
+  var COST_OBS = [
+    { test: function(v) { return v[D.INTENTIONAL_REST] <= 3; }, priority: 9, text: "But rest is the casualty, and everything else on this board is borrowed time without it." },
+    { test: function(v) { return v[D.RELATIONAL_PRESENCE] <= 3; }, priority: 8, text: "But nobody can reach you. The isolation is amplifying the very anxiety you are trying to manage." },
+    { test: function(v) { return v[D.STRATEGIC_ACTION] <= 3; }, priority: 7, text: "But clarity without action becomes its own trap. You know exactly what needs to happen and you are not moving." },
+    { test: function(v) { return v[D.DECISIVENESS] <= 3; }, priority: 7, text: "But the decisions are not being made. Everything else on this board is in service of a moment of commitment that keeps getting deferred." },
+    { test: function(v) { return v[D.EMOTIONAL_STEADINESS] <= 3; }, priority: 8, text: "But the reactivity is undermining everything else. Sound thinking, good relationships, clear communication \u2014 none of it holds when the emotional ground is shaking." },
+    { test: function(v) { return v[D.SELF_AWARENESS] <= 3; }, priority: 7, text: "But you are not seeing your own patterns, which means they are running you instead of the other way around." },
+    { test: function(v) { return v[D.BOUNDARY_SETTING] <= 3; }, priority: 6, text: "But without limits, your energy is leaking into everyone else\u2019s problems." },
+    { test: function(v) { return v[D.STRATEGIC_THINKING] >= 8 && v[D.DECISIVENESS] <= 4; }, priority: 9, text: "But the thinking has crossed from asset to anchor. You are not processing \u2014 you are churning." },
+    { test: function(v) { return v[D.STRATEGIC_ACTION] >= 7 && v[D.INTENTIONAL_REST] <= 3; }, priority: 9, text: "But the pace is not sustainable and you know it. The performance is real. The trajectory ends in a wall." }
+  ];
+
+  var COACHING_QUESTIONS = [
+    { test: function(v) { return v[D.STRATEGIC_THINKING] >= 8 && v[D.DECISIVENESS] <= 4; }, text: "What would you do this week if you trusted your own preparation?" },
+    { test: function(v) { return v[D.INTENTIONAL_REST] <= 3 && v[D.STRATEGIC_ACTION] >= 6; }, text: "What are you afraid will happen if you stop?" },
+    { test: function(v) { return v[D.RELATIONAL_PRESENCE] <= 3 && v[D.STRATEGIC_THINKING] >= 7; }, text: "Whose voice, other than your own, do you need to hear right now?" },
+    { test: function(v) { return v[D.BOUNDARY_SETTING] <= 3 && v[D.RELATIONAL_PRESENCE] >= 6; }, text: "What are you giving that has not been asked for?" },
+    { test: function(v) { return v[D.EMOTIONAL_STEADINESS] >= 7 && v[D.SELF_AWARENESS] <= 3; }, text: "What happens when you stop holding it all together?" },
+    { test: function(v) { return v[D.STRATEGIC_ACTION] <= 3 && v[D.SELF_AWARENESS] >= 6; }, text: "What is the smallest action you have been putting off that you already know the answer to?" },
+    { test: function(v) { return v[D.DECISIVENESS] >= 7 && v[D.EMOTIONAL_STEADINESS] <= 3; }, text: "Is this a decision, or is this an escape?" },
+    { test: function(v) { return v[D.INTENTIONAL_REST] >= 7 && v[D.STRATEGIC_ACTION] <= 3; }, text: "Are you recovering, or are you hiding? You know the difference." },
+    { test: function(v) { var allOk = true; for (var i = 0; i < DIAL_COUNT; i++) { if (v[i] < 4 || v[i] > 7) { allOk = false; break; } } return allOk; }, text: "What is going to make you feel less uncertain and more confident?" },
+    { test: function(v) { return v[D.EMOTIONAL_STEADINESS] <= 3 && v[D.INTENTIONAL_REST] <= 3; }, text: "What is the one thing that would help right now \u2014 not fix everything, just help?" },
+    { test: function(v) { return v[D.STRATEGIC_THINKING] >= 7 && v[D.EMOTIONAL_STEADINESS] >= 7; }, text: "Is the calm real, or are you just getting better at hiding the turbulence?" },
+    { test: function(v) { return v[D.COMMUNICATION_CLARITY] >= 7 && v[D.DECISIVENESS] <= 3; }, text: "You have already made the recommendation. Why are you waiting for someone else to approve it?" },
+    { test: function(v) { return v[D.BOUNDARY_SETTING] >= 7 && v[D.RELATIONAL_PRESENCE] <= 3; }, text: "Who have you shut out that you actually miss?" },
+    { test: function(v) { return v[D.STRATEGIC_ACTION] >= 7 && v[D.RELATIONAL_PRESENCE] <= 3; }, text: "Who is paying the relational cost of your momentum?" },
+    { test: function(v) { return v[D.SELF_AWARENESS] >= 7 && v[D.STRATEGIC_THINKING] >= 7 && v[D.STRATEGIC_ACTION] <= 3; }, text: "You understand the pattern perfectly. When does understanding become its own form of avoidance?" }
+  ];
+  var FALLBACK_QUESTION = "What is going to make you feel less uncertain and more confident?";
+
+
+  // ══════════════════════════════════════════════════
   // PATTERN MATCHING ENGINE
   // ══════════════════════════════════════════════════
 
@@ -1652,7 +2267,6 @@ body {
         results.push(rule);
       }
     }
-    // Sort by priority (highest first)
     results.sort(function(a, b) { return b.priority - a.priority; });
     return results;
   }
@@ -1669,8 +2283,7 @@ body {
   }
 
   function evaluateProfile(vals) {
-    // Check profiles in order — more specific ones first (frozen > overthinker)
-    var order = [6, 4, 2, 0, 1, 3, 5]; // frozen, exhausted, counter-phobic, overthinker, loyalist-empty, fortress, balanced
+    var order = [6, 4, 2, 0, 1, 3, 5];
     for (var i = 0; i < order.length; i++) {
       if (PROFILES[order[i]].test(vals)) {
         return PROFILES[order[i]];
@@ -1689,6 +2302,127 @@ body {
     return results;
   }
 
+  // v3: Narrative assessment matching
+  function evaluateNarrative(vals) {
+    var matches = [];
+    for (var i = 0; i < NARRATIVES.length; i++) {
+      if (NARRATIVES[i].test(vals)) {
+        matches.push(NARRATIVES[i]);
+      }
+    }
+    if (matches.length === 0) return null;
+    // Sort by specificity (most dials referenced = most specific)
+    matches.sort(function(a, b) { return b.specificity - a.specificity; });
+    return matches[0];
+  }
+
+  // v3: Ambiguity intelligence for a specific dial
+  function evaluateAmbiguity(vals, dialIndex) {
+    var results = [];
+    for (var i = 0; i < AMBIGUITY_RULES.length; i++) {
+      var rule = AMBIGUITY_RULES[i];
+      if (rule.dial === dialIndex && rule.testApplies(vals)) {
+        var result = { summary: rule.summary };
+        if (rule.testA(vals)) {
+          result.interpretation = rule.interpretationA;
+          result.type = 'A';
+        } else if (rule.testB(vals)) {
+          result.interpretation = rule.interpretationB;
+          result.type = 'B';
+        } else {
+          result.interpretation = null;
+        }
+        results.push(result);
+      }
+    }
+    return results;
+  }
+
+  // v3: Growth/stress signature for a specific dial
+  function evaluateGrowthStress(vals, dialIndex) {
+    for (var i = 0; i < GROWTH_STRESS.length; i++) {
+      var gs = GROWTH_STRESS[i];
+      if (gs.dial === dialIndex && gs.testApplies(vals)) {
+        if (gs.testGrowth(vals)) {
+          return { type: 'growth', text: gs.growthText };
+        } else if (gs.testStress(vals)) {
+          return { type: 'stress', text: gs.stressText };
+        }
+      }
+    }
+    return null;
+  }
+
+  // v3: Clinical guardrail check
+  function evaluateClinicalGuardrail(vals) {
+    var allLow = true;
+    var allHigh = true;
+    for (var i = 0; i < DIAL_COUNT; i++) {
+      if (vals[i] > 3) allLow = false;
+      if (vals[i] < 8) allHigh = false;
+    }
+    if (allLow) {
+      return "This configuration sometimes shows up alongside something bigger than a coaching conversation can address. When everything is this low, it is worth paying attention to what your body and mind are telling you. If this feels familiar \u2014 not just today, but as a pattern \u2014 talking to a licensed professional might be worth considering. That is not a failure. It is taking yourself seriously.";
+    }
+    if (allHigh) {
+      return "This configuration \u2014 everything cranked to the top \u2014 sometimes shows up alongside something bigger than a coaching conversation can address. When everything feels urgent and maximum, it is worth paying attention to what is driving that intensity. If this feels familiar as a pattern, talking to a licensed professional might be worth considering. That is not an alarm. It is care.";
+    }
+    return null;
+  }
+
+  // v3: Contextual label for Strategic Thinking
+  function getStrategicThinkingLabel(vals) {
+    if (vals[D.STRATEGIC_ACTION] <= 3 && vals[D.INTENTIONAL_REST] >= 5) {
+      return { label: "Curiosity", mobileLabel: "Curiosity" };
+    }
+    if (vals[D.STRATEGIC_ACTION] >= 7) {
+      return { label: "Reflection", mobileLabel: "Reflection" };
+    }
+    return null; // use default
+  }
+
+  // v3: Modular summary generator (fallback when no narrative matches)
+  function generateModularSummary(vals) {
+    // Part 1: What I See
+    var primary = null;
+    var bestPriority = -1;
+    for (var i = 0; i < PRIMARY_OBSERVATIONS.length; i++) {
+      if (PRIMARY_OBSERVATIONS[i].test(vals) && PRIMARY_OBSERVATIONS[i].priority > bestPriority) {
+        primary = PRIMARY_OBSERVATIONS[i];
+        bestPriority = PRIMARY_OBSERVATIONS[i].priority;
+      }
+    }
+
+    // Part 2: Strength + Cost
+    var strength = null;
+    for (var s = 0; s < STRENGTH_OBS.length; s++) {
+      if (STRENGTH_OBS[s].test(vals)) { strength = STRENGTH_OBS[s]; break; }
+    }
+
+    var cost = null;
+    var costPriority = -1;
+    for (var c = 0; c < COST_OBS.length; c++) {
+      if (COST_OBS[c].test(vals) && COST_OBS[c].priority > costPriority) {
+        cost = COST_OBS[c];
+        costPriority = COST_OBS[c].priority;
+      }
+    }
+
+    // Part 3: Question
+    var question = null;
+    for (var q = 0; q < COACHING_QUESTIONS.length; q++) {
+      if (COACHING_QUESTIONS[q].test(vals)) { question = COACHING_QUESTIONS[q].text; break; }
+    }
+    if (!question) question = FALLBACK_QUESTION;
+
+    return {
+      whatISee: primary ? primary.text : null,
+      strength: strength ? strength.text : null,
+      cost: cost ? cost.text : null,
+      question: question
+    };
+  }
+
 
   // ══════════════════════════════════════════════════
   // STATE
@@ -1698,6 +2432,7 @@ body {
   var hasInteracted = false;
   var lastActiveDialIndex = -1;
   var isMobile = window.innerWidth < 600;
+  var narrativeDebounceTimer = null;
 
   for (var i = 0; i < DIAL_COUNT; i++) {
     values.push(DIAL_START);
@@ -1720,6 +2455,10 @@ body {
   var profileMeaning = document.getElementById('profileMeaning');
   var profileInsight = document.getElementById('profileInsight');
   var profileMove = document.getElementById('profileMove');
+  var narrativePanel = document.getElementById('narrativePanel');
+  var narrativePanelContent = document.getElementById('narrativePanelContent');
+  var clinicalGuardrail = document.getElementById('clinicalGuardrail');
+  var clinicalGuardrailText = document.getElementById('clinicalGuardrailText');
 
   // ══════════════════════════════════════════════════
   // BUILD FADERS
@@ -1730,20 +2469,17 @@ body {
       col.className = 'fader-column';
       col.setAttribute('data-index', index);
 
-      // Center of intelligence line
       var centerLine = document.createElement('div');
       centerLine.className = 'fader-center-line';
       centerLine.style.background = dial.centerColor;
       col.appendChild(centerLine);
 
-      // Label
       var label = document.createElement('div');
       label.className = 'fader-label';
       label.id = 'label-' + dial.id;
       label.textContent = isMobile ? dial.mobileLabel : dial.label;
       col.appendChild(label);
 
-      // Track container
       var trackContainer = document.createElement('div');
       trackContainer.className = 'fader-track-container';
       trackContainer.setAttribute('role', 'slider');
@@ -1754,21 +2490,17 @@ body {
       trackContainer.setAttribute('tabindex', '0');
       trackContainer.setAttribute('data-index', index);
 
-      // Track
       var track = document.createElement('div');
       track.className = 'fader-track';
 
-      // Fill
       var fill = document.createElement('div');
       fill.className = 'fader-fill';
       fill.id = 'fill-' + index;
 
-      // Gap region
       var gapRegion = document.createElement('div');
       gapRegion.className = 'gap-region';
       gapRegion.id = 'gap-' + index;
 
-      // Rec marker
       var recMarker = document.createElement('div');
       recMarker.className = 'rec-marker';
       recMarker.id = 'rec-' + index;
@@ -1778,7 +2510,6 @@ body {
       recLabel.id = 'rec-label-' + index;
       recLabel.textContent = 'REC';
 
-      // Thumb
       var thumb = document.createElement('div');
       thumb.className = 'fader-thumb';
       thumb.id = 'thumb-' + index;
@@ -1791,7 +2522,6 @@ body {
       trackContainer.appendChild(track);
       col.appendChild(trackContainer);
 
-      // Value display
       var valueDisplay = document.createElement('div');
       valueDisplay.className = 'fader-value';
       valueDisplay.id = 'value-' + index;
@@ -1800,7 +2530,6 @@ body {
 
       faderRow.appendChild(col);
 
-      // Events
       setupFaderEvents(trackContainer, index);
     });
 
@@ -1844,7 +2573,6 @@ body {
       document.body.style.cursor = '';
     }
 
-    // Mouse
     container.addEventListener('mousedown', function(e) {
       e.preventDefault();
       startDrag(e.clientY);
@@ -1867,7 +2595,6 @@ body {
 
     document.addEventListener('mouseup', endDrag);
 
-    // Touch
     container.addEventListener('touchstart', function(e) {
       e.preventDefault();
       startDrag(e.touches[0].clientY);
@@ -1883,7 +2610,6 @@ body {
     document.addEventListener('touchend', endDrag);
     document.addEventListener('touchcancel', endDrag);
 
-    // Keyboard
     container.addEventListener('keydown', function(e) {
       var step = 0.5;
       var handled = false;
@@ -1914,7 +2640,6 @@ body {
     var delta = newVal - oldVal;
     if (Math.abs(delta) < 0.05) return;
 
-    // First interaction
     if (!hasInteracted) {
       hasInteracted = true;
       feedbackIntro.style.opacity = '0';
@@ -1926,10 +2651,8 @@ body {
 
     lastActiveDialIndex = index;
 
-    // Set new value for the active dial
     values[index] = newVal;
 
-    // Calculate how much we need to redistribute
     var totalOthers = 0;
     for (var i = 0; i < DIAL_COUNT; i++) {
       if (i !== index) totalOthers += values[i];
@@ -1937,7 +2660,6 @@ body {
 
     var targetOthersTotal = TOTAL_BUDGET - newVal;
 
-    // Check if targetOthersTotal is feasible
     var minPossible = (DIAL_COUNT - 1) * DIAL_MIN;
     var maxPossible = (DIAL_COUNT - 1) * DIAL_MAX;
 
@@ -1952,7 +2674,6 @@ body {
       newVal = values[index];
     }
 
-    // Proportional redistribution
     if (Math.abs(totalOthers) < 0.001) {
       var evenShare = targetOthersTotal / (DIAL_COUNT - 1);
       for (var j = 0; j < DIAL_COUNT; j++) {
@@ -1996,12 +2717,10 @@ body {
       }
     }
 
-    // Round all values
     for (var r = 0; r < DIAL_COUNT; r++) {
       values[r] = Math.round(values[r] * 10) / 10;
     }
 
-    // Correct for rounding drift
     var currentTotal = 0;
     for (var s = 0; s < DIAL_COUNT; s++) currentTotal += values[s];
     var drift = TOTAL_BUDGET - currentTotal;
@@ -2019,12 +2738,19 @@ body {
       }
     }
 
-    // Update UI
     updateAllFaderPositions(index);
     updateBudgetBar();
     updateFeedback();
     updateProfileDetection();
+    updateClinicalGuardrail();
+    updateContextualLabels();
     if (isRevealed) updateGapVisualization();
+
+    // Debounced narrative update
+    clearTimeout(narrativeDebounceTimer);
+    narrativeDebounceTimer = setTimeout(function() {
+      updateNarrativeAssessment();
+    }, NARRATIVE_DEBOUNCE_MS);
   }
 
   // ══════════════════════════════════════════════════
@@ -2113,7 +2839,99 @@ body {
   }
 
   // ══════════════════════════════════════════════════
-  // FEEDBACK ENGINE (v2 — layered coaching intelligence)
+  // v3: CLINICAL GUARDRAIL
+  // ══════════════════════════════════════════════════
+  function updateClinicalGuardrail() {
+    if (!hasInteracted) return;
+
+    var msg = evaluateClinicalGuardrail(values);
+    if (msg) {
+      clinicalGuardrailText.textContent = msg;
+      clinicalGuardrail.classList.add('active');
+    } else {
+      clinicalGuardrail.classList.remove('active');
+    }
+  }
+
+  // ══════════════════════════════════════════════════
+  // v3: CONTEXTUAL LABELS (Strategic Thinking)
+  // ══════════════════════════════════════════════════
+  function updateContextualLabels() {
+    var stLabel = getStrategicThinkingLabel(values);
+    var labelEl = document.getElementById('label-strategic-thinking');
+    if (labelEl) {
+      if (stLabel) {
+        labelEl.textContent = isMobile ? stLabel.mobileLabel : stLabel.label;
+      } else {
+        var dial = TYPE6_DATA.dials[D.STRATEGIC_THINKING];
+        labelEl.textContent = isMobile ? dial.mobileLabel : dial.label;
+      }
+    }
+  }
+
+  // ══════════════════════════════════════════════════
+  // v3: NARRATIVE ASSESSMENT PANEL
+  // ══════════════════════════════════════════════════
+  function updateNarrativeAssessment() {
+    if (!hasInteracted) return;
+
+    var narrative = evaluateNarrative(values);
+    var html = '';
+
+    if (narrative) {
+      html += '<div class="narrative-panel-header">Full Configuration Assessment</div>';
+      html += '<div class="narrative-panel-title">' + narrative.name + '</div>';
+
+      if (narrative.assessmentFork) {
+        var assessment;
+        if (narrative.testHealthy(values)) {
+          assessment = narrative.assessmentHealthy;
+        } else {
+          assessment = narrative.assessmentStress;
+        }
+        html += '<div class="narrative-panel-text">' + assessment + '</div>';
+      } else {
+        html += '<div class="narrative-panel-text">' + narrative.assessment + '</div>';
+      }
+
+      html += '<div class="narrative-panel-question"><strong>The Question</strong>' + narrative.question + '</div>';
+    } else {
+      // Modular generator fallback
+      var summary = generateModularSummary(values);
+      if (summary.whatISee || summary.strength || summary.cost) {
+        html += '<div class="narrative-panel-header">Full Configuration Assessment</div>';
+
+        if (summary.whatISee) {
+          html += '<div class="modular-section">';
+          html += '<div class="modular-section-label">What I See</div>';
+          html += '<div class="modular-section-text">' + summary.whatISee + '</div>';
+          html += '</div>';
+        }
+
+        if (summary.strength || summary.cost) {
+          html += '<div class="modular-section">';
+          html += '<div class="modular-section-label">What\u2019s Working and What\u2019s Costing You</div>';
+          html += '<div class="modular-section-text">';
+          if (summary.strength) html += summary.strength + ' ';
+          if (summary.cost) html += summary.cost;
+          html += '</div>';
+          html += '</div>';
+        }
+
+        html += '<div class="narrative-panel-question"><strong>The Question</strong>' + summary.question + '</div>';
+      }
+    }
+
+    if (html) {
+      narrativePanelContent.innerHTML = html;
+      narrativePanel.classList.add('active');
+    } else {
+      narrativePanel.classList.remove('active');
+    }
+  }
+
+  // ══════════════════════════════════════════════════
+  // FEEDBACK ENGINE (v3 — layered with ambiguity + growth/stress)
   // ══════════════════════════════════════════════════
   function updateFeedback() {
     if (!hasInteracted) return;
@@ -2128,7 +2946,34 @@ body {
     var feedbackText = dial.feedback[tier];
 
     // ── Layer 1: Individual dial feedback ──
-    var html = '<div class="feedback-dial-name">' + dial.label + '</div>';
+    // Use contextual label and language for Strategic Thinking
+    var displayLabel = dial.label;
+    if (lastActiveDialIndex === D.STRATEGIC_THINKING) {
+      var ctxLabel = getStrategicThinkingLabel(values);
+      if (ctxLabel) {
+        displayLabel = ctxLabel.label;
+        // Contextual coaching language: paired with shutdown = curiosity/learning, paired with high action = reflection
+        if (ctxLabel.label === "Curiosity") {
+          if (tier === 'low') {
+            feedbackText = "Your curiosity has gone quiet, and for a Six in a low-energy state, that matters. Curiosity is the circuit breaker for rumination \u2014 it turns the mind from scanning for threats to exploring possibilities. Right now, the move is not strategic thinking. It is learning something. Read something that interests you, not something that is useful. Ask a question you do not need the answer to. The goal is to restart the engine with something lighter than fear.";
+          } else if (tier === 'mid') {
+            feedbackText = "You are in a space where curiosity can do its best work. The mind is not running at emergency frequency, which means it can actually explore rather than just scan. Use this \u2014 learn something new, follow a thread of genuine interest, let the thinking be playful rather than productive. For a Six in recovery, curiosity is medicine.";
+          } else {
+            feedbackText = "Your curiosity is running high alongside low action. That can be beautiful or it can be another form of avoidance. The tell: are you learning things that change how you show up, or are you accumulating knowledge as a substitute for doing? Curiosity that leads somewhere is growth. Curiosity that replaces engagement is the library version of hiding.";
+          }
+        } else if (ctxLabel.label === "Reflection") {
+          if (tier === 'low') {
+            feedbackText = "You are in high action with almost no reflection, and for a Six, that is usually counter-phobic overdrive \u2014 moving so fast that the thinking cannot catch up. Some reflection would slow you down just enough to check whether the direction is right. Not analysis. Reflection. The difference is that reflection asks one question; analysis asks twenty.";
+          } else if (tier === 'mid') {
+            feedbackText = "You are balancing action with enough reflection to keep the direction honest. This is the sweet spot \u2014 the thinking serves the doing without replacing it. For a Six in motion, this level of reflection is the difference between strategic action and reactive sprinting.";
+          } else {
+            feedbackText = "You are in high action and high reflection simultaneously, and that combination is expensive. The reflection may be slowing you down productively \u2014 or it may be the anxiety trying to maintain control while the body moves forward. Check: is the reflection producing course corrections, or is it producing doubt about the course you are already on?";
+          }
+        }
+      }
+    }
+
+    var html = '<div class="feedback-dial-name">' + displayLabel + '</div>';
     html += '<div class="feedback-text">' + feedbackText + '</div>';
 
     // ── Layer 2: Strengths acknowledgment ──
@@ -2136,6 +2981,28 @@ body {
     if (strengths.length > 0) {
       html += '<div class="feedback-strength">';
       html += '<span style="font-weight: 500; color: var(--dark-sage);">Already in your wiring:</span> ' + strengths[0].text;
+      html += '</div>';
+    }
+
+    // ── Layer 2.5: Ambiguity Intelligence (v3) ──
+    var ambiguities = evaluateAmbiguity(values, lastActiveDialIndex);
+    if (ambiguities.length > 0) {
+      var amb = ambiguities[0];
+      html += '<div class="feedback-ambiguity">';
+      html += '<div class="feedback-ambiguity-label">Two possible reads</div>';
+      if (amb.interpretation) {
+        html += '<div class="feedback-ambiguity-text">' + amb.interpretation + '</div>';
+      }
+      html += '<div class="feedback-ambiguity-text" style="margin-top: var(--space-xs); color: var(--warm-taupe); font-size: 12px;">' + amb.summary + '</div>';
+      html += '</div>';
+    }
+
+    // ── Layer 2.75: Growth vs Stress Signature (v3) ──
+    var gs = evaluateGrowthStress(values, lastActiveDialIndex);
+    if (gs) {
+      html += '<div class="feedback-growth-stress ' + gs.type + '">';
+      html += '<div class="feedback-growth-stress-label">' + (gs.type === 'growth' ? 'Growth signature' : 'Stress signature') + '</div>';
+      html += '<div class="feedback-growth-stress-text">' + gs.text + '</div>';
       html += '</div>';
     }
 
@@ -2155,14 +3022,12 @@ body {
       }
     }
 
-    // ── Layer 4: Consequence statement (max 1, only if no combo shown or different content) ──
+    // ── Layer 4: Consequence statement ──
     var consequences = evaluateConsequences(values);
     if (consequences.length > 0 && combos.length < 2) {
-      // Show the top consequence that is not redundant with the combo
       var shown = false;
       for (var qi = 0; qi < consequences.length && !shown; qi++) {
         var cText = consequences[qi].text;
-        // Skip if the consequence text is too similar to an already-shown combo
         var isDuplicate = false;
         for (var cj = 0; cj < Math.min(2, combos.length); cj++) {
           if (combos[cj].feedback.substring(0, 40) === cText.substring(0, 40)) {
@@ -2180,7 +3045,7 @@ body {
       }
     }
 
-    // ── Layer 5: Contextual trade-off suggestion (only when dial is at 7+) ──
+    // ── Layer 5: Contextual trade-off suggestion ──
     var tradeoffs = evaluateTradeoffs(values, lastActiveDialIndex);
     if (tradeoffs.length > 0) {
       var t = tradeoffs[0];
@@ -2189,10 +3054,9 @@ body {
       html += '<div class="feedback-section-label">Trade-off intelligence</div>';
       html += '<div class="feedback-tradeoff">';
       if (t.dial === t.best) {
-        // Strategic Thinking special case: recommend dialing itself down
         html += t.feedback;
       } else {
-        html += 'If you want ' + dial.label + ' this high, consider trading down <strong>' + bestDialName + '</strong>. ' + t.feedback;
+        html += 'If you want ' + displayLabel + ' this high, consider trading down <strong>' + bestDialName + '</strong>. ' + t.feedback;
       }
       html += '</div>';
       html += '</div>';
@@ -2203,7 +3067,7 @@ body {
       var gap = Math.abs(val - dial.recommended);
       if (gap > 1.5) {
         html += '<div style="margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid rgba(74,93,94,0.1);">';
-        html += '<div style="font-size: 13px; color: var(--warm-taupe); margin-bottom: var(--space-sm);">You set ' + dial.label + ' at ' + val.toFixed(1) + ' \u2014 the Type 6 data suggests ' + dial.recommended.toFixed(1) + '. That gap is worth exploring.</div>';
+        html += '<div style="font-size: 13px; color: var(--warm-taupe); margin-bottom: var(--space-sm);">You set ' + displayLabel + ' at ' + val.toFixed(1) + ' \u2014 the Type 6 data suggests ' + dial.recommended.toFixed(1) + '. That gap is worth exploring.</div>';
         html += '<div class="coaching-question">' + dial.coachingQuestion + '</div>';
         html += '</div>';
       }
@@ -2211,7 +3075,6 @@ body {
 
     feedbackDynamic.innerHTML = html;
 
-    // Mobile: auto-expand panel briefly
     if (isMobile) {
       feedbackPanel.classList.add('expanded');
       clearTimeout(feedbackPanel._autoCollapseTimer);
@@ -2293,7 +3156,6 @@ body {
   }
 
   function buildRevealSummary() {
-    // Find largest gaps
     var gaps = [];
     TYPE6_DATA.dials.forEach(function(dial, index) {
       gaps.push({
@@ -2311,7 +3173,7 @@ body {
     var html = '<div class="reveal-summary-heading">What the Data Suggests</div>';
     html += '<div class="reveal-summary-text">Based on Type 6 patterns, here is where the coaching data suggests focusing your investment. You can still adjust the dials \u2014 the recommendations stay visible for comparison.</div>';
 
-    // ── Profile shape in reveal ──
+    // Profile shape in reveal
     var profile = evaluateProfile(values);
     if (profile) {
       html += '<div style="padding: var(--space-md); background: rgba(181,150,125,0.08); border-radius: 8px; margin-bottom: var(--space-lg);">';
@@ -2321,7 +3183,7 @@ body {
       html += '</div>';
     }
 
-    // ── Top combo interactions in reveal ──
+    // Top combo interactions in reveal
     var allCombos = [];
     for (var ci = 0; ci < COMBO_RULES.length; ci++) {
       if (COMBO_RULES[ci].test(values)) {
@@ -2344,7 +3206,7 @@ body {
       html += '</div>';
     }
 
-    // ── Strengths already working ──
+    // Strengths already working
     var activeStrengths = [];
     for (var si = 0; si < STRENGTHS.length; si++) {
       if (STRENGTHS[si].test(values)) {
@@ -2361,7 +3223,7 @@ body {
       html += '</div>';
     }
 
-    // ── Per-dial gaps ──
+    // Per-dial gaps
     if (bigGaps.length > 0) {
       html += '<div style="margin-bottom: var(--space-lg);">';
       html += '<div style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; color: var(--very-dark-sage); margin-bottom: var(--space-sm);">Gaps Worth Exploring</div>';
@@ -2389,10 +3251,10 @@ body {
       html += '</div>';
     }
 
-    // Aha insight
+    // v3: Updated closing question
     html += '<div style="padding: var(--space-lg); background: rgba(74,93,94,0.04); border-radius: 8px; margin-bottom: var(--space-md);">';
-    html += '<div style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; color: var(--very-dark-sage); margin-bottom: var(--space-sm);">The Insight Worth Sitting With</div>';
-    html += '<div style="font-size: 14px; color: var(--dark-sage); line-height: 1.6; font-style: italic;">' + TYPE6_DATA.ahaInsight + '</div>';
+    html += '<div style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; color: var(--very-dark-sage); margin-bottom: var(--space-sm);">The Question Worth Sitting With</div>';
+    html += '<div style="font-size: 14px; color: var(--dark-sage); line-height: 1.6; font-style: italic;">' + TYPE6_DATA.closingQuestion + '</div>';
     html += '</div>';
 
     // CTA
@@ -2445,6 +3307,7 @@ body {
       }
     }
     updateAllFaderPositions(lastActiveDialIndex);
+    updateContextualLabels();
     if (isRevealed) {
       updateGapVisualization();
       var trackHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--track-height'));
