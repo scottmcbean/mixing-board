@@ -58,7 +58,23 @@ body {
   .header-bar { position: relative !important; }
   .print-btn, .screen-only, .budget-snapshot { display: none !important; }
   .holistic-panel, .report-panel { break-inside: avoid; }
+  .coaching-recs-section { break-inside: avoid-page; page-break-inside: avoid; }
+  .coaching-pair { break-inside: avoid; }
   body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* ── Coaching Recommendations section (Screen 3) ── */
+.coaching-recs-section {
+  background: var(--warm-paper);
+  border: 1px solid rgba(74, 93, 94, 0.12);
+  border-radius: 8px;
+  padding: var(--space-xl);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+@media (max-width: 600px) {
+  .coaching-recs-section { padding: var(--space-lg); }
+  .coaching-pair { margin-bottom: var(--space-lg) !important; }
 }
 
 /* ══════════════════════════════════════════════════
@@ -1182,7 +1198,7 @@ body {
    ══════════════════════════════════════════════════ */
 .screen-advance-btn {
   display: block;
-  margin: var(--space-xl) auto 0;
+  margin: var(--space-xl) auto var(--space-2xl);
   padding: 14px 36px;
   background: var(--terracotta);
   color: var(--white);
@@ -1479,7 +1495,7 @@ body {
       <div class="screen-dot-connector"></div>
       <div class="screen-dot" id="dot-2" aria-label="Screen 2: Desired State"></div>
       <div class="screen-dot-connector"></div>
-      <div class="screen-dot" id="dot-3" aria-label="Screen 3: Gap Analysis"></div>
+      <div class="screen-dot" id="dot-3" aria-label="Screen 3: Your Path Forward"></div>
     </div>
     <div class="budget-display" id="budgetDisplay">
       <span class="budget-text" id="budgetText">Budget: 0 / 45</span>
@@ -1507,8 +1523,12 @@ body {
   <!-- ═══ SCREEN 1: MIRROR (Current State) ═══ -->
   <div class="screen active" id="screen1">
     <div class="instruction-frame">
-      <div class="screen-label">Screen 1 of 3 — Your Current State</div>
-      <p>Nine dimensions. One budget. You have 45 points to distribute across the areas where you invest your energy <em>today</em>. When one goes up, something else has to give. Configure honestly.</p>
+      <div class="screen-label">Screen 1 of 3 — The Mirror</div>
+      <div class="screen-title" style="font-family:var(--font-heading);font-weight:700;font-size:28px;color:var(--dark-sage);line-height:1.2;margin-bottom:var(--space-xs);">The Mirror</div>
+      <p style="font-style:italic;color:var(--deep-sage);margin-bottom:var(--space-md);">Where are you actually spending your energy right now?</p>
+      <p style="margin-bottom:var(--space-sm);">Nine categories. A fixed budget of 45 points. Spend them on the categories you're leaning on most in your current life — not the ones you wish you were leaning on, not the ones you think you're supposed to be.</p>
+      <p style="margin-bottom:var(--space-sm);">If a category doesn't make sense yet, hover the slider over the category. The descriptor will tell you what high and low look like.</p>
+      <p>Balance isn't the goal. Enough energy in the right places, at the right time, is.</p>
     </div>
 
     <div class="fader-row" id="faderRow1" role="group" aria-label="Current state energy allocation sliders"></div>
@@ -1534,20 +1554,22 @@ body {
   <!-- ═══ SCREEN 2: PLAY (Desired State) ═══ -->
   <div class="screen" id="screen2">
     <div class="instruction-frame">
-      <div class="screen-label">Screen 2 of 3 — Your Desired State</div>
-      <p>Same nine dimensions. Same 45 points. Your current board is the starting point. Now reconfigure it for the life you <em>want</em>. Where would you shift your energy if you could choose?</p>
+      <div class="screen-label">Screen 2 of 3 — The Play</div>
+      <div class="screen-title" style="font-family:var(--font-heading);font-weight:700;font-size:28px;color:var(--dark-sage);line-height:1.2;margin-bottom:var(--space-xs);">The Play</div>
+      <p style="font-style:italic;color:var(--deep-sage);margin-bottom:var(--space-md);">Now set the board you'd rather be playing.</p>
+      <p>Same nine categories. Same fixed budget. This time, weight it toward what you want to be leaning on — the shape of the life you're aiming at, not the one you're in.</p>
     </div>
 
     <div class="fader-row" id="faderRow2" role="group" aria-label="Desired state energy allocation sliders"></div>
 
     <div class="feedback-panel" id="feedbackPanel2">
       <div class="feedback-content" id="feedbackContent2">
-        <p class="feedback-intro" id="feedbackIntro2">Build the board you wish you had. Same budget, different choices. The distance between this and your current board is where the real insight lives.</p>
+        <p class="feedback-intro" id="feedbackIntro2">Build the board you wish you had. Same budget, different choices. The space between the two boards is where the real insight lives.</p>
         <div class="feedback-dynamic" id="feedbackDynamic2"></div>
       </div>
     </div>
 
-    <button class="screen-advance-btn" id="advanceBtn2">Show me the gap</button>
+    <button class="screen-advance-btn" id="advanceBtn2">Show me my results</button>
 
     <div class="holistic-panel" id="holisticPanel2" aria-live="polite">
       <div id="holisticContent2"></div>
@@ -1558,11 +1580,11 @@ body {
     </div>
   </div>
 
-  <!-- ═══ SCREEN 3: GAP ANALYSIS ═══ -->
+  <!-- ═══ SCREEN 3: PATH FORWARD ═══ -->
   <div class="screen" id="screen3">
     <div class="instruction-frame">
-      <div class="screen-label">Screen 3 of 3 — The Gap</div>
-      <p>The distance between where you are and where you want to be. This is where the real coaching conversation starts.</p>
+      <div class="screen-label">Screen 3 of 3 — The Path Forward</div>
+      <p>Here's what might need to shift — and some suggestions for getting started.</p>
     </div>
 
     <div class="report-panel active" id="gapPanel" style="opacity:1;max-height:none;padding:var(--space-xl);margin-bottom:var(--space-lg);">
@@ -1656,7 +1678,7 @@ body {
     0: { 1:"Action at 1. You have functionally opted out of forward motion. One point here means execution is not just deprioritized \u2014 it barely registers in your resource budget. The question worth sitting with: did you choose stillness, or did you run out of reasons to move?",2:"Action at 2. The bare minimum of momentum \u2014 enough to keep the lights on, not enough to build anything new. Two points in action means you are maintaining, not advancing.",3:"Action at 3. You have given execution a seat at the table, but not a vote. Three points means you can get things done when the deadline is real or the consequence is immediate, but discretionary effort gets consistently deferred.",4:"Action at 4. Just below the midpoint. You get things done when they genuinely need doing, but your energy flows more naturally toward other parts of your life. The doing happens \u2014 it just does not lead.",5:"Action at 5. The exact middle. You are investing a balanced share of your budget in getting things done \u2014 not driving pace, not falling behind.",6:"Action at 6. Slightly tilted toward doing \u2014 you are investing more energy in output than the balanced middle, but not so much that it defines your entire operating rhythm.",7:"Action at 7. Execution is a primary investment. Seven points here means you are consistently producing. The cost is that everything funded below five points on your board is getting squeezed.",8:"Action at 8. You are running a production-first life. Eight points in action means forward motion is where nearly a fifth of your total energy budget goes.",9:"Action at 9. Maximum allocation. You have given execution everything you can possibly give it. Nine points in action means doing is the organizing principle of your entire life." },
     1: { 1:"Communication at 1. You are virtually silent about what you think, need, and experience. The people around you are guessing.",2:"Communication at 2. You communicate just enough to avoid total disconnection \u2014 a sentence where a paragraph was needed.",3:"Communication at 3. Functional but minimal. You can get your point across when the stakes demand it, but you default to silence.",4:"Communication at 4. Below the midpoint. The things you leave unsaid slightly outnumber the things you express.",5:"Communication at 5. The midpoint allocation. You say what needs saying and hold back what does not feel urgent.",6:"Communication at 6. Slightly above center \u2014 you invest more in being understood than the average allocation.",7:"Communication at 7. A significant investment in self-expression. You are probably known as someone who says what they mean.",8:"Communication at 8. You have made self-expression a dominant feature. Communication can start to function as a control mechanism.",9:"Communication at 9. Maximum allocation. Everything gets said. Every thought, every reaction, every need gets expressed." },
     2: { 1:"Relationships at 1. You have allocated almost nothing to human connection.",2:"Relationships at 2. Barely funded. You maintain the minimum viable connection.",3:"Relationships at 3. Functional but thin. Your relationships run on residual warmth of past investment.",4:"Relationships at 4. Below center. The relationships that get your attention tend to be the easy ones or the emergencies.",5:"Relationships at 5. The balanced midpoint. You give people a proportional share of your budget.",6:"Relationships at 6. Slightly above center \u2014 your connections tend to run deeper than average.",7:"Relationships at 7. Connection is a primary investment. You are organizing a significant portion of your life around the people in it.",8:"Relationships at 8. You have made other people a dominant feature of your resource budget.",9:"Relationships at 9. Maximum allocation. Other people are the organizing principle of your existence." },
-    3: { 1:"Self-Awareness at 1. You are operating almost entirely without self-examination.",2:"Self-Awareness at 2. Minimal reflective investment. You occasionally catch yourself mid-pattern.",3:"Self-Awareness at 3. Enough to be occasionally honest with yourself, not enough to make it reliable.",4:"Self-Awareness at 4. Below center. You tend to understand what happened after it already happened.",5:"Self-Awareness at 5. The balanced allocation. You generally know your tendencies and can name your triggers when pressed.",6:"Self-Awareness at 6. Slightly above center \u2014 you can sometimes catch a pattern while it is happening.",7:"Self-Awareness at 7. Significant investment. You prioritize understanding your own patterns and motivations.",8:"Self-Awareness at 8. You have made self-examination a dominant investment. Self-awareness can tip into self-consciousness.",9:"Self-Awareness at 9. Maximum allocation. You live with a running internal commentary." },
+    3: { 1:"Self-Awareness at 1. You are operating almost entirely without self-examination.",2:"Self-Awareness at 2. Minimal reflective investment. You occasionally catch yourself mid-pattern.",3:"Self-Awareness at 3. Enough to be occasionally honest with yourself, not enough to make it reliable.",4:"Self-Awareness at 4. Below center. You tend to understand what happened after it already happened.",5:"Self-Awareness at 5. The balanced allocation. You generally know your tendencies and can name your triggers when pressed.",6:"Self-Awareness at 6. Slightly above center \u2014 you can sometimes catch a pattern while it is happening.",7:"Self-Awareness at 7. Significant investment. You prioritize understanding your own patterns and motivations.",8:"Self-Awareness at 8. You have made self-examination a dominant investment. Self-awareness can tip into self-consciousness.",9:"Self-Awareness at 9. Maximum allocation. You live with a running internal commentary. When this much energy flows inward, outward contact with the world has no budget left — the path forward is deciding which one click of self-awareness you would redirect into action or relationships this week." },
     4: { 1:"Boundaries at 1. You are functionally unprotected. Your time, energy, and emotional space are available to anyone.",2:"Boundaries at 2. Nearly absent protection. You occasionally decline something, but only when the cost is catastrophic.",3:"Boundaries at 3. Minimal but present. You have boundaries but defending them requires more energy than you have allocated.",4:"Boundaries at 4. Below center. You enforce selectively, sending confusing signals.",5:"Boundaries at 5. The balanced midpoint. You can say no, you do say no sometimes.",6:"Boundaries at 6. Slightly above center. People in your life encounter real limits when they push.",7:"Boundaries at 7. A primary investment. Your limits are clear, communicated, and mostly non-negotiable.",8:"Boundaries at 8. Strong protection. Very little gets through without your explicit permission.",9:"Boundaries at 9. Maximum allocation. Your life is structured around what stays out, not what comes in." },
     5: { 1:"Emotional Consistency at 1. You are living with virtually no investment in emotional regulation.",2:"Emotional Consistency at 2. Near-absent regulation. Sustained pressure cracks the container quickly.",3:"Emotional Consistency at 3. Enough regulation to function in low-stress environments.",4:"Emotional Consistency at 4. Below center. Functional-but-fragile emotional baseline.",5:"Emotional Consistency at 5. The midpoint. You hold steady when things are routine and bend when the pressure spikes. Most of the time, your composure is enough. The question is what happens in the moments when it is not.",6:"Emotional Consistency at 6. Slightly above center. Noticeably more resilience under pressure.",7:"Emotional Consistency at 7. Significant investment. Regulation is a priority you have deliberately funded.",8:"Emotional Consistency at 8. Dominant regulation. Very little external input moves your baseline.",9:"Emotional Consistency at 9. Maximum allocation. Your composure is comprehensive." },
     6: { 1:"Decision-Making at 1. You have functionally stopped making decisions.",2:"Decision-Making at 2. Near-absent commitment capacity.",3:"Decision-Making at 3. You make the calls that absolutely cannot wait and defer everything else. The decisions that get made are the ones with deadlines. The ones without deadlines sit indefinitely.",4:"Decision-Making at 4. Below center. You can commit when the choice is clear, but ambiguity slows you down more than you might realize. The gap between knowing what you want and actually choosing it is where your energy quietly leaks.",5:"Decision-Making at 5. Balanced allocation. You decide in a timely-enough fashion.",6:"Decision-Making at 6. Slightly above center. Noticeably less decision lag.",7:"Decision-Making at 7. A primary investment. You make calls and move on.",8:"Decision-Making at 8. Strong commitment capacity. You rarely hesitate.",9:"Decision-Making at 9. Maximum allocation. Every choice gets a commitment immediately." },
@@ -1669,21 +1691,21 @@ body {
   // MODIFIER CLAUSES — 36 configuration-dependent
   // ══════════════════════════════════════════════════
   var MODIFIERS = [
-    {id:"mod_rst_low_act_high",conditions:function(v){return v[7]<=2&&v[0]>=7;},modifies:7,clause:"...and the low rest investment collides directly with your high action allocation. You are producing at a pace your recovery cannot support. This is a countdown."},
+    {id:"mod_rst_low_act_high",conditions:function(v){return v[7]<=2&&v[0]>=7;},modifies:7,clause:"...and the low rest investment collides directly with your high action allocation. You are producing at a pace your recovery cannot support. The path forward is rebalancing before the pace forces the reallocation for you."},
     {id:"mod_com_high_saw_low",conditions:function(v){return v[1]>=7&&v[3]<=3;},modifies:1,clause:"...but your high communication is running on low self-awareness fuel. You express fluently. The question is whether what you are expressing has been examined."},
     {id:"mod_bnd_high_rel_high",conditions:function(v){return v[4]>=7&&v[2]>=7;},modifies:2,clause:"...and your high relational investment coexists with high boundary investment. You are choosing depth within limits."},
-    {id:"mod_dec_high_saw_low",conditions:function(v){return v[6]>=7&&v[3]<=3;},modifies:6,clause:"...and your decision-making runs on minimal self-examination. Fast decisions without self-knowledge produce confident mistakes."},
+    {id:"mod_dec_high_saw_low",conditions:function(v){return v[6]>=7&&v[3]<=3;},modifies:6,clause:"...and your decision-making runs on minimal self-examination. Fast decisions paired with growing self-knowledge is the configuration that turns decisiveness into wisdom."},
     {id:"mod_dec_high_str_low",conditions:function(v){return v[6]>=7&&v[8]<=3;},modifies:6,clause:"...and your high decision-making operates without analysis. You commit quickly, but the analysis behind the commitment is thin."},
     {id:"mod_emo_high_saw_low",conditions:function(v){return v[5]>=7&&v[3]<=3;},modifies:5,clause:"...but your emotional regulation operates without self-awareness. The composure may be suppression that has become habitual."},
     {id:"mod_rel_high_rst_low",conditions:function(v){return v[2]>=7&&v[7]<=2;},modifies:2,clause:"...and your heavy relational investment runs alongside nearly absent recovery. The warmth is genuine. The capacity behind it is borrowed."},
     {id:"mod_str_high_dec_low",conditions:function(v){return v[8]>=7&&v[6]<=3;},modifies:8,clause:"...and your heavy deliberation runs directly into minimal decision-making. Your analysis never resolves into commitment."},
-    {id:"mod_bnd_high_rel_low",conditions:function(v){return v[4]>=8&&v[2]<=3;},modifies:4,clause:"...and your strong boundaries coexist with minimal relational investment. The protection has become the architecture of isolation."},
-    {id:"mod_act_high_rst_low_str_low",conditions:function(v){return v[0]>=8&&v[7]<=2&&v[8]<=3;},modifies:0,clause:"...and your high action runs without rest or strategic thinking. You are sprinting in the dark with no plan to stop."},
+    {id:"mod_bnd_high_rel_low",conditions:function(v){return v[4]>=8&&v[2]<=3;},modifies:4,clause:"...and your strong boundaries coexist with minimal relational investment. The architecture is strong. The path forward is choosing one specific relationship to invest inside it."},
+    {id:"mod_act_high_rst_low_str_low",conditions:function(v){return v[0]>=8&&v[7]<=2&&v[8]<=3;},modifies:0,clause:"...and your high action runs without rest or strategic thinking. The path forward is building both the map and the off-ramp — the action is already there."},
     {id:"mod_emo_high_bnd_high",conditions:function(v){return v[5]>=7&&v[4]>=7;},modifies:5,clause:"...and your emotional regulation pairs with strong boundaries. Extremely stable and potentially inaccessible."},
     {id:"mod_com_high_rel_low",conditions:function(v){return v[1]>=7&&v[2]<=3;},modifies:1,clause:"...but your high communication runs alongside low relational investment. You are broadcasting into relationships you have not built."},
-    {id:"mod_saw_high_act_low",conditions:function(v){return v[3]>=7&&v[0]<=3;},modifies:3,clause:"...and your deep self-awareness pairs with minimal action. You understand your patterns and do almost nothing about them."},
+    {id:"mod_saw_high_act_low",conditions:function(v){return v[3]>=7&&v[0]<=3;},modifies:3,clause:"...and your deep self-awareness pairs with minimal action. You understand your patterns clearly. The next move is putting one of them into action this week."},
     {id:"mod_rel_high_bnd_low",conditions:function(v){return v[2]>=7&&v[4]<=2;},modifies:2,clause:"...and your heavy relational investment operates without boundary protection. You give without limits."},
-    {id:"mod_saw_high_rst_low",conditions:function(v){return v[3]>=7&&v[7]<=2;},modifies:3,clause:"...and your high self-awareness runs alongside depleted rest. Awareness without rest is knowing your house is on fire with no water."},
+    {id:"mod_saw_high_rst_low",conditions:function(v){return v[3]>=7&&v[7]<=2;},modifies:3,clause:"...and your high self-awareness runs alongside depleted rest. Awareness paired with restored rest is the configuration that makes the awareness actionable."},
     {id:"mod_dec_high_com_low",conditions:function(v){return v[6]>=7&&v[1]<=3;},modifies:6,clause:"...and your high decision-making operates in a low-communication environment. You make decisions nobody else understands."},
     {id:"mod_rst_high_act_low",conditions:function(v){return v[7]>=7&&v[0]<=3;},modifies:7,clause:"...and your high rest coexists with minimal action. The question: recovery or withdrawal?"},
     {id:"mod_com_high_str_low",conditions:function(v){return v[1]>=7&&v[8]<=3;},modifies:1,clause:"...but your high communication runs without strategic depth. You say things clearly that you have not thought through carefully."},
@@ -1693,7 +1715,7 @@ body {
     {id:"mod_rel_high_saw_high",conditions:function(v){return v[2]>=7&&v[3]>=7;},modifies:2,clause:"...and your heavy relational investment pairs with high self-awareness. You give with your eyes open \u2014 one of the more sustainable configurations."},
     {id:"mod_act_high_str_low",conditions:function(v){return v[0]>=7&&v[8]<=3;},modifies:0,clause:"...and your high action operates without strategic thinking. Moving fast in a direction you have not examined."},
     {id:"mod_saw_high_emo_low",conditions:function(v){return v[3]>=7&&v[5]<=3;},modifies:3,clause:"...and your high self-awareness coexists with low emotional regulation. You observe your emotional swings clearly and cannot do much about them."},
-    {id:"mod_rst_high_dec_low",conditions:function(v){return v[7]>=7&&v[6]<=3;},modifies:7,clause:"...and your high rest runs alongside low decision-making. Well-resourced and unable to commit those resources to anything."},
+    {id:"mod_rst_high_dec_low",conditions:function(v){return v[7]>=7&&v[6]<=3;},modifies:7,clause:"...and your high rest runs alongside low decision-making. Well-resourced — and the next step is directing those resources into a specific commitment."},
     {id:"mod_emo_high_rel_low",conditions:function(v){return v[5]>=7&&v[2]<=3;},modifies:5,clause:"...and your emotional stability operates alongside minimal relational investment. Steady, regulated, and largely alone."},
     {id:"mod_str_high_rel_low",conditions:function(v){return v[8]>=7&&v[2]<=3;},modifies:8,clause:"...and your heavy deliberation pairs with minimal relational investment. Your analysis has no relational inputs."},
     {id:"mod_dec_high_com_high",conditions:function(v){return v[6]>=7&&v[1]>=7;},modifies:6,clause:"...and your decision-making pairs with strong communication. One of the more effective leadership configurations."},
@@ -1753,9 +1775,9 @@ body {
       if(v[8]>=6)as+=1;if(v[3]<=4)as+=1;if(v[7]<=4)as+=1;if(v[1]<=4)as+=1;
     }
 
-    // Quiet Withdrawal — gate on Action <= 4 AND Communication <= 4 (UNCHANGED)
+    // Quiet Withdrawal — gate on Action <= 4 AND Communication <= 4 AND (ACT+COM) >= 3 (Sutton floor)
     var qws=0;
-    if(v[0]<=4&&v[1]<=4){
+    if(v[0]<=4&&v[1]<=4&&(v[0]+v[1])>=3){
       if(v[0]<=3)qws+=3;if(v[0]<=2)qws+=1;
       if(v[1]<=3)qws+=3;if(v[1]<=2)qws+=1;
       if(v[2]<=3)qws+=2;if(v[2]<=2)qws+=1;
@@ -1794,8 +1816,31 @@ body {
       // Soft-match: highest pattern score 4-5
       var softMatch=null,softScore=0;
       if(scores[0].score>=4){softMatch=scores[0].key;softScore=scores[0].score;}
+
+      // BALANCED CONFIGURATION pattern — fires LAST per Sutton.
+      // SD < 1.0, range gate 3-7 on all 9 sliders, no positive pattern matched above.
+      // Severity: extreme < 0.4, strong 0.4-0.7, standard 0.7-1.0
+      var sum=0,cnt=0;
+      for(var bi=0;bi<DIAL_COUNT;bi++){if(v[bi]>0){sum+=v[bi];cnt++;}}
+      var balancedConfig=null;
+      if(cnt===DIAL_COUNT){
+        var mean=sum/DIAL_COUNT;
+        var sqSum=0;
+        for(var bj=0;bj<DIAL_COUNT;bj++){sqSum+=(v[bj]-mean)*(v[bj]-mean);}
+        var sd=Math.sqrt(sqSum/DIAL_COUNT);
+        var inRange=true;
+        for(var bk=0;bk<DIAL_COUNT;bk++){if(v[bk]<3||v[bk]>7){inRange=false;break;}}
+        if(sd<1.0&&inRange){
+          var bcTier='standard';
+          if(sd<0.4)bcTier='extreme';
+          else if(sd<0.7)bcTier='strong';
+          balancedConfig={tier:bcTier,sd:sd};
+        }
+      }
+
       return {key:'balanced',score:0,secondKey:null,secondScore:0,
-              balancedTier:balancedTier,softMatch:softMatch,softScore:softScore};
+              balancedTier:balancedTier,softMatch:softMatch,softScore:softScore,
+              balancedConfig:balancedConfig};
     }
 
     var r={key:scores[0].key,score:scores[0].score,secondKey:null,secondScore:0};
@@ -1830,12 +1875,12 @@ body {
   // MIRROR MODE PATTERN CONTENT (Screen 1)
   // ══════════════════════════════════════════════════
   var MIRROR_PATTERNS = {
-    giver:{name:'The Giver Running on Empty',reads:{standard:"You are showing up hard for other people and barely showing up for yourself. Your board invested heavily in relationships while boundaries and rest sit near the bottom.",strong:"Your board tells a story your body already knows: you have been the reliable one for so long that your own needs stopped registering as priorities.",extreme:"This board is a picture of someone who has been giving so long they have forgotten what their own needs look like."},recs:["Move 2\u20133 points from Relationships into Boundaries. This does not mean care less. It means stop being available to everyone, all the time, at any cost.","Move 1\u20132 points into Rest \u2014 and defend them. Schedule one block of genuine recovery this week that is not interruptible.","Raise Self-Awareness by 1\u20132 points. Before your next three commitments, pause and ask: Am I saying yes because this is genuinely mine to do?","Test one relationship by stepping back for two weeks and see if the other person picks up the slack.","Raise Emotional Consistency by 1 point. One body-based regulation practice per day."],question:"What are you afraid would happen if you stopped being the reliable one \u2014 even for a week?"},
+    giver:{name:'The Giver Running on Empty',reads:{standard:"You are showing up hard for other people, and the investment in yourself has a lot of room to grow. Your board invested heavily in relationships while boundaries and rest sit near the bottom.",strong:"Your board tells a story your body already knows: you have been the reliable one for so long that your own needs stopped registering as priorities.",extreme:"This board is a picture of someone who has been giving so long they have forgotten what their own needs look like."},recs:["Move 2\u20133 points from Relationships into Boundaries. This does not mean care less. It means stop being available to everyone, all the time, at any cost.","Move 1\u20132 points into Rest \u2014 and defend them. Schedule one block of genuine recovery this week that is not interruptible.","Raise Self-Awareness by 1\u20132 points. Before your next three commitments, pause and ask: Am I saying yes because this is genuinely mine to do?","Test one relationship by stepping back for two weeks and see if the other person picks up the slack.","Raise Emotional Consistency by 1 point. One body-based regulation practice per day."],question:"What would you want to do with the energy you would get back if you took one week off from being the reliable one?"},
     thinker:{name:'The Thinker Who Can\u2019t Land the Plane',reads:{standard:"Your board shows a mind that is working hard and legs that are not moving. The analysis is thorough but it is not producing forward motion.",strong:"You have built an impressive thinking operation and it has one problem: it never ends.",extreme:"Your analytical mind has taken the wheel and will not let go."},recs:["Move 2\u20133 points from Strategic Thinking into Decision-Making. Set a deadline: decide by end of day Thursday.","Move 1\u20132 points into Action. Take one action before you finish thinking.","Make three low-stakes decisions this week with zero research phase.","Set a hard boundary on thinking after 9 PM.","If Communication is high, consider reducing it by 1 point."],question:"What would you do right now if you trusted that you already know enough?"},
-    engine:{name:'The Engine With No Off Switch',reads:{standard:"Your board shows someone in constant motion. Action is high, rest is low, and the pace has become self-sustaining.",strong:"You are running a high-output operation on a shrinking battery.",extreme:"Your board is a picture of someone who cannot stop."},recs:["Move 2\u20133 points from Action into Rest. This is the single most important trade on your board.","Raise Self-Awareness by 1\u20132 points. Track the trigger: what happens right before a burst of activity?","Raise Strategic Thinking by 1\u20132 points. 15 minutes of reflection before your next three major commitments.","Practice being still without it feeling like failure. One 30-minute block this week.","Raise Boundaries by 1 point if currently below 5."],question:"What would you have to feel if you stopped moving for a full day?"},
-    architect:{name:'The Architect of Control',reads:{standard:"Your board shows someone who has invested heavily in structure and self-protection \u2014 and lightly in letting other people in.",strong:"You have designed an impressive operating system. But your relational investment is near the bottom.",extreme:"Your board describes someone who has responded to past disruption by building a near-airtight system of self-protection."},recs:["Move 2 points from Boundaries into Relationships. Pick one person you trust and let them past the outer wall.","Raise Self-Awareness by 2 points. Write down what you are protecting yourself from \u2014 specifically.","Raise Communication by 1\u20132 points. Try leading with transparency once this week.","Check whether your Emotional Consistency is regulation or suppression.","Raise Rest by 1\u20132 points if below 5."],question:"What would you have to risk if you let one person see you without the armor?"},
+    engine:{name:'The Engine With No Off Switch',reads:{standard:"Your board shows someone in constant motion. Action is high, rest is low, and the pace has become self-sustaining.",strong:"You are running a high-output operation on a shrinking battery.",extreme:"Your board is a picture of someone whose pace is currently set to one speed — and the path forward is building the off switch."},recs:["Move 2\u20133 points from Action into Rest. This is the single most important trade on your board.","Raise Self-Awareness by 1\u20132 points. Track the trigger: what happens right before a burst of activity?","Raise Strategic Thinking by 1\u20132 points. 15 minutes of reflection before your next three major commitments.","Practice being still as a deliberate practice. One 30-minute block this week.","Raise Boundaries by 1 point if currently below 5."],question:"What would you want to spend a full day of stillness on if you gave yourself one this week?"},
+    architect:{name:'The Architect of Control',reads:{standard:"Your board shows someone who has invested heavily in structure and self-protection \u2014 and lightly in letting other people in.",strong:"You have designed an impressive operating system. But your relational investment is near the bottom.",extreme:"Your board describes someone who has responded to past disruption by building a near-airtight system of self-protection."},recs:["Move 2 points from Boundaries into Relationships. Pick one person you trust and let them past the outer wall.","Raise Self-Awareness by 2 points. Write down what you are protecting yourself from \u2014 specifically.","Raise Communication by 1\u20132 points. Try leading with transparency once this week.","Check whether your Emotional Consistency is regulation or suppression.","Raise Rest by 1\u20132 points if below 5."],question:"If you let one person see you without the armor this week, what is the first thing you would want them to understand about you?"},
     withdrawal:{name:'The Quiet Withdrawal',reads:{standard:"Your board shows someone who has pulled back. Action is low, communication is low, relationships are thinly funded \u2014 and the energy that left those categories did not go to building walls or systems. It went to rest. That is not necessarily a problem. But the pattern it creates is one where the world gets less of you with each passing week, and you may not have noticed the retreat because it happened so gradually. The question is whether you chose this quieter life or whether it chose you.",strong:"Your board describes someone who has been leaving the room \u2014 not in one dramatic exit, but in a series of small withdrawals that added up. Action is barely funded. Communication is near-silent. Relational investment has thinned to maintenance levels. The energy has redistributed toward rest and, potentially, self-observation. You may be watching yourself withdraw and naming it accurately \u2014 which makes it worse, because awareness without engagement is its own kind of prison.",extreme:"Your board is a picture of someone who has stopped participating. Not in the angry, door-slamming sense. In the quiet sense \u2014 the kind where people do not notice for weeks because you were never loud to begin with. Action, communication, and relational investment have all dropped to near-minimum levels. Whatever capacity you have left is going to rest and, possibly, to understanding what happened. This is not laziness and it is not peace. This is the aftermath of something that used up the energy you would need to engage, and the engagement deficit compounds because re-entry requires the very resources the withdrawal depleted."},recs:["Start with one output channel, not all of them. Pick action OR communication OR relationships \u2014 whichever costs you the least \u2014 and move 2 points into it. You do not need to re-enter the world on every front simultaneously.","Set one external commitment this week that someone else is expecting. Not because you want to, but because the accountability creates the structure that the withdrawal dissolved.","Separate rest from avoidance. If rest is high on your board, check whether the rest is genuinely restorative or whether it is the absence of doing anything.","Tell one person what is happening. Not everyone. One person you trust. The withdrawal isolates, and isolation reinforces the withdrawal.","Track one thing you did today that required effort, no matter how small. The withdrawal narrative tells you that you are doing nothing. The data will probably tell you that you are doing more than nothing."],question:"What was the last thing that pulled you forward \u2014 not pushed you, but pulled, because you genuinely wanted to move toward it?"},
-    performer:{name:'The Performer Without a Mirror',reads:{standard:"Your board shows someone who is producing, communicating, and showing up \u2014 while investing almost nothing in understanding why. The output is real. The visibility is real. What is thin is the channel that would tell you what all this activity is doing to you, what is driving it, and whether the person other people see matches the person you actually are. You are performing effectively. The mirror that would show you the performance is turned off.",strong:"Your board describes someone who has built an impressive external presence \u2014 high output, high communication, high visibility \u2014 on a foundation that includes almost no self-examination. Everyone around you has a clear picture of who you are. The question is whether YOU have that picture. The gap between how you appear and how you understand yourself is wide enough that other people may know things about your patterns that you do not.",extreme:"Your board is a picture of someone who has been performing at full volume with the self-awareness turned completely off. You produce. You communicate. You show up. You have no idea what it costs you, why you do it, or what would happen if you stopped. The external operation is running beautifully. The internal monitoring system is unfunded. When the cost arrives \u2014 and it will, because costs always do \u2014 you will be the last person to see it coming. Everyone else will say they saw it. You will be genuinely shocked."},recs:["Move 2\u20133 points into Self-Awareness. This is the single most important trade on your board. You do not need to stop performing. You need to watch yourself perform.","Ask three people you trust one question: \u2018What do you see me doing that I do not seem to notice?\u2019 Then listen without defending.","Move 1\u20132 points into Rest. The performance requires fuel, and your board shows the fuel line running thin.","Track the gap between what you feel and what you show for one week. Every time you smile when you are frustrated, say \u2018I am fine\u2019 when you are not, or project energy you do not have \u2014 write it down.","Raise Boundaries by 1\u20132 points. The performer pattern runs on accessibility \u2014 being available, being visible, being \u2018on.\u2019 Boundaries create the off switch the pattern does not naturally produce."],question:"If the people in your life could see what it actually costs you to show up the way you do, what would surprise them most?"}
+    performer:{name:'The Performer Without a Mirror',reads:{standard:"Your board shows someone who is producing, communicating, and showing up \u2014 while investing almost nothing in understanding why. The output is real. The visibility is real. What is thin is the channel that would tell you what all this activity is doing to you, what is driving it, and whether the person other people see matches the person you actually are. You are performing effectively. The mirror that would show you the performance is ready to be turned on — and that is the single highest-leverage shift available to you.",strong:"Your board describes someone who has built an impressive external presence \u2014 high output, high communication, high visibility \u2014 on a foundation that includes almost no self-examination. Everyone around you has a clear picture of who you are. The question is whether YOU have that picture. The gap between how you appear and how you understand yourself is wide enough that other people may know things about your patterns that you do not.",extreme:"Your board is a picture of someone who has been performing at full volume with the self-awareness turned completely off. You produce. You communicate. You show up. You have no idea what it costs you, why you do it, or what would happen if you stopped. The external operation is running beautifully. The internal monitoring system is the single category with the most upside available to you right now. When the cost arrives \u2014 and it will, because costs always do \u2014 you will be the last person to see it coming. Everyone else will say they saw it. You will be genuinely shocked."},recs:["Move 2\u20133 points into Self-Awareness. This is the single most important trade on your board. You do not need to stop performing. You need to watch yourself perform.","Ask three people you trust one question: \u2018What do you see me doing that I do not seem to notice?\u2019 Then listen without defending.","Move 1\u20132 points into Rest. The performance requires fuel, and your board shows the fuel line running thin.","Track the gap between what you feel and what you show for one week. Every time you smile when you are frustrated, say \u2018I am fine\u2019 when you are not, or project energy you do not have \u2014 write it down.","Raise Boundaries by 1\u20132 points. The performer pattern runs on accessibility \u2014 being available, being visible, being \u2018on.\u2019 Boundaries create the off switch the pattern does not naturally produce."],question:"If the people in your life could see the full version of who you are behind the performance, what would you most want them to recognize?"}
   };
 
 
@@ -1845,10 +1890,10 @@ body {
   var PLAY_PATTERNS = {
     giver:{name:'The Giver Running on Empty',read:"Your ideal configuration puts other people at the center. You want a life where relationships receive the lion\u2019s share of your energy. That is a genuine value. But your desired board also shows thin investment in boundaries and recovery, which means you are picturing a version of generosity that runs on a resource it does not replenish.",pluses:["Deep relational capital. People configured this way build the kind of trust that takes years to earn.","You will rarely feel alone. At this investment level, connection is not something you hope for \u2014 it is something your budget guarantees. You will have people who call, people who check in, people who think of you when opportunities arise \u2014 because you funded that with real energy other sliders did not receive.","Emotional intelligence becomes your primary operating system.","Meaning through contribution. Your sense of purpose comes directly from your impact on others \u2014 which is why low periods feel like identity loss, not just bad weeks. This board funds that connection between meaning and service at a level where the two become structurally inseparable.","You become the person people trust with the real thing."],minuses:["Your own needs become invisible \u2014 to you first, then to everyone else.","Resentment builds in silence. The gap between what you give and receive will produce frustration.","Recovery is not optional \u2014 it is physics.","Your identity becomes contingent on being needed.","The people closest to you may never learn to function without your support.","Your own projects will consistently lose the priority contest."],recs:["Build a recovery ritual that is non-negotiable and not contingent on other people\u2019s schedules.","Create a giving budget for each week \u2014 and when it runs out, it runs out.","Practice receiving without reciprocating immediately.","Have one relationship where you are NOT the strong one.","Schedule a quarterly honest assessment: what have I wanted for myself that I deferred for someone else?"],question:"If the people in your life were fully capable of handling their own needs, what would you do with the energy you just freed up?"},
     thinker:{name:'The Thinker Who Can\u2019t Land the Plane',read:"Your ideal configuration puts understanding above everything else. You want space, time, and freedom to think things through thoroughly before committing. But your desired board also shows low investment in decisiveness and action, which means you are imagining a life where the thinking never has to survive contact with reality.",pluses:["Superior pattern recognition. You see connections others miss.","You rarely make avoidable mistakes.","Intellectual depth becomes your currency.","Calm under pressure from information overload.","Non-obvious insight production. Your board funds enough analysis that you regularly produce insights others miss \u2014 the kind of non-obvious connection that only emerges after extended deliberation. The 80% version of your thinking is still deeper than most people\u2019s 100%, which is exactly why shipping at 80% is a recommendation, not a compromise."],minuses:["Opportunities have expiration dates, and analysis does not respect them.","The feeling of readiness never arrives.","Relationships suffer from analysis.","Physical and emotional stagnation.","Perfectionism disguised as standards.","You become the advisor, never the protagonist."],recs:["Install a decision deadline protocol. Small decisions: 24 hours. Large: two weeks maximum.","Ship at 80%. Release one thing before you consider it finished.","Build one action-forcing relationship.","Designate thinking hours and protect everything outside them.","Practice making one irreversible commitment per month."],question:"What decision have you been researching that you already know the answer to?"},
-    engine:{name:'The Engine With No Off Switch',read:"Your ideal configuration puts output and momentum at the top of the board. But your desired board also shows minimal investment in rest and limited investment in self-awareness. The risk is not that you want to produce at a high level. It is that you are designing a life where slowing down is structurally impossible.",pluses:["Massive output. More done in a week than most people in a month.","Opportunities multiply through momentum.","You become the person people count on for delivery.","Decisiveness under pressure.","Simplicity of purpose. The low deliberation budget means less agonizing and more acting \u2014 for someone wired to produce, that restriction feels like freedom rather than limitation. You do not spend time wondering what to do next because the board did not fund the wondering. That is a genuine advantage when the direction is right."],minuses:["The crash is not a possibility \u2014 it is a scheduling question.","What you are producing may not be what matters most.","The people around you pay the tax you are avoiding.","Stillness becomes threatening.","Self-awareness atrophies.","Your definition of success narrows to output metrics."],recs:["Hardcode one full rest day per week with zero productive output.","Build a 15-minute strategic review into every morning.","Assign someone you trust to tell you when you look worn out.","Track output quality, not output volume, for one month.","Schedule one unstructured hour per day where the only rule is: no tasks."],question:"If you could not measure your worth by what you produced, what would you measure it by?"},
-    architect:{name:'The Architect of Control',read:"Your ideal configuration puts structure, stability, and self-sufficiency at the top. But your desired board also shows thin investment in relationships, which means you are designing a life that is orderly, protected, and increasingly alone.",pluses:["Emotional sovereignty. Your internal state belongs to you.","Consistent performance regardless of external conditions.","Strong boundaries create genuine capacity.","Strategic clarity without emotional noise.","Self-reliance as a genuine capability."],minuses:["The architecture keeps out things you need, not just things you fear.","You will be respected and rarely known.","Composure at these levels often masks suppression.","Maintaining control is more exhausting than it appears.","The system becomes the identity. When Boundaries and Emotional Consistency absorb this much of your budget, the distinction between \u2018how I protect myself\u2019 and \u2018who I am\u2019 dissolves. Adjusting a boundary feels like amputating a part of yourself \u2014 not because the boundary is correct, but because the investment level has made it structural rather than strategic.","Other people stop trying."],recs:["Choose one person and give them a key.","Schedule one deliberately uncontrolled experience per week.","Track when your composure costs you something for two weeks.","Invest in one relationship where you have no strategic purpose.","Ask for help once this week when you do not need it."],question:"Who would you let see you struggling \u2014 and what would have to change before that felt safe?"},
+    engine:{name:'The Engine With No Off Switch',read:"Your ideal configuration puts output and momentum at the top of the board. But your desired board also shows minimal investment in rest and limited investment in self-awareness. The risk is not that you want to produce at a high level. It is that you are designing a life where slowing down is structurally impossible.",pluses:["Massive output. More done in a week than most people in a month.","Opportunities multiply through momentum.","You become the person people count on for delivery.","Decisiveness under pressure.","Simplicity of purpose. The low deliberation budget means less agonizing and more acting \u2014 for someone wired to produce, that restriction feels like freedom rather than limitation. You do not spend time wondering what to do next because the board did not fund the wondering. That is a genuine advantage when the direction is right."],minuses:["The crash is not a possibility \u2014 it is a scheduling question.","What you are producing may not be what matters most.","The people around you pay the tax you are avoiding.","Stillness becomes threatening.","Self-awareness atrophies.","Your definition of success narrows to output metrics."],recs:["Hardcode one full rest day per week with zero productive output.","Build a 15-minute strategic review into every morning.","Assign someone you trust to tell you when you look worn out.","Track output quality, not output volume, for one month.","Schedule one unstructured hour per day where the only rule is: no tasks."],question:"If your sense of worth were funded by something other than output, what would you want it to come from?"},
+    architect:{name:'The Architect of Control',read:"Your ideal configuration puts structure, stability, and self-sufficiency at the top. But your desired board also shows thin investment in relationships, which means you are designing a life that is orderly, protected, and increasingly alone.",pluses:["Emotional sovereignty. Your internal state belongs to you.","Consistent performance regardless of external conditions.","Strong boundaries create genuine capacity.","Strategic clarity without emotional noise.","Self-reliance as a genuine capability."],minuses:["The architecture keeps out things you need, not just things you fear.","You will be respected and rarely known.","Composure at these levels often masks suppression.","Maintaining control is more exhausting than it appears.","The system becomes the identity. When Boundaries and Emotional Consistency absorb this much of your budget, the distinction between \u2018how I protect myself\u2019 and \u2018who I am\u2019 dissolves. Adjusting a boundary feels like amputating a part of yourself \u2014 not because the boundary is correct, but because the investment level has made it structural rather than strategic.","Other people stop trying."],recs:["Choose one person and give them a key.","Schedule one deliberately uncontrolled experience per week.","Track when your composure costs you something for two weeks.","Invest in one relationship where you have no strategic purpose.","Ask for help once this week when you do not need it."],question:"Who would you most want to let in closer this year, and what would you want them to see first?"},
     withdrawal:{name:'The Quiet Withdrawal',read:"Your ideal configuration puts stillness and solitude at the center. You want a life where the volume is low \u2014 low output, low social demand, low expectation. That is not inherently problematic. Plenty of people thrive in configurations that the productivity-obsessed world would call \u2018too quiet.\u2019 The question your board raises is not whether this life would be peaceful. It is whether the peace you are imagining is something you would walk toward with energy or something you would collapse into with relief. If the first, this board is a genuine preference. If the second, the desired state is not a destination \u2014 it is a description of exhaustion wearing the language of intentionality.",pluses:["Low noise, high clarity. A life configured this way has almost no ambient social obligation. The calendar is clear. The inbox is manageable. The mental space that other people fill with relational maintenance is available for whatever you actually want to think about.","Genuine autonomy. With low relational investment and low external communication, your time belongs entirely to you. Nobody is waiting for a reply, expecting a call, or depending on your presence.","Space for deep processing. If self-awareness is funded alongside this withdrawal, you are giving yourself the quietest possible conditions for genuine self-examination.","Reduced conflict and friction. A life with minimal social engagement produces minimal social friction. You are not fighting with anyone, disappointing anyone, or managing anyone\u2019s expectations.","Potential for genuine restoration. If this configuration follows a period of depletion, it may be exactly the season you need \u2014 a fallow period where the ground recovers before the next planting."],minuses:["Withdrawal compounds. The longer you stay in this configuration, the harder re-entry becomes. Social skills atrophy, professional connections cool, and the distance between your life and the world\u2019s pace widens until bridging it feels impossible rather than merely effortful.","Isolation does not announce itself. A life designed around minimal engagement feels chosen until it does not. The transition from \u2018I prefer this\u2019 to \u2018I cannot imagine re-engaging\u2019 is gradual and invisible from the inside.","You are designing a life without witnesses. Nobody sees what you do, how you are, or what you need. That means nobody intervenes when the configuration stops serving you.","Rest without output becomes its own stressor. A life organized around recovery that never deploys the recovered energy produces a specific kind of restlessness \u2014 the feeling of being ready for something that never arrives.","Your sense of identity narrows. Without action, communication, or relational investment producing external evidence of who you are, identity becomes entirely internal.","The people who would care are the people you are not investing in. If this desired state becomes real, the relationships that would notice and intervene are the same ones being defunded."],recs:["Keep one lifeline active. Not five. One. One person who has standing permission to check in, to push back, to say \u2018I have not heard from you and I am checking.\u2019","Build a weekly review practice: \u2018Am I still choosing this, or has this chosen me?\u2019 Write the answer.","Protect the self-awareness investment. If rest and solitude are high, self-awareness is the only instrument you have for monitoring whether the configuration is serving you.","Schedule one act of re-entry per month. One dinner, one meeting, one phone call \u2014 something that requires you to engage with another person for more than a transaction.","Distinguish between peace and numbness. They feel similar from the inside. The test: does the stillness feel like something, or does it feel like the absence of everything?"],question:"If someone you trust told you they were worried about how much you have pulled back, would your first reaction be surprise \u2014 or recognition?"},
-    performer:{name:'The Performer Without a Mirror',read:"Your ideal configuration puts visibility, output, and impact at the top of the board. You want a life where you are producing at a high level and communicating clearly \u2014 where your work and your presence are unmistakable. That is a legitimate ambition, and people who execute it well produce extraordinary careers. But your desired board also shows minimal investment in self-awareness, which means you are designing a high-performance life without a dashboard. The engine runs, the output flows, the world responds \u2014 and you never check the gauges. The risk is not that the performance fails. It is that the performance succeeds so thoroughly that you never notice what it replaces: a genuine understanding of who you are when you are not performing.",pluses:["Extraordinary external impact. People configured this way get seen, heard, and remembered. High action plus high communication means your work and your presence both register.","Rapid career acceleration. Output plus visibility is the formula for being noticed by the people who decide promotions, partnerships, and opportunities.","Charismatic presence. High communication paired with high action produces someone who talks and delivers \u2014 the combination people follow.","Comfort with exposure. Where others agonize about visibility, you embrace it. Public speaking, high-stakes meetings, being the face of a project \u2014 these do not threaten you.","Simplicity of direction. Low self-awareness, paradoxically, produces a kind of clarity. You are not second-guessing your motives, questioning your patterns, or agonizing about whether the direction is right."],minuses:["You are the last person to know. Whatever pattern you are running \u2014 overwork, people-pleasing, image management, avoidance disguised as productivity \u2014 you are the last person in the room to see it.","The performance replaces the person. When this much energy goes to output and communication with this little going to self-examination, \u2018who you are\u2019 and \u2018how you perform\u2019 become indistinguishable.","Your relationships receive the performance, not you. People close to you get the same high-output, high-communication version that everyone else gets.","Recovery is structurally impossible. Low rest plus low self-awareness means you do not know you are depleted AND you have no mechanism for addressing it.","Feedback does not land. Without self-awareness, the feedback people offer you has no internal structure to connect with.","The identity costs are invisible. The things you sacrifice to maintain the performance \u2014 the relationships that needed more depth, the health that needed more attention \u2014 accumulate silently."],recs:["Install one self-awareness practice that is non-negotiable. Five minutes per day, writing: \u2018What did I feel today that I did not show anyone?\u2019","Appoint a truth-teller. One person who has explicit permission to say: \u2018You are performing right now and I need the real version.\u2019","Build a weekly rest block that cannot be filled with productive activity. Not \u2018light work.\u2019 Not \u2018catching up on reading.\u2019 Actual rest.","Track what you say yes to for two weeks without changing anything. Just record. At the end of two weeks, look for the pattern.","Have one conversation per week where you do not perform. No charm, no strategic listening, no value delivery. Just a person talking to another person."],question:"When was the last time someone saw the unedited version of you \u2014 and how long ago was that?"}
+    performer:{name:'The Performer Without a Mirror',read:"Your ideal configuration puts visibility, output, and impact at the top of the board. You want a life where you are producing at a high level and communicating clearly \u2014 where your work and your presence are unmistakable. That is a legitimate ambition, and people who execute it well produce extraordinary careers. But your desired board also shows minimal investment in self-awareness, which means you are designing a high-performance life without a dashboard. The engine runs, the output flows, the world responds \u2014 and you never check the gauges. The risk is not that the performance fails. It is that the performance succeeds so thoroughly that you never notice what it replaces: a genuine understanding of who you are when you are not performing.",pluses:["Extraordinary external impact. People configured this way get seen, heard, and remembered. High action plus high communication means your work and your presence both register.","Rapid career acceleration. Output plus visibility is the formula for being noticed by the people who decide promotions, partnerships, and opportunities.","Charismatic presence. High communication paired with high action produces someone who talks and delivers \u2014 the combination people follow.","Comfort with exposure. Where others agonize about visibility, you embrace it. Public speaking, high-stakes meetings, being the face of a project \u2014 these do not threaten you.","Simplicity of direction. Low self-awareness, paradoxically, produces a kind of clarity. You are not second-guessing your motives, questioning your patterns, or agonizing about whether the direction is right."],minuses:["You are the last person to know. Whatever pattern you are running \u2014 overwork, people-pleasing, image management, avoidance disguised as productivity \u2014 you are the last person in the room to see it.","The performance replaces the person. When this much energy goes to output and communication with this little going to self-examination, \u2018who you are\u2019 and \u2018how you perform\u2019 become indistinguishable.","Your relationships receive the performance, not you. People close to you get the same high-output, high-communication version that everyone else gets.","Recovery is structurally impossible. Low rest plus low self-awareness means you do not know you are depleted AND you have no mechanism for addressing it.","Feedback does not land. Without self-awareness, the feedback people offer you has no internal structure to connect with.","The identity costs are invisible. The things you sacrifice to maintain the performance \u2014 the relationships that needed more depth, the health that needed more attention \u2014 accumulate silently."],recs:["Install one self-awareness practice that is non-negotiable. Five minutes per day, writing: \u2018What did I feel today that I did not show anyone?\u2019","Appoint a truth-teller. One person who has explicit permission to say: \u2018You are performing right now and I need the real version.\u2019","Build a weekly rest block that cannot be filled with productive activity. Not \u2018light work.\u2019 Not \u2018catching up on reading.\u2019 Actual rest.","Track what you say yes to for two weeks without changing anything. Just record. At the end of two weeks, look for the pattern.","Have one conversation per week where you do not perform. No charm, no strategic listening, no value delivery. Just a person talking to another person."],question:"Who in your life gets the unedited version of you most often — and how would you want to extend that to one more person this year?"}
   };
 
 
@@ -1856,14 +1901,14 @@ body {
   // GAP NARRATIVES (Screen 3)
   // ══════════════════════════════════════════════════
   var GAP_NARRATIVES = {
-    giver_to_architect:"You are currently organized around other people\u2019s needs. You want to be organized around your own structure. That is a fundamental reorientation. The identity you have built around being available will resist this shift at every step. What you gain is sovereignty. What you lose is the version of yourself that everyone else depends on.",
-    giver_to_thinker:"You are currently pouring energy into people. You want to redirect it into understanding and analysis. The cost is real: people used to your availability will feel the withdrawal. The gain is equally real \u2014 you develop your own thinking, your own perspective that is not filtered through what others need from you.",
+    giver_to_architect:"You are currently organized around other people\u2019s needs. You want to be organized around your own structure. That is a fundamental reorientation. The identity you have built around being available will resist this shift at every step. What you gain is sovereignty. What shifts is the version of yourself that everyone else depends on — some of those dependencies will reshape, and the ones that matter most will adapt.",
+    giver_to_thinker:"You are currently pouring energy into people. You want to redirect it into understanding and analysis. The tradeoff is real: people used to your availability will need to adapt to a different version of you — and some of them will. The gain is equally real \u2014 you develop your own thinking, your own perspective that is not filtered through what others need from you.",
     giver_to_engine:"You are currently spending energy on other people. You want to spend it on output and forward motion. The risk is that the caretaking does not stop \u2014 it just gets a productivity label. The honest version means trading some relational energy for genuine momentum on your own priorities.",
     thinker_to_engine:"You are currently investing in analysis. You want to invest in action. The shift requires trading the comfort of thorough preparation for the discomfort of imperfect execution. The readiness you have been waiting for lives on the other side of the first move.",
     thinker_to_architect:"You are currently stuck in analysis. You want to move toward control and structure. This shift means taking everything you have learned and actually building something with it \u2014 systems, boundaries, a life that operates on the conclusions you already reached but never implemented.",
-    engine_to_architect:"You are currently in constant motion. You want to move toward controlled, structured stability. That means trading volume of output for quality of architecture. You gain sustainability and composure. You lose the adrenaline of productivity.",
+    engine_to_architect:"You are currently in constant motion. You want to move toward controlled, structured stability. That means trading volume of output for quality of architecture. You gain sustainability and composure. What you trade is the adrenaline of productivity — which for many people in this pattern has been a cost, not a reward, by the time they reach this board.",
     engine_to_giver:"You are currently channeling everything into output. You want to redirect toward relational investment. The risk is that you bring the Engine\u2019s pace into the Giver\u2019s territory. The honest version means slowing down enough to be genuinely present with people.",
-    architect_to_giver:"You are currently behind walls. You want to come out. That is the most terrifying shift on this board. The cost is vulnerability, and for someone in the Architect pattern, vulnerability has been structurally prohibited for a long time.",
+    architect_to_giver:"You are currently behind walls. You want to come out. That is the biggest shift on this board. What it asks of you is vulnerability — and what it opens is a kind of connection the architecture has been keeping at a distance.",
     architect_to_engine:"You are currently organized around control. You want to be organized around action and forward motion. The walls stay up, but what changes is what happens inside them: instead of maintaining stability, you want to produce.",
     thinker_to_giver:"You are currently in your head. You want to be in your relationships. Instead of understanding people through analysis, you are asking to understand them through proximity and vulnerability.",
     engine_to_thinker:"You are currently in motion. You want to think. The Engine\u2019s entire identity is built around doing, and thinking without doing will feel like failure for a long time before it feels like strategy.",
@@ -1879,11 +1924,11 @@ body {
     withdrawal_to_performer:"You have been absent. You want to be the most visible person in the room. That is the largest possible swing on the engagement axis. The desire makes sense: the withdrawal was invisible and the Performer pattern is the opposite of invisible. The risk is that you overcorrect from total disengagement to total performance without building the self-awareness that would make either one a conscious choice. The performance will feel alive after the withdrawal. Make sure it is YOUR aliveness and not just the relief of no longer being still.",
     giver_to_withdrawal:"You have been giving everything to other people. You want to give almost nothing to anyone, including yourself. That is not a preference \u2014 that is a collapse signal. The Giver pattern ran you empty, and the withdrawal is the bill coming due. Be careful what you do with this transition. The Quiet Withdrawal can be restorative if it is temporary and self-aware. It becomes dangerous if it persists past the restoration point and becomes a permanent stance. Give yourself the rest. Set a timeline for re-emergence.",
     engine_to_withdrawal:"You have been in constant motion. You want to stop entirely. The Engine finally hit the wall. This transition makes sense \u2014 the pace was unsustainable and the withdrawal is the correction. The risk is that you go from one extreme to the other without ever finding the middle. Somewhere between the Engine\u2019s relentless production and the Withdrawal\u2019s near-total disengagement is a configuration that lets you produce and recover simultaneously. That middle space is the actual goal, even if the withdrawal is the necessary first step.",
-    architect_to_withdrawal:"You are currently organized around active control. You want to let go of everything \u2014 the systems, the walls, the management of your own life. This shift means the control became exhausting. The architecture that was supposed to protect you became another job. The Quiet Withdrawal offers the opposite: no systems, no management, no structure to maintain. That relief is real. What you lose is everything the Architect gave you \u2014 direction, protection, a sense of agency. Watch for the moment the relief shifts to drift.",
+    architect_to_withdrawal:"You are currently organized around active control. You want to let go of everything \u2014 the systems, the walls, the management of your own life. This shift means the control became exhausting. The architecture that was supposed to protect you became another job. The Quiet Withdrawal offers the opposite: no systems, no management, no structure to maintain. That relief is real. What shifts is everything the Architect gave you \u2014 direction, protection, a sense of agency. The path forward is deciding which of those you want to rebuild differently rather than let go of entirely. Watch for the moment the relief shifts to drift.",
     thinker_to_withdrawal:"You are currently thinking. You want to stop. The Thinker pattern filled your mind and you want to empty it. This shift suggests the analysis became its own source of exhaustion \u2014 the mind that would not stop running is now requesting shutdown. That is a legitimate desire. The risk is that the withdrawal turns off more than the thinking. You wanted to stop the mental noise; you may find that the silence extends to everything else. If you can withdraw selectively \u2014 less analysis, maintained connection, maintained action \u2014 the relief will be more sustainable than the total retreat your board is describing.",
     performer_to_withdrawal:"You are currently performing at full volume. You want to stop entirely. That is not a preference shift \u2014 that is a system requesting shutdown. The performance ran without self-awareness long enough that the only option your board can imagine is the complete opposite. Be careful: the withdrawal will feel like relief, and it may be necessary, but the goal is not to go from performing without awareness to withdrawing without awareness. The goal is to develop the self-awareness that makes either configuration a choice rather than a compulsion.",
-    performer_to_thinker:"You are currently producing and communicating at high volume. You want to think instead. The shift means pulling back from output and redirecting toward analysis \u2014 the exact function the performer pattern has been using activity to avoid. What you gain is depth and self-understanding. What you lose is the momentum and visibility that have defined you. The transition is harder than most because the Performer\u2019s identity is built on external evidence, and the Thinker\u2019s value is largely internal. You will feel invisible for a while. That is the point.",
-    performer_to_architect:"You are currently performing without boundaries or self-awareness. You want to build walls and systems. The shift from Performer to Architect means trading visibility for protection \u2014 the performance stops being the organizing principle and control takes over. What you gain is structure, sustainability, and a life that does not require constant output to feel valid. What you lose is the external validation that the performance was designed to produce. The Architect can sustain what the Performer cannot \u2014 but the Architect also risks trading one form of disconnection (from self) for another (from others).",
+    performer_to_thinker:"You are currently producing and communicating at high volume. You want to think instead. The shift means pulling back from output and redirecting toward analysis \u2014 the exact function the performer pattern has been using activity to avoid. What you gain is depth and self-understanding. What you trade is the momentum and visibility that have defined you. The transition is harder than most because the Performer\u2019s identity is built on external evidence, and the Thinker\u2019s value is largely internal. You will feel invisible for a while. That is the point.",
+    performer_to_architect:"You are currently performing without boundaries or self-awareness. You want to build walls and systems. The shift from Performer to Architect means trading visibility for protection \u2014 the performance stops being the organizing principle and control takes over. What you gain is structure, sustainability, and a life that does not require constant output to feel valid. What you trade is the external validation that the performance was designed to produce. The Architect can sustain what the Performer cannot \u2014 but the Architect also risks trading one form of disconnection (from self) for another (from others).",
     performer_to_giver:"You are currently performing for the world. You want to give to specific people. The shift means redirecting the high-output energy from broad visibility to deep relational investment. The communication stays high but the audience narrows. The risk is that the performance follows you into the Giver pattern \u2014 that you perform generosity the same way you performed competence, without the self-awareness to know the difference. The honest version of this shift means developing the self-awareness alongside the relational investment, so the giving is real rather than another role.",
     performer_to_engine:"You are currently performing. You want to produce. The difference is subtle but structural: the Performer produces for an audience, the Engine produces for the output itself. The shift means keeping the high action but detaching it from the communication and visibility that made it a performance. What you gain is a purer relationship with your own work. What you lose is the external feedback loop that told you the work mattered. For the Performer, that feedback loop is oxygen. Letting it go will feel like suffocation before it feels like freedom.",
     giver_to_performer:"You are currently organized around other people\u2019s needs. You want to be organized around your own visibility and output. The relational investment decreases and the action-communication axis goes to maximum. The risk is that this is not a shift from giving to performing \u2014 it is a shift from one audience to another. Check whether the desired state is about building something for yourself or about building an image for the world.",
@@ -1913,7 +1958,7 @@ body {
       recommendation:"Do not try to make this shift in a month. Pick the single highest-stakes action you have been avoiding and move on it within seven days. Identity shifts of this size are built from individual moves that cross a line you had been holding \u2014 not from a new routine."
     },
     ACT_down_small:{
-      commentary:"You want to pull back on execution \u2014 doing less, committing to less. For most people, this is the hardest direction. It is not failure. It is reallocation.",
+      commentary:"You want to pull back on execution \u2014 doing less, committing to less. For most people, this is the least practiced direction. It is reallocation — and often the most strategically valuable move available.",
       recommendation:"This week, say no to one thing you would have reflexively said yes to. You do not need to decline it elegantly \u2014 \"I can't take that on right now\" is enough. Notice what you feel when the no leaves your mouth."
     },
     ACT_down_moderate:{
@@ -1966,7 +2011,7 @@ body {
     },
     REL_down_moderate:{
       commentary:"This is a significant decrease in relational investment. Check where those points went \u2014 that tells you what you are actually choosing.",
-      recommendation:"Write down the three relationships you are most likely to reduce and the three you want to protect. A significant pullback that is not planned becomes random \u2014 you lose the relationships you wanted to keep alongside the ones you wanted to release."
+      recommendation:"Write down the three relationships you are most likely to reduce and the three you want to protect. A significant pullback that is not planned becomes random \u2014 the relationships you wanted to keep get pulled along with the ones you wanted to release. Plan it, and you protect what you meant to protect."
     },
     REL_down_extreme:{
       commentary:"You want to move from heavy relational investment to near-minimum. The desire to withdraw is a protection response.",
@@ -2086,11 +2131,11 @@ body {
     },
     RST_down_moderate:{
       commentary:"Before committing: has the rest been genuine recovery or avoidance disguised as recovery?",
-      recommendation:"For one week, track what you actually do during your rest time. If most of it is scrolling, numbing, or low-grade avoidance, the reduction is healthy \u2014 replace that time with something restorative OR something productive. If most of it is genuine recovery, the reduction will cost you. Data first, then decide."
+      recommendation:"For one week, track what you actually do during your rest time. If most of it is scrolling, numbing, or low-grade avoidance, the reduction is healthy \u2014 replace that time with something restorative OR something productive. If most of it is genuine recovery, the reduction will cost more than it returns — keep the points where they are and route any new energy somewhere else. Data first, then decide."
     },
     RST_down_extreme:{
-      commentary:"You want to move from near-maximum rest to near-minimum. Check whether you are re-entering the cycle that brought you to high rest in the first place.",
-      recommendation:"Before you reduce rest at this scale, write down what specifically brought you to high rest in the first place. If that thing has not changed, the reduction will trigger the same collapse. Name the structural change first, then reduce the rest."
+      commentary:"You want to move from near-maximum rest to near-minimum. Check whether the conditions that produced the high rest allocation have shifted — because the reduction will move faster than those conditions will.",
+      recommendation:"Before you reduce rest at this scale, write down what specifically brought you to high rest in the first place. If that structural condition has shifted, the reduction has a real shot. If it has not, the reduction will return you to the same pattern that required the high rest — so the first move is the structural change, and the rest reallocation follows once that is landed."
     },
     STR_up_small:{
       commentary:"You want more deliberation. More thinking means better-aimed action. The tradeoff is speed.",
@@ -2706,16 +2751,30 @@ body {
   function buildBalancedContent(det, vals, screenNum) {
     var html='';
 
+    // BALANCED CONFIGURATION — Marlowe's middle-weighter pattern takes precedence
+    // when fires (SD < 1.0, all sliders 3-7). Replaces the legacy flat-board read
+    // with a path-forward Balanced Configuration narrative + its own question.
+    if(det.balancedConfig){
+      var tier=det.balancedConfig.tier;
+      var read=BALANCED_CONFIG_CONTENT.reads[tier];
+      html+='<div style="margin-top:var(--space-lg);padding-top:var(--space-lg);border-top:1px solid rgba(74, 93, 94, 0.14);">';
+      html+='<div class="obs-label">'+BALANCED_CONFIG_CONTENT.name+'</div>';
+      html+='<div class="holistic-read">'+read+'</div>';
+      html+='<div class="holistic-question"><strong>Consider.</strong> '+BALANCED_CONFIG_CONTENT.question+'</div>';
+      html+='</div>';
+      return html;
+    }
+
     if(det.balancedTier==='flat'){
       // Truly flat: spread <= 2 — Marlowe R2 revised
       html+='<div style="margin-top:var(--space-lg);padding-top:var(--space-lg);border-top:1px solid rgba(74, 93, 94, 0.14);">';
       html+='<div class="obs-label">What Even Distribution Reveals</div>';
       if(screenNum===1){
-        html+='<div class="holistic-read" style="margin-bottom:var(--space-sm);">Your board came back almost flat. Every dimension is sitting within two points of every other one \u2014 no real peaks, no real valleys. There is a version of this that means genuine equanimity, and it is worth naming: it is rare. Most people who look closely at where their energy actually goes find that some areas receive significantly more than others.</div>';
+        html+='<div class="holistic-read" style="margin-bottom:var(--space-sm);">Your board came back almost flat. Every category is sitting within two points of every other one \u2014 no real peaks, no real valleys. There is a version of this that means genuine equanimity, and it is worth naming: it is rare. Most people who look closely at where their energy actually goes find that some areas receive significantly more than others.</div>';
         html+='<div class="holistic-read">The much more common reason a board lands this flat is that the shape of your life is not visible to you from the inside right now. You spread your points evenly because you could not see clearly, not because the clarity happened to be flat. That is not a failure of the exercise. It is information. The parts of yourself you cannot currently see are the parts most likely to be costing you something \u2014 and the fastest way to find them is not to study your board harder. It is to ask someone who watches you live.</div>';
       }else{
         html+='<div class="holistic-read" style="margin-bottom:var(--space-sm);">Your desired board came back almost flat. You are picturing a life where no single area receives significantly more investment than any other. On the surface, that sounds like balance \u2014 the word itself is so positive that it is easy to stop thinking once it appears.</div>';
-        html+='<div class="holistic-read">But even distribution across nine dimensions means no dimension receives the investment required for excellence, depth, or distinction. A life where everything is a five is a life where nothing is a priority. If that genuinely describes what you want, the next conversation is about how hard it is to actually sustain even distribution \u2014 harder than it looks. If it does not, the flat board is telling you something more honest: you have not yet decided what matters most.</div>';
+        html+='<div class="holistic-read">But even distribution across nine categories means no category receives the investment required for excellence, depth, or distinction. A life where everything is a five is a life where nothing is a priority. If that genuinely describes what you want, the next conversation is about how hard it is to actually sustain even distribution \u2014 harder than it looks. If it does not, the flat board is telling you something more honest: you have not yet decided what matters most.</div>';
       }
       html+='<div class="holistic-question"><strong>Consider.</strong> If you asked three people who know you well to allocate your 45 points the way they see you actually living, where would their boards look most different from yours?</div>';
       html+='</div>';
@@ -2724,9 +2783,9 @@ body {
       html+='<div style="margin-top:var(--space-lg);padding-top:var(--space-lg);border-top:1px solid rgba(74, 93, 94, 0.14);">';
       html+='<div class="obs-label">What the Shape of Your Board Reveals</div>';
       if(screenNum===1){
-        html+='<div class="holistic-read">Your board has real shape. You invested more in some areas than others, you pulled back from some dimensions clearly, and the distance between your highest and lowest sliders is enough to tell a story. The story is specific before it is archetypal \u2014 it lives in your particular choices rather than in a named pattern. What your board is showing you is in the details: where you chose to spend, where you chose not to, and the space between. The two dimensions at the top and the two at the bottom are the material worth sitting with.</div>';
+        html+='<div class="holistic-read">Your board has real shape. You invested more in some areas than others, you pulled back from some categories clearly, and the distance between your highest and lowest sliders is enough to tell a story. The story is specific before it is archetypal \u2014 it lives in your particular choices rather than in a named pattern. What your board is showing you is in the details: where you chose to spend, where you chose not to, and the space between. The two categories at the top and the two at the bottom are the material worth sitting with.</div>';
       }else{
-        html+='<div class="holistic-read">Your desired board has clear preferences. You moved energy toward some dimensions and away from others, and the shifts are real enough that the picture has shape. The life you are designing is specific \u2014 it lives in the particular trades you made rather than in a named archetype. The coaching material is in what went up, what went down, and what those shifts reveal about what you value enough to pay for in a finite budget.</div>';
+        html+='<div class="holistic-read">Your desired board has clear preferences. You moved energy toward some categories and away from others, and the shifts are real enough that the picture has shape. The life you are designing is specific \u2014 it lives in the particular trades you made rather than in a named archetype. The coaching material is in what went up, what went down, and what those shifts reveal about what you value enough to pay for in a finite budget.</div>';
       }
       html+='<div class="holistic-question"><strong>Consider.</strong> Looking at your two highest and two lowest sliders \u2014 if someone who knows you well and wants the best for you saw this specific shape, which piece would they most want to talk with you about?</div>';
       html+='</div>';
@@ -3015,9 +3074,289 @@ body {
   // Balanced-user fallback — Marlowe R2 adds a third forward-move question
   var REFLECT_PROMPTS_BALANCED = [
     "If three people who know you well each built your current board independently, where would their versions differ most from yours?",
-    "Looking at the gap between your boards, which single shift would change the most about your daily experience \u2014 and what makes that one feel harder than the others?",
+    "Looking at the space between your boards, which single shift would change the most about your daily experience \u2014 and what makes that one feel harder than the others?",
     "What is one small move you could make this week \u2014 something specific, verifiable, and completable in under an hour \u2014 that would test whether the shift you most want is actually the shift you need?"
   ];
+
+  // ══════════════════════════════════════════════════
+  // BALANCED CONFIGURATION — Marlowe's middle-weighter pattern
+  // Fires after all other patterns fail AND SD < 1.0 AND all sliders 3-7
+  // ══════════════════════════════════════════════════
+  var BALANCED_CONFIG_CONTENT = {
+    name: "The Balanced Configuration",
+    reads: {
+      standard: "Your board shows a configuration without obvious extremes. No category is pulling dramatically high, no category is pulling dramatically low. That balance is worth looking at closely, because for most professionals, balance across nine categories is rarer than it looks. For this profile, there's a meaningful chance that the even distribution is masking an imbalance the user cannot see from the inside — and this is exactly the moment where outside perspective becomes the most useful input available.",
+      strong: "Your board is remarkably even. Every category is sitting within a narrow band around the center. For a small number of people, this is a real picture of genuine equilibrium. For most people — and especially for professionals who have not yet built the habit of observing their own patterns — this kind of balance tends to mean one of two things: the observational muscle is still developing, or there is a pattern being held off the board because naming it would ask something difficult. Neither is a problem. Both are useful starting points.",
+      extreme: "Your board is almost mathematically flat. Every category is sitting within a hair of the balanced allocation. That kind of symmetry is extraordinarily rare in actual human life — the data across years of coaching work suggests it almost never reflects a real equilibrium. What it usually reflects is a board where the observational muscle is still developing, a transitional season where no pattern has reasserted itself yet, or a single category that would feel uncomfortable to move. All three are workable starting points for what comes next."
+    },
+    reflections: [
+      "If the person who knows you best walked in right now and looked at this board, which single slider would they move first — and in which direction?",
+      "Thinking back to the last three months: which of these nine categories has felt like the one you most want to invest more energy in? Set that one aside and ask yourself what it would look like to give that category one click more of your energy this week.",
+      "If you were reading this configuration as a coach looking at someone else's board, what is the first question you would want to ask them?"
+    ],
+    recommendations: [
+      "This week, try an external feedback check: show one trusted person the nine category labels and ask which they think you invest the most and least energy in. Compare their answer to yours. Where the answers diverge is where the most useful coaching material lives for you right now.",
+      "Try the \"colleague's eye\" reconfiguration. Before closing this tool, set the sliders one more time — this time, imagining how someone who knows you well would configure your board. The difference between your first board and your second board is where the useful coaching work lives.",
+      "Pick the one category you are least certain about. Most people, when they look at a balanced board, can quickly identify one slider they \"sort of guessed on.\" That is the one to investigate. For the next week, pay specific attention to how much energy you actually invest in that category — not what you think you should invest, but what you observably do invest. Revisit the board in seven days with that data."
+    ],
+    question: "If the people who know you best were looking at this board, what is the single slider they would say is not quite right — and which direction would they move it?"
+  };
+
+  // ══════════════════════════════════════════════════
+  // COACHING RECOMMENDATIONS — pattern-level content
+  // 2 reflection questions + 2 Monday-morning moves per pattern
+  // ══════════════════════════════════════════════════
+  var PATTERN_COACHING_RECS = {
+    giver: {
+      reflections: [
+        "If you stepped back from the reliability role for just one week, what would you want to use the freed-up energy for?",
+        "Which of the people you are showing up for most right now would actually want you to show up less if they knew what it was costing you?"
+      ],
+      recommendations: [
+        "This week, decline one specific request you would normally say yes to. Not a dramatic overhaul — one specific no. The discomfort you feel when you say it is information about how much of your yes has been reflex versus choice.",
+        "Schedule one block of rest this week and defend it with the same firmness you would defend someone else's meeting. Put it on the calendar. The practice is teaching yourself that your own needs belong on the same calendar as everyone else's."
+      ]
+    },
+    thinker: {
+      reflections: [
+        "What would you do right now if you trusted that you already know enough?",
+        "Which of the decisions on your plate have been waiting for information that is actually already in front of you?"
+      ],
+      recommendations: [
+        "Pick the decision you have been researching the longest. Set a personal deadline of end-of-day Thursday this week. Decide by then. The deadline is the intervention.",
+        "This week, take one concrete action on the decision before you finish thinking about it — send the email, schedule the conversation, start the draft. Action while thinking is still incomplete is the skill this pattern has been preventing."
+      ]
+    },
+    engine: {
+      reflections: [
+        "If your pace shifted by one click this week, what would you want to use the recovered capacity for?",
+        "What would become visible to you if you stopped moving long enough to look?"
+      ],
+      recommendations: [
+        "This week, schedule one 60-minute block where you are explicitly not being productive — not planning, not deciding, not moving. Be stopped. The discomfort is the diagnostic; it tells you how much the action is serving you and how much it is covering for something else.",
+        "Before starting your next project or initiative, audit the current one. Ask: \"Is this still the most important thing for me to be doing?\" If the honest answer is no, the next action is subtraction, not addition."
+      ]
+    },
+    architect: {
+      reflections: [
+        "Which of the structures you have built are serving you right now, and which one might be worth softening by a click?",
+        "If you let one more person in by one step this week, who would it be?"
+      ],
+      recommendations: [
+        "Pick one relationship that you have been holding at arm's length and make one specific move toward it this week — a returned message, a scheduled conversation, an invitation extended. Not a transformation. One step.",
+        "Identify one emotional response you have been containing that you would trust one specific person to hear. This week, share it with that person. Composed reliability is valuable — and it becomes isolating when it never breaks."
+      ]
+    },
+    withdrawal: {
+      reflections: [
+        "What would need to be true for you to lean further into one of the categories that has been quieter lately?",
+        "If you could re-engage with one specific relationship, conversation, or action this week, which would give you the most return?"
+      ],
+      recommendations: [
+        "Pick one relationship, conversation, or action you have been quietly stepping back from. This week, make one small move toward re-contact — a message, a short meeting, a first step. The goal is not full return. The goal is one small proof that contact is still within reach for you.",
+        "Name the pattern out loud to one trusted person this week. Tell them what you have been stepping back from and ask what they have noticed. External observation often surfaces context the pattern has been obscuring."
+      ]
+    },
+    performer: {
+      reflections: [
+        "Which of your recent high-output efforts would you evaluate differently if you had more time to reflect on them?",
+        "What is one feedback signal you have received recently that would be worth returning to this week?"
+      ],
+      recommendations: [
+        "This week, schedule one 30-minute block specifically for reviewing your own output. Not more production — review. What worked, what did not, what you would redo. Sustained high performance without internal observation eventually produces drift.",
+        "Pick one trusted person whose observation you respect and ask them one direct question about your patterns: \"What am I doing well right now, and what do you think I am missing?\" The external mirror is the fastest path back to the internal one."
+      ]
+    }
+  };
+
+  // ══════════════════════════════════════════════════
+  // CATEGORY-LEVEL COACHING CONTENT
+  // 9 categories × 3 variants (LOW 1-3, BALANCED 4-6, HIGH 7-9)
+  // 1 reflection question + 1 recommendation each
+  // Index matches D.ACTION=0 ... D.STRATEGIC_THINKING=8
+  // ══════════════════════════════════════════════════
+  var CATEGORY_COACHING = [
+    { // 0 — Action
+      low: { reflection: "What would become possible this week if you moved on one decision you have been sitting with?",
+             recommendation: "Pick the single item on your plate that you have been turning over the longest. This week, take one concrete action on it — even a small one. Send the email, make the call, draft the document. The specific action matters less than breaking the pattern of deferral." },
+      balanced: { reflection: "Looking at what you have moved on recently: which of those actions do you feel most energized by, and what made that one different?",
+                  recommendation: "Spend fifteen minutes this week reviewing the last month of decisions you have moved on. Note which ones you are glad you moved on and which ones you would redo. That pattern is data about where your action is serving you and where it is running on autopilot." },
+      high: { reflection: "Thinking about your last three major decisions: which one would you want to run back with one more day of consideration — and what would that extra day have let you see?",
+              recommendation: "Before your next consequential decision this week, build in a deliberate 24-hour delay. Not to agonize — just to let the decision sit with you long enough to surface whether it is genuine conviction or momentum." }
+    },
+    { // 1 — Communication
+      low: { reflection: "What is one conversation you have been holding back that you would feel relieved to have this week?",
+             recommendation: "Pick one specific situation this week where you would normally stay quiet — a meeting where you have a view, an email thread where your perspective would matter, a colleague who does not know what you think. Say the thing. One sentence is enough." },
+      balanced: { reflection: "When you look at the relationships that matter most, where would more direct communication from you produce the most benefit?",
+                  recommendation: "Identify one relationship this week where you have been communicating at about 70% of what you actually think. Bring it up to 85% in one specific conversation this week. Notice what happens." },
+      high: { reflection: "For this profile, there's a risk that high communication investment becomes communication for its own sake — which of your recent communications landed the way you wanted them to, and which would you want to swap for something more deliberate next time?",
+              recommendation: "Pick one conversation this week where you would normally speak first or most. Let someone else lead. Practice listening for the full minute before responding. The goal is not less communication — it is more deliberate communication." }
+    },
+    { // 2 — Relationships
+      low: { reflection: "Which of your current relationships would you want to invest more deeply in, if you had the time and energy to do it well?",
+             recommendation: "Pick one person this week whose presence in your life has mattered and make one specific, unrequired gesture of contact — a check-in text, a short call, a note. Not maintenance. Investment." },
+      balanced: { reflection: "Looking at your current configuration: are your relational investments flowing toward the people who most matter to you, or toward the people who require the most maintenance?",
+                  recommendation: "This week, make one deliberate choice to invest more in a relationship that matters and one deliberate choice to invest less in a relationship that has been running on obligation. Both moves together." },
+      high: { reflection: "For this profile, there's a risk that identity becomes contingent on the quality of relationships — who are you when no one is asking anything of you, and what would you want that version of yourself to have more of?",
+              recommendation: "Identify one relationship where you are consistently doing more of the relational work than the other person. This week, deliberately under-function by one step — skip the check-in, wait for them to initiate, let them carry the conversation. Notice whether the relationship holds or adjusts." }
+    },
+    { // 3 — Self-Awareness
+      low: { reflection: "What is one pattern you have noticed in yourself recently that you would like to understand better?",
+             recommendation: "For the next seven days, keep a single sentence journal at the end of each day: \"The thing I noticed about myself today was…\" One sentence. No analysis. The noticing is the practice." },
+      balanced: { reflection: "Which of your current patterns do you understand well, and which one are you still working to see clearly?",
+                  recommendation: "Pick one specific trigger situation you know well (a certain type of meeting, a specific person, a recurring context). The next time you are in that situation, name the pattern as it happens — even silently to yourself. The goal is real-time awareness, not retrospective clarity." },
+      high: { reflection: "For this profile, there's a risk that self-awareness becomes its own product rather than a tool for action — which of your recent self-observations are most ready to become a next move this week?",
+              recommendation: "This week, pick one self-observation you have made more than three times recently. Take one concrete action based on it — not another journal entry, not another reflection, an action. Self-awareness that does not produce movement eventually becomes sophisticated self-reporting." }
+    },
+    { // 4 — Boundaries
+      low: { reflection: "What is one specific request you say yes to regularly that you would feel better saying no to?",
+             recommendation: "This week, identify one request you would normally say yes to automatically. Say no to it. The goal is not to become a different person. The goal is to prove to yourself that saying no is survivable." },
+      balanced: { reflection: "Which of your current commitments do you most need to protect, and which one do you most need to release?",
+                  recommendation: "Review your last two weeks of commitments. Identify one that you agreed to reflexively and would not agree to again. If it is still active, renegotiate it this week. If it is done, use the observation to inform the next ask." },
+      high: { reflection: "For this profile, there's a risk that strong boundaries become a structure that keeps connection out as well as intrusion out — which of your current boundaries are serving you, and which one might be worth softening?",
+              recommendation: "Pick one relationship where you have drawn a firm boundary and consider whether the cost of that boundary still fits the original reason for it. If not, make one specific move to soften it — a returned text, an accepted invitation, a conversation you have been declining." }
+    },
+    { // 5 — Emotional Consistency
+      low: { reflection: "What is one small regulation practice you have access to that you have not been using lately?",
+             recommendation: "Pick one specific physical regulation practice — three long exhales before each meeting, two minutes of breathing when you feel reactivity rising, a walk when the emotional charge builds up. Use it at least twice a day this week. Measure whether the baseline shifts." },
+      balanced: { reflection: "Which situations most test your steadiness right now, and what has worked when you have handled them well?",
+                  recommendation: "Identify the one recurring situation this week most likely to test your regulation. Before you enter it, name one specific thing you will do to stay grounded — a breath, a pause, a chosen phrase. Use it. Note afterward whether it helped." },
+      high: { reflection: "For this profile, there's a risk that sustained composure becomes a performance rather than a lived state — which of your emotional responses, if you let one surface this week with someone you trust, would give you the most return?",
+              recommendation: "Pick one trusted person in your life and, in one specific conversation this week, let your actual reaction show instead of the composed version. Not a meltdown — a real reaction. Composure that never breaks is not steadiness; it is containment, and the cost of containment accrues." }
+    },
+    { // 6 — Decision-Making
+      low: { reflection: "Which decision, if you made it this week, would produce the most relief?",
+             recommendation: "Pick the one decision you have been deferring longest. Set a personal deadline of end-of-day Thursday this week. Decide by then. The deadline is the intervention — the clarity will follow the commitment, not precede it." },
+      balanced: { reflection: "Where in your life are your decisions landing well, and where are they arriving too late or too slowly?",
+                  recommendation: "Pick one decision category where you tend to over-deliberate (small purchases, social plans, low-stakes logistics). This week, deliberately decide those from the gut. Save the real deliberation capacity for the decisions that actually require it." },
+      high: { reflection: "For this profile, there's a risk that fast decisions start doing the work of processing feelings — which of your recent decisions are you most confident about on reflection, and which would you want to revisit with the discomfort removed?",
+              recommendation: "Pick the next consequential decision on your plate. Delay it by 24 hours — not to agonize, just to see what arrives. If the answer does not change, you have confirmed the decision. If it does change, you have learned something about how your pace is shaping your choices." }
+    },
+    { // 7 — Rest
+      low: { reflection: "What is one thirty-minute window this week where you could genuinely stop?",
+             recommendation: "Schedule one block of genuine recovery time this week and defend it the same way you defend a meeting with your most important client. Put it on the calendar. Do not accept competing requests for that slot. Rest that is \"if-I-have-time\" is not rest." },
+      balanced: { reflection: "Which of your current rest practices are actually restoring you, and which one is just the absence of work?",
+                  recommendation: "Audit the rest you already have this week. Identify one block that is technically rest but is not actually restoring you (scrolling, half-working, social obligations framed as fun). Replace it with something that actually refills the tank." },
+      high: { reflection: "What are the conditions that make your rest this abundant, and how can you protect them going forward?",
+              recommendation: "Note the conditions that produce this level of rest and make them deliberate rather than accidental. If the high rest investment is appropriate for this season, protect it. If it reflects recovery from an earlier depletion, consider whether a modest reallocation toward action or relationships would serve the next chapter." }
+    },
+    { // 8 — Strategic Thinking
+      low: { reflection: "What is one upcoming decision or situation that would benefit from thirty minutes of deliberate thinking this week?",
+             recommendation: "Block thirty minutes this week specifically for strategic thinking on one question that matters to you. No phone, no input, just the question. The practice is not producing an answer — it is proving to yourself that thinking time is an investment, not a luxury." },
+      balanced: { reflection: "Which of your current thinking investments are producing movement, and which are circling?",
+                  recommendation: "Pick one question this week that has been lingering without resolution. Give it one deliberate session of thinking — timer set, specific question in front of you. End the session with either a decision or a specific next step, not further exploration." },
+      high: { reflection: "For this profile, there's a risk that thinking starts absorbing the budget that should be funding decisions and action — which of your recent thinking efforts are closest to being ready to ship as a decision or action this week?",
+              recommendation: "Pick the situation you have been thinking about longest. Take one concrete action on it before you do any more analysis — send the message, schedule the conversation, make the draft. Action while the thinking is still incomplete is the specific skill this pattern is asking you to develop." }
+    }
+  ];
+
+  // Coaching priority tiebreaker order (Marlowe's Section 7):
+  // Rest, Boundaries, Self-Awareness, Action, Communication, Relationships,
+  // Emotional Consistency, Decision-Making, Strategic Thinking
+  var COACHING_PRIORITY_ORDER = [7, 4, 3, 0, 1, 2, 5, 6, 8];
+
+  function getCategoryVariant(val) {
+    var iv = Math.round(val);
+    if (iv <= 3) return 'low';
+    if (iv <= 6) return 'balanced';
+    return 'high';
+  }
+
+  // Select top 3 most-imbalanced categories by abs(value - 5).
+  // Tiebreaker 1: greater absolute distance from 5 wins (1 beats 3, 9 beats 7).
+  // Tiebreaker 2: COACHING_PRIORITY_ORDER.
+  function selectTopImbalancedCategories(vals) {
+    var scored = [];
+    for (var i = 0; i < DIAL_COUNT; i++) {
+      scored.push({
+        index: i,
+        value: vals[i],
+        absDist: Math.abs(vals[i] - 5),
+        priorityRank: COACHING_PRIORITY_ORDER.indexOf(i)
+      });
+    }
+    scored.sort(function(a, b) {
+      if (b.absDist !== a.absDist) return b.absDist - a.absDist;
+      return a.priorityRank - b.priorityRank;
+    });
+    return scored.slice(0, 3);
+  }
+
+  // Build the Coaching Recommendations section. Renders for any pattern
+  // (including Balanced Configuration). Takes the detected pattern and
+  // the value array. Returns HTML.
+  function buildCoachingRecommendations(det, vals) {
+    var html = '';
+    html += '<div class="report-section coaching-recs-section">';
+    html += '<div class="report-section-label">Coaching Recommendations</div>';
+    html += '<div style="font-family:var(--font-body);font-weight:400;font-size:13px;color:var(--deep-sage);line-height:1.5;margin-bottom:var(--space-lg);font-style:italic;opacity:0.9;">Reflection questions paired with Monday-morning moves, tailored to your configuration.</div>';
+
+    // LAYER 1 — Pattern-level (if earned)
+    if (det && det.key !== 'balanced' && PATTERN_COACHING_RECS[det.key]) {
+      var patternName = MIRROR_PATTERNS[det.key] ? MIRROR_PATTERNS[det.key].name : det.key;
+      var patRec = PATTERN_COACHING_RECS[det.key];
+      html += '<div class="coaching-pattern-block" style="margin-bottom:var(--space-xl);">';
+      html += '<div style="font-family:var(--font-body);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--deep-sage);margin-bottom:var(--space-md);">For this profile: ' + patternName + '</div>';
+      for (var pri = 0; pri < patRec.reflections.length; pri++) {
+        html += '<div class="coaching-pair" style="margin-bottom:var(--space-lg);">';
+        html += '<div class="coaching-sublabel" style="font-family:var(--font-body);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--warm-taupe);margin-bottom:var(--space-xs);">Sit with this</div>';
+        html += '<div class="coaching-reflection" style="font-family:var(--font-body);font-weight:400;font-size:15px;color:var(--dark-sage);line-height:1.55;margin-bottom:var(--space-sm);font-style:italic;">' + patRec.reflections[pri] + '</div>';
+        html += '<div class="coaching-sublabel" style="font-family:var(--font-body);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--reflective-terracotta);margin-bottom:var(--space-xs);">Move on this</div>';
+        html += '<div class="coaching-recommendation" style="font-family:var(--font-body);font-weight:400;font-size:14px;color:var(--dark-sage);line-height:1.6;padding-left:var(--space-md);border-left:2px solid var(--reflective-terracotta);">' + patRec.recommendations[pri] + '</div>';
+        html += '</div>';
+      }
+      html += '</div>';
+    } else if (det && det.balancedConfig) {
+      // Balanced Configuration — show its pattern-level content
+      html += '<div class="coaching-pattern-block" style="margin-bottom:var(--space-xl);">';
+      html += '<div style="font-family:var(--font-body);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--deep-sage);margin-bottom:var(--space-md);">For this profile: ' + BALANCED_CONFIG_CONTENT.name + '</div>';
+      // Use first 2 reflections + first 2 recommendations
+      for (var bri = 0; bri < 2; bri++) {
+        html += '<div class="coaching-pair" style="margin-bottom:var(--space-lg);">';
+        html += '<div class="coaching-sublabel" style="font-family:var(--font-body);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--warm-taupe);margin-bottom:var(--space-xs);">Sit with this</div>';
+        html += '<div class="coaching-reflection" style="font-family:var(--font-body);font-weight:400;font-size:15px;color:var(--dark-sage);line-height:1.55;margin-bottom:var(--space-sm);font-style:italic;">' + BALANCED_CONFIG_CONTENT.reflections[bri] + '</div>';
+        html += '<div class="coaching-sublabel" style="font-family:var(--font-body);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--reflective-terracotta);margin-bottom:var(--space-xs);">Move on this</div>';
+        html += '<div class="coaching-recommendation" style="font-family:var(--font-body);font-weight:400;font-size:14px;color:var(--dark-sage);line-height:1.6;padding-left:var(--space-md);border-left:2px solid var(--reflective-terracotta);">' + BALANCED_CONFIG_CONTENT.recommendations[bri] + '</div>';
+        html += '</div>';
+      }
+      html += '</div>';
+    }
+
+    // LAYER 2 — Category-level (top 3 most imbalanced)
+    var top3 = selectTopImbalancedCategories(vals);
+    html += '<div class="coaching-category-block">';
+    html += '<div style="font-family:var(--font-body);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--deep-sage);margin-bottom:var(--space-md);">Your most imbalanced categories</div>';
+    for (var ci = 0; ci < top3.length; ci++) {
+      var cat = top3[ci];
+      var variant = getCategoryVariant(cat.value);
+      var content = CATEGORY_COACHING[cat.index][variant];
+      if (!content) continue;
+      html += '<div class="coaching-pair" style="margin-bottom:var(--space-lg);">';
+      html += '<div style="font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--dark-sage);margin-bottom:var(--space-xs);">' + DIAL_DEFS[cat.index].label + ' — ' + cat.value.toFixed(0) + '</div>';
+      html += '<div class="coaching-sublabel" style="font-family:var(--font-body);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--warm-taupe);margin-bottom:var(--space-xs);">Sit with this</div>';
+      html += '<div class="coaching-reflection" style="font-family:var(--font-body);font-weight:400;font-size:15px;color:var(--dark-sage);line-height:1.55;margin-bottom:var(--space-sm);font-style:italic;">' + content.reflection + '</div>';
+      html += '<div class="coaching-sublabel" style="font-family:var(--font-body);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--reflective-terracotta);margin-bottom:var(--space-xs);">Move on this</div>';
+      html += '<div class="coaching-recommendation" style="font-family:var(--font-body);font-weight:400;font-size:14px;color:var(--dark-sage);line-height:1.6;padding-left:var(--space-md);border-left:2px solid var(--reflective-terracotta);">' + content.recommendation + '</div>';
+      html += '</div>';
+    }
+    html += '</div>';
+
+    html += '</div>';
+    return html;
+  }
+
+  // Render the Balanced Configuration read + question for use on Screen 3
+  // above the Coaching Recommendations section.
+  function buildBalancedConfigNarrative(det) {
+    if (!det || !det.balancedConfig) return '';
+    var tier = det.balancedConfig.tier;
+    var read = BALANCED_CONFIG_CONTENT.reads[tier];
+    var html = '<div class="report-section"><div class="report-section-label">' + BALANCED_CONFIG_CONTENT.name + '</div>';
+    html += '<div class="report-section-text">' + read + '</div>';
+    html += '<div class="coaching-question-block" style="margin-top:var(--space-md);"><strong>A Question to Sit With.</strong> ' + BALANCED_CONFIG_CONTENT.question + '</div>';
+    html += '</div>';
+    return html;
+  }
 
 
   // ══════════════════════════════════════════════════
@@ -3029,7 +3368,7 @@ body {
   //   3. Your Current vs. Desired Allocation (bar chart — moved up)
   //   4. Interaction Effects in Your Desired State
   //   5. Pattern Summary (subordinate)
-  //   6. Where the Distance Lives (commentary + recommendations)
+  //   6. Where the Movement Lives (commentary + recommendations)
   //   7. Questions to Take With You
   //   8. CTA (divider above)
   // ══════════════════════════════════════════════════
@@ -3182,7 +3521,7 @@ body {
     deltas.sort(function(a,b){return b.absDelta-a.absDelta;});
 
     if(deltas.length>0){
-      html+='<div class="report-section"><div class="report-section-label">Where the Distance Lives</div>';
+      html+='<div class="report-section"><div class="report-section-label">Where the Movement Lives</div>';
 
       var showCount=Math.min(5,deltas.length);
       for(var di=0;di<showCount;di++){
@@ -3203,11 +3542,31 @@ body {
       }
 
       if(deltas.length>5){
-        html+='<div class="report-constraint-narrative" style="margin-top:var(--space-md);">Your desired board shifts '+deltas.length+' of your nine sliders by 3 or more points. That volume of desired change means you are not adjusting your current configuration \u2014 you are redesigning it. The largest shifts are detailed above. The overall pattern says: the life you want looks substantially different from the life you have. That distance is not a problem to solve. It is a map of the work.</div>';
+        html+='<div class="report-constraint-narrative" style="margin-top:var(--space-md);">Your desired board shifts '+deltas.length+' of your nine sliders by 3 or more points. That volume of desired change means you are not adjusting your current configuration \u2014 you are redesigning it. The largest shifts are detailed above. The overall pattern says: the life you want looks substantially different from the life you have. That is not a problem to solve. It is a map of the work.</div>';
       }
 
       html+='</div>';
     }
+
+    // ═══ 6.5. BALANCED CONFIGURATION NARRATIVE (if fires on desired board) ═══
+    // Balanced Configuration uses the desired board for Screen 3 narrative —
+    // it's the user's "where I'm pointing" pattern. Falls back to mirror if desired didn't fire.
+    var balancedDet = (desiredDet && desiredDet.balancedConfig) ? desiredDet
+                    : ((mirrorDet && mirrorDet.balancedConfig) ? mirrorDet : null);
+    if (balancedDet) {
+      html += buildBalancedConfigNarrative(balancedDet);
+    }
+
+    // ═══ 6.75. COACHING RECOMMENDATIONS SECTION (new — Marlowe) ═══
+    // Uses desired board's pattern + values for recommendations (path forward).
+    // If desired is balanced w/o balancedConfig (varied-balanced), use mirror's pattern.
+    var recsDet = desiredDet;
+    var recsVals = desiredValues;
+    if ((!recsDet || (recsDet.key === 'balanced' && !recsDet.balancedConfig)) && mirrorDet && mirrorDet.key !== 'balanced') {
+      recsDet = mirrorDet;
+      recsVals = mirrorValues;
+    }
+    html += buildCoachingRecommendations(recsDet, recsVals);
 
     // ═══ 7. REFLECTION PROMPTS ═══
     // Single "Reflect." header (Marlowe's stylistic note) + unlabeled questions
