@@ -4,11 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Veris Mixing Board — A Reflection Tool</title>
+<meta name="mb-version" content="v5">
 
 <!--
   ============================================================
-  Mixing Board — Path C (v4 FINAL — public deploy)
+  Mixing Board — Path C (v5 — Margin Grid + single growth pick + Dial up/down)
   Build: Linden, 2026-04-21
+  v5 deltas (from v4):
+  - Screen 2: single forced growth pick (not two). Header + nudge copy updated.
+  - Screen 2: locked tag order Exploring → Bothering me → Ready.
+  - Screen 3: Margin Grid rebuild per Sable v2_final. Section titles:
+    "Reflection questions" / "Dial up" / "Dial down". Section intros (Marlowe).
+  - Screen 3: Dial up renders ONE block (the single growth pick).
+  - Screen 3: Dial down is NEW — top 2 HIGH-weighted unpicked categories
+    (sort FLIPPED descending), Sutton exclusion map still honored. Content is
+    title + 2-3 em-dash bullets (not prose). Subordinate visual weight.
+  - Screen 1: fader descriptor fires on drag/input (Erik's ask). "Tap a
+    category name..." copy removed.
+  - Söhne base64-inlined preserved. No debug hook. Pattern keys never render.
+  Original build notes below:
+  (v4) Build: Linden, 2026-04-21
   - Screen 3 structural revision (Sable): Roman numerals, small-caps section
     labels, 7-voice growth-block hierarchy with pull-quote + signal-quote
     drop mark, paper-tone zoning, · · · inter-block separator.
@@ -651,6 +666,196 @@ body {
 #screen3.screen { padding-top: 0; padding-left: 0; padding-right: 0; }
 #screen3 .column { padding-left: 20px; padding-right: 20px; }
 
+/* ============================================================
+   SCREEN 3 v5 — Margin Grid (Sable v2_final)
+   Three titled sections: Reflection questions / Dial up / Dial down
+   plus What's next + colophon.
+   Left column = 160px section label, right column = 540px body.
+   ============================================================ */
+:root {
+  --mb-label-col: 160px;
+  --mb-body-col: 540px;
+  --mb-col-gap: 40px;
+  --mb-total-col: 740px;
+  --paper-inset-quiet: #F4F0E6;
+}
+.mb-row {
+  max-width: var(--mb-total-col);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: var(--mb-label-col) 1fr;
+  gap: var(--mb-col-gap);
+  align-items: start;
+}
+.mb-label {
+  font: 600 11px/1.4 var(--font-body);
+  color: var(--ink-ghost);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  padding-top: 12px;
+}
+.mb-label-align-display { padding-top: 16px; }
+.mb-label-align-body    { padding-top: 4px; }
+
+.mb-body-col { max-width: var(--mb-body-col); }
+
+.mb-section-intro {
+  font: 400 italic 16px/1.55 var(--font-body);
+  color: var(--ink-muted);
+  margin-bottom: 32px;
+}
+
+/* Section 1 — Reflection questions */
+.mb-hero-zone {
+  background: var(--paper-inset);
+  padding: 96px 0 48px;
+}
+.mb-hero-q {
+  font: 400 italic 18px/1.5 var(--font-display);
+  color: var(--ink);
+  margin-bottom: 20px;
+  padding-left: 32px;
+  text-indent: -32px;
+}
+.mb-hero-q:last-child { margin-bottom: 0; }
+.mb-hero-q .mb-hero-n {
+  display: inline-block;
+  width: 32px;
+  font-style: normal;
+  color: var(--ink-ghost);
+  font-size: 14px;
+  font-family: var(--font-body);
+  letter-spacing: 0.06em;
+}
+
+/* Section 2 — Dial up */
+.mb-growth-zone {
+  padding: 64px 0 24px;
+}
+.mb-growth-title {
+  font: 500 italic 30px/1.2 var(--font-display);
+  color: var(--ink);
+  margin-bottom: 24px;
+  letter-spacing: -0.005em;
+}
+.mb-growth-framing {
+  font: 400 17px/1.65 var(--font-body);
+  color: var(--ink);
+}
+.mb-sub-row {
+  max-width: var(--mb-total-col);
+  margin: 40px auto 0;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: var(--mb-label-col) 1fr;
+  gap: var(--mb-col-gap);
+  align-items: start;
+}
+.mb-sub-label {
+  font: 600 11px/1.4 var(--font-body);
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  padding-top: 4px;
+}
+.mb-notice-list {
+  list-style: none;
+  max-width: var(--mb-body-col);
+  padding: 0;
+}
+.mb-notice-list li {
+  font: 400 16px/1.55 var(--font-body);
+  color: var(--ink);
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 8px;
+}
+.mb-notice-list li::before {
+  content: '\2014';
+  position: absolute;
+  left: 0; top: 0;
+  color: var(--ink-ghost);
+}
+.mb-notice-list li:last-child { margin-bottom: 0; }
+.mb-invitation {
+  font: 400 italic 18px/1.5 var(--font-display);
+  color: var(--ink);
+  max-width: var(--mb-body-col);
+}
+
+/* Section 3 — Dial down. Subordinate to Dial up. */
+.mb-dialdown-zone {
+  padding: 56px 0;
+  background: var(--paper-inset-quiet);
+}
+.mb-dialdown-block {
+  margin-top: 40px;
+}
+.mb-dialdown-block:first-of-type {
+  margin-top: 0;
+}
+.mb-dialdown-title {
+  font: 500 italic 22px/1.25 var(--font-display);
+  color: var(--ink-muted);
+  margin-bottom: 16px;
+  letter-spacing: -0.003em;
+}
+.mb-dialdown-list {
+  list-style: none;
+  max-width: var(--mb-body-col);
+  padding: 0;
+}
+.mb-dialdown-list li {
+  font: 400 16px/1.55 var(--font-body);
+  color: var(--ink-muted);
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 8px;
+}
+.mb-dialdown-list li::before {
+  content: '\2014';
+  position: absolute;
+  left: 0; top: 0;
+  color: var(--ink-ghost);
+}
+.mb-dialdown-list li:last-child { margin-bottom: 0; }
+
+/* Section IV — What's next */
+.mb-whatsnext-zone {
+  padding: 64px 0 56px;
+}
+.mb-whatsnext-paragraph {
+  font: 400 17px/1.65 var(--font-body);
+  color: var(--ink);
+  max-width: var(--mb-body-col);
+}
+.mb-whatsnext-lead {
+  font: 500 italic 20px/1.4 var(--font-display);
+  color: var(--ink);
+}
+
+@media (max-width: 760px) {
+  .mb-row, .mb-sub-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .mb-label, .mb-sub-label { padding-top: 0; }
+  .mb-body-col, .mb-notice-list, .mb-invitation, .mb-dialdown-list { max-width: 100%; }
+  .mb-hero-zone      { padding: 64px 0 32px; }
+  .mb-growth-zone    { padding: 48px 0 16px; }
+  .mb-growth-title   { font-size: 24px; }
+  .mb-growth-framing { font-size: 16px; }
+  .mb-hero-q         { font-size: 17px; padding-left: 28px; text-indent: -28px; }
+  .mb-hero-q .mb-hero-n { width: 28px; }
+  .mb-dialdown-zone  { padding: 44px 0; }
+  .mb-dialdown-title { font-size: 20px; }
+  .mb-dialdown-block { margin-top: 32px; }
+  .mb-whatsnext-zone { padding: 48px 0 48px; }
+  .mb-whatsnext-lead { font-size: 18px; }
+  .mb-section-intro  { font-size: 15px; margin-bottom: 24px; }
+}
+
 .growth-block {
   margin-bottom: var(--block-gap-hero);
 }
@@ -1080,7 +1285,6 @@ body {
       <div class="s1-intro">
         <h1 id="s1-title" class="screen-title">Where are you actually spending your energy right now?</h1>
         <p>Nine categories. A fixed budget of 45 points. Set each slider for where your attention, time, and energy are actually going this season — not where you think they should be.</p>
-        <p class="muted">Tap a category name if you want a quick description of what it means.</p>
       </div>
 
       <div class="s1-budget" aria-live="polite">
@@ -1107,68 +1311,70 @@ body {
   <section class="screen" id="screen2" aria-labelledby="s2-title">
     <div class="column">
       <div class="s2-intro">
-        <h1 id="s2-title" class="screen-title">Which two areas are asking for your energy right now?</h1>
-        <p class="subline">Pick the two you'd want to put your attention on this week. You know your life best &mdash; trust what you notice.</p>
+        <h1 id="s2-title" class="screen-title">Which area needs your energy most right now?</h1>
+        <p class="subline">Pick the one you'd want to put your attention on this week. You know your life best &mdash; trust what you notice.</p>
       </div>
 
       <div class="card-list" id="cardList" role="list"></div>
 
       <div class="nudge-zone">
-        <span class="nudge nudge-text" id="nudgeText">Pick two to keep going.</span>
+        <span class="nudge nudge-text" id="nudgeText">Pick one to keep going.</span>
         <button class="advance-btn" id="advanceBtn2" type="button">Continue</button>
         <div class="nudge-toast" id="nudgeToast" role="status" aria-live="polite"></div>
       </div>
     </div>
   </section>
 
-  <!-- ========== SCREEN 3 ========== -->
+  <!-- ========== SCREEN 3 (v5 Margin Grid) ========== -->
   <section class="screen" id="screen3" aria-labelledby="s3-hero-label">
-    <!-- Section I — Coaching questions hero (NEW, Sable+Marlowe) -->
-    <section class="hero-questions" aria-labelledby="s3-hero-label" id="s3-hero-questions">
-      <div class="column">
-        <div class="section-header">
-          <span class="section-numeral" aria-hidden="true">i</span><span class="section-label" id="s3-hero-label">A few things to sit with</span>
+
+    <!-- Section 1 — Reflection questions -->
+    <section class="mb-hero-zone" aria-labelledby="s3-hero-label" id="s3-hero-questions">
+      <div class="mb-row">
+        <div class="mb-label mb-label-align-body" id="s3-hero-label">Reflection questions</div>
+        <div class="mb-body-col">
+          <p class="mb-section-intro">A few things worth sitting with, based on the board you just built. No right answers here &mdash; the questions are the point.</p>
+          <div id="s3-hero-slots"></div>
         </div>
-        <p class="hero-intro">Before we get to the work, three questions. These are shaped by the board you built &mdash; read them first, hold what lands.</p>
-        <div id="s3-hero-slots"></div>
-        <span class="hero-signoff">A pause before we keep going.</span>
       </div>
     </section>
 
-    <!-- Section II — Growth picks -->
-    <div class="column s3-content">
-      <div class="section-header">
-        <span class="section-numeral" aria-hidden="true">ii</span><span class="section-label">Where to put your energy</span>
-      </div>
-      <div id="s3-growth-picks"></div>
-    </div>
-
-    <!-- Section III — Pull-from (subordinate) -->
-    <div class="pullfrom-zone" id="pullfromZone">
-      <div class="column">
-        <div class="section-header">
-          <span class="section-numeral" aria-hidden="true">iii</span><span class="section-label">Where energy might come from</span>
+    <!-- Section 2 — Dial up -->
+    <section class="mb-growth-zone" id="s3-dialup-zone">
+      <div class="mb-row">
+        <div class="mb-label mb-label-align-display">Dial up</div>
+        <div class="mb-body-col">
+          <p class="mb-section-intro">Based on where you want your energy to go, a few moves worth trying this week.</p>
+          <div id="s3-growth-picks"></div>
         </div>
-        <div id="s3-pullfrom"></div>
       </div>
-    </div>
+    </section>
+
+    <!-- Section 3 — Dial down -->
+    <section class="mb-dialdown-zone" id="s3-dialdown-zone">
+      <div class="mb-row">
+        <div class="mb-label mb-label-align-body">Dial down</div>
+        <div class="mb-body-col">
+          <p class="mb-section-intro">Areas where easing the grip a little might free up the capacity you're trying to send somewhere else.</p>
+          <div id="s3-dialdown"></div>
+        </div>
+      </div>
+    </section>
 
     <!-- Section IV — What's next + colophon -->
-    <div class="column">
-      <div class="whats-next">
-        <div class="section-header">
-          <span class="section-numeral" aria-hidden="true">iv</span><span class="section-label">What's next</span>
+    <section class="mb-whatsnext-zone">
+      <div class="mb-row">
+        <div class="mb-label mb-label-align-body">What's next</div>
+        <div class="mb-body-col">
+          <p class="mb-whatsnext-paragraph"><span class="mb-whatsnext-lead">You've named one area.</span> You don't have to work on it all at once. Start with whichever piece feels most alive today, notice what happens this week, and come back to this when the picture shifts.</p>
         </div>
-        <p class="whats-next-paragraph"><span class="lead">You've named two areas.</span> You don't have to work on both at once. Start with whichever one feels most alive today, notice what happens this week, and come back to this when the picture shifts.</p>
       </div>
-
-      <span class="whats-next-closing-mark" aria-hidden="true">&mdash;</span>
 
       <div class="colophon">
         <div class="colophon-wordmark" aria-label="Veris">v</div>
         <div class="colophon-tagline" id="colophonTagline">A reflection tool, made at Veris Coaching.</div>
       </div>
-    </div>
+    </section>
   </section>
 
 </div>
@@ -1280,6 +1486,13 @@ body {
           "Moments when a pause feels available and you take it without guilt — those are the honest reading of whether the capacity is real.",
           "Energy that shows up on a weekday morning — that's often a sign rest is doing its job quietly in the background."
         ]
+      },
+      dial_down: {
+        bullets: [
+          "Pick one day where rest doesn't get to be the answer to every prompt.",
+          "Notice if rest is starting to look like avoidance \u2014 and follow curiosity instead.",
+          "Choose one thing this week that's worth being a little tired for."
+        ]
       }
     },
     decision_making: {
@@ -1315,6 +1528,13 @@ body {
         soft_notice: [
           "A decision you make quickly and don't revisit is a good signal the capacity is real.",
           "A decision you avoid without naming it is a good signal something else is asking for attention first."
+        ]
+      },
+      dial_down: {
+        bullets: [
+          "Let one decision land at 70% and see what the next week teaches you.",
+          "Pass on re-opening a call you already made \u2014 it doesn't need another look.",
+          "Notice when \u201Cthinking it over\u201D is doing the work of a quiet no."
         ]
       }
     },
@@ -1352,6 +1572,13 @@ body {
           "A small thing you do without narrating it first — that's usually a good sign the capacity is genuine and not performance.",
           "A morning where forward motion feels available rather than demanded — worth noticing when that's the case."
         ]
+      },
+      dial_down: {
+        bullets: [
+          "Let one task on this week's list stay undone and see what happens.",
+          "Pass on one meeting where your showing up is the default, not the need.",
+          "Notice when motion is substituting for progress, and pause the motion."
+        ]
       }
     },
     communication: {
@@ -1387,6 +1614,13 @@ body {
         soft_notice: [
           "A moment when you said a thing directly and the directness didn't cost you anything — that's a useful data point.",
           "A conversation that left both people with a clearer read on each other than they started with — often a sign the capacity is genuine."
+        ]
+      },
+      dial_down: {
+        bullets: [
+          "Let a message sit until tomorrow that usually gets answered today.",
+          "Choose one conversation to be shorter than it wants to be.",
+          "Notice when a clarification is for the other person, and when it's for you."
         ]
       }
     },
@@ -1424,6 +1658,13 @@ body {
           "A friendship that stays warm without frequent contact is usually a sign of real investment, earlier, paying out now.",
           "A relationship that has gone longer than feels right without a check-in might be a signal the pull-from room is smaller than it looks."
         ]
+      },
+      dial_down: {
+        bullets: [
+          "Let one thread go quiet for a week without treating the quiet as a problem.",
+          "Pass on being the one who restarts the conversation this time.",
+          "Notice which connections are asking for tending and which are asking for room."
+        ]
       }
     },
     self_awareness: {
@@ -1459,6 +1700,13 @@ body {
         soft_notice: [
           "A moment when you recognize a pattern in yourself and don't need to dwell on it — that's often a sign the awareness has become working knowledge.",
           "A decision that you make without needing to understand every motivation behind it — sometimes a sign the integration is genuine, sometimes a signal worth checking."
+        ]
+      },
+      dial_down: {
+        bullets: [
+          "Let one familiar pattern run this week without narrating it to yourself.",
+          "Choose one observation about yourself you don't need to examine today.",
+          "Notice when the watching is doing more work than the living."
         ]
       }
     },
@@ -1496,6 +1744,13 @@ body {
           "A no you said without a full explanation, and the relationship didn't suffer — a useful sign the capacity is steady.",
           "An area where you notice you've gone quiet rather than said no explicitly — sometimes wisdom, sometimes a signal worth checking."
         ]
+      },
+      dial_down: {
+        bullets: [
+          "Let one small yes stay a yes without defending it to yourself.",
+          "Pass on enforcing a line that's already holding itself.",
+          "Notice when the protection is for now, and when it's just on from habit."
+        ]
       }
     },
     emotional_consistency: {
@@ -1532,6 +1787,13 @@ body {
           "A moment where strong feeling arrives and you can be with it without needing to manage anyone around you — that's a useful reading.",
           "A stretch of composure that lasts long enough to wonder whether something underneath isn't getting said — worth noticing when that's happening."
         ]
+      },
+      dial_down: {
+        bullets: [
+          "Let one mood show on your face this week without editing it first.",
+          "Choose one moment to not manage the room's temperature.",
+          "Notice when steadiness is a choice, and when it's a costume."
+        ]
       }
     },
     strategic_thinking: {
@@ -1567,6 +1829,13 @@ body {
         soft_notice: [
           "A decision that lands easily because the larger context is clear to you — often a sign the strategic work is doing its job invisibly.",
           "A stretch where you're moving fast without stopping to ask whether it's still the right direction — sometimes confidence, sometimes a signal worth checking."
+        ]
+      },
+      dial_down: {
+        bullets: [
+          "Let one Wednesday afternoon unfold without running it through the plan.",
+          "Pass on the quarterly lens for one conversation and stay in the week you're in.",
+          "Notice when zooming out is serving you, and when it's keeping you up high where nothing can touch you."
         ]
       }
     }
@@ -1890,7 +2159,12 @@ body {
     var scrim = document.getElementById('descScrim');
     if (scrim) scrim.classList.remove('visible');
   }
-  document.addEventListener('click', function() { dismissAllDescriptors(); });
+  // v5: outside-click dismisses descriptors, except when the click originates
+  // on a fader control (label/track/thumb) — those manage their own lifecycle.
+  document.addEventListener('click', function(e) {
+    if (e.target && e.target.closest && e.target.closest('.fader-col')) return;
+    dismissAllDescriptors();
+  });
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') dismissAllDescriptors(); });
 
   // ============================================================
@@ -1915,7 +2189,14 @@ body {
       }
     }
     function startDrag(cx, cy) {
-      dismissAllDescriptors();
+      // v5 / Erik's ask: show descriptor while dragging (was: dismiss on drag).
+      // Show the descriptor for THIS slider, dismiss any others.
+      if (state.activeDescriptor && state.activeDescriptor.index !== index) {
+        dismissAllDescriptors();
+      }
+      if (!state.activeDescriptor || state.activeDescriptor.index !== index) {
+        showDescriptor(index);
+      }
       isDragging = true;
       thumb.classList.add('active');
       document.body.style.cursor = 'grabbing';
@@ -1931,11 +2212,21 @@ body {
       isDragging = false;
       thumb.classList.remove('active');
       document.body.style.cursor = '';
+      // v5: keep descriptor visible briefly after release, then dismiss.
+      // User gets the description on drag; document-click handler dismisses on next tap.
+      // No explicit dismiss here — lets the descriptor linger as intended.
     }
 
     thumb.addEventListener('mousedown', function(e) {
       e.preventDefault();
       e.stopPropagation();
+      // v5: fire descriptor on direct thumb grab too.
+      if (state.activeDescriptor && state.activeDescriptor.index !== index) {
+        dismissAllDescriptors();
+      }
+      if (!state.activeDescriptor || state.activeDescriptor.index !== index) {
+        showDescriptor(index);
+      }
       isDragging = true;
       thumb.classList.add('active');
       document.body.style.cursor = 'grabbing';
@@ -1975,7 +2266,15 @@ body {
       } else if (e.key === 'End') {
         setDialValue(index, DIAL_MAX, true); handled = true;
       }
-      if (handled) { e.preventDefault(); markTouched(); }
+      if (handled) {
+        e.preventDefault();
+        markTouched();
+        // v5: keyboard adjustment also fires descriptor
+        if (!state.activeDescriptor || state.activeDescriptor.index !== index) {
+          if (state.activeDescriptor) dismissAllDescriptors();
+          showDescriptor(index);
+        }
+      }
     });
   }
 
@@ -2283,10 +2582,12 @@ body {
       opts.setAttribute('role', 'radiogroup');
       opts.setAttribute('aria-label', 'Commitment tag for ' + cat.name);
 
+      // v5 locked order: Exploring → Bothering me → Ready
+      // (curious → weight-without-direction → action-ready)
       var tagDefs = [
         { id: 'exploring',    label: 'Exploring',    desc: "I'm curious, still figuring out what it would look like." },
-        { id: 'ready',        label: 'Ready',        desc: 'I want to do something about this. Now.' },
-        { id: 'bothering_me', label: 'Bothering me', desc: "It's weighing on me and I can't quite name why yet." }
+        { id: 'bothering_me', label: 'Bothering me', desc: "It's weighing on me and I can't quite name why yet." },
+        { id: 'ready',        label: 'Ready',        desc: 'I want to do something about this. Now.' }
       ];
 
       tagDefs.forEach(function(td) {
@@ -2355,15 +2656,18 @@ body {
   }
 
   function onCardTap(key) {
+    // v5: single-pick flow. Picking a new card when one is already picked
+    // swaps rather than adds. Tapping the picked card deselects.
     var existing = findPick(key);
     if (existing) {
       // Deselect
       state.picks = state.picks.filter(function(p) { return p.key !== key; });
       hideToast();
-    } else if (state.picks.length >= 2) {
-      // Third tap attempt — soft redirect
-      showToast("You've picked two. If one of those isn't quite right, tap it to swap.");
-      return;
+    } else if (state.picks.length >= 1) {
+      // Swap — replace the existing pick with the newly tapped card.
+      // Brief toast so the user understands the swap behavior.
+      state.picks = [{ key: key, tag: null }];
+      showToast("You've picked one — tap to swap.");
     } else {
       state.picks.push({ key: key, tag: null });
     }
@@ -2376,9 +2680,9 @@ body {
   function setTag(key, tagId) {
     var p = findPick(key);
     if (!p) {
-      // Tag click on a not-yet-picked card shouldn't happen (expanded only when selected),
-      // but just in case, select it.
-      if (state.picks.length >= 2) return;
+      // Tag click on a not-yet-picked card shouldn't happen (expanded only when selected).
+      // v5: single-pick model — if no pick yet, adopt this card as the pick.
+      if (state.picks.length >= 1) return;
       state.picks.push({ key: key, tag: tagId });
     } else {
       p.tag = tagId;
@@ -2389,7 +2693,8 @@ body {
   }
 
   function applyPulseToUntagged() {
-    if (state.picks.length !== 2) return;
+    // v5: single-pick model
+    if (state.picks.length !== 1) return;
     var untagged = state.picks.filter(function(p) { return !p.tag; });
     if (untagged.length === 0) return;
     untagged.forEach(function(p) {
@@ -2404,21 +2709,22 @@ body {
   }
 
   function updateNudge() {
+    // v5: single-pick flow.
+    //   0 picks → "Pick one to keep going."
+    //   1 pick, untagged → "One more step on {name} — how are you holding it?"
+    //   1 pick, tagged → ready (no nudge text)
+    //   2+ picks should not occur — onCardTap now swaps instead of adding.
     var btn = document.getElementById('advanceBtn2');
     var nudge = document.getElementById('nudgeText');
     var n = state.picks.length;
     var tagged = state.picks.filter(function(p) { return !!p.tag; }).length;
 
     if (n === 0) {
-      nudge.textContent = 'Pick two to keep going.';
+      nudge.textContent = 'Pick one to keep going.';
       btn.classList.remove('ready');
       btn.disabled = true;
-    } else if (n === 1) {
-      nudge.textContent = 'One more. Which other area is asking for your attention?';
-      btn.classList.remove('ready');
-      btn.disabled = true;
-    } else if (n === 2 && tagged < 2) {
-      var missing = state.picks.filter(function(p) { return !p.tag; })[0];
+    } else if (n === 1 && tagged < 1) {
+      var missing = state.picks[0];
       var missingName = CONTENT[missing.key].name;
       nudge.textContent = 'One more step on ' + missingName + ' — how are you holding it?';
       btn.classList.remove('ready');
@@ -2507,6 +2813,40 @@ body {
     return { categories: selected, near_balanced: near_balanced };
   }
 
+  // v5: Dial-down selection — top 2 HIGH-weighted unpicked categories (sort FLIPPED descending).
+  // Sutton exclusion map still honored to avoid construct-blind pairings.
+  function selectDialDown(picks) {
+    var growthKeys = picks.map(function(p) { return p.key; });
+    var ALL = DIAL_DEFS.map(function(d) { return d.key; });
+    var candidates = ALL.filter(function(c) { return growthKeys.indexOf(c) === -1; });
+
+    var excluded = {};
+    growthKeys.forEach(function(pk) {
+      (EXCLUDE_FROM_PULLFROM[pk] || []).forEach(function(e) { excluded[e] = true; });
+    });
+    growthKeys.forEach(function(pk) { delete excluded[pk]; });
+    var clean = candidates.filter(function(c) { return !excluded[c]; });
+
+    var s1 = {};
+    DIAL_DEFS.forEach(function(d, i) { s1[d.key] = state.values[i]; });
+
+    if (clean.length >= 2) {
+      clean.sort(function(a, b) {
+        var va = s1[a], vb = s1[b];
+        if (va !== vb) return vb - va; // DESCENDING: highest value first
+        return displayDistance(b, picks) - displayDistance(a, picks);
+      });
+      return clean.slice(0, 2);
+    }
+
+    // Fallback: re-include excluded with slight penalty (moves them lower in descending sort)
+    var scored = candidates.map(function(c) {
+      return { key: c, score: s1[c] - (excluded[c] ? 1.5 : 0) };
+    });
+    scored.sort(function(a, b) { return b.score - a.score; });
+    return scored.slice(0, 2).map(function(s) { return s.key; });
+  }
+
   function renderHeroQuestions() {
     var slots = document.getElementById('s3-hero-slots');
     if (!slots) return;
@@ -2516,159 +2856,128 @@ body {
     // Defensive: strip anything that looks like a pattern key before render
     // (Thayer hardening note — pattern keys never render to the user.)
     var PATTERN_KEYS = ['giver','thinker','engine','architect','withdrawal','performer','balanced'];
-    var romanMap = ['i.', 'ii.', 'iii.'];
     questions.forEach(function(qText, i) {
-      // Defensive sanitation — if somehow a pattern key is embedded, redact it.
       var safeText = String(qText);
       for (var k = 0; k < PATTERN_KEYS.length; k++) {
         var re = new RegExp('\\b' + PATTERN_KEYS[k] + '\\b', 'gi');
         safeText = safeText.replace(re, '');
       }
-
-      var group = document.createElement('div');
-      group.className = 'hero-question-group';
-      var num = document.createElement('span');
-      num.className = 'question-numeral';
-      num.setAttribute('aria-hidden', 'true');
-      num.textContent = romanMap[i] || ((i + 1) + '.');
-      group.appendChild(num);
       var p = document.createElement('p');
-      p.className = 'hero-question';
-      p.textContent = safeText;
-      group.appendChild(p);
-      slots.appendChild(group);
-
-      if (i < questions.length - 1) {
-        var hr = document.createElement('hr');
-        hr.className = 'hero-rule';
-        hr.setAttribute('aria-hidden', 'true');
-        slots.appendChild(hr);
-      }
+      p.className = 'mb-hero-q';
+      var n = document.createElement('span');
+      n.className = 'mb-hero-n';
+      n.textContent = (i + 1) + '.';
+      p.appendChild(n);
+      p.appendChild(document.createTextNode(safeText));
+      slots.appendChild(p);
     });
   }
 
   function renderScreen3() {
-    // Section I — Hero coaching questions (new, first thing on Screen 3)
+    // Section 1 — Reflection questions
     renderHeroQuestions();
 
-    // Section II — Growth picks in the order the user picked them (first pick = PICK1)
-    var host = document.getElementById('s3-growth-picks');
-    host.innerHTML = '';
-    state.picks.forEach(function(p, idx) {
-      host.appendChild(renderGrowthBlock(p));
-      // Insert inter-block separator between Pick 1 and Pick 2
-      if (idx === 0 && state.picks.length > 1) {
-        var sep = document.createElement('div');
-        sep.className = 'block-separator';
-        sep.setAttribute('aria-hidden', 'true');
-        sep.textContent = '\u00B7  \u00B7  \u00B7';
-        host.appendChild(sep);
-      }
-    });
+    // Section 2 — Dial up (v5: ONE block, tag-calibrated from the single growth pick)
+    // The dial-up block is split: the title + framing + move live inside the
+    // body-col of the first .mb-row; the Notice/To-sit-with sub-rows are
+    // siblings appended to the #s3-dialup-zone section (so their labels
+    // align with the margin grid).
+    var bodyHost = document.getElementById('s3-growth-picks');
+    var zone = document.getElementById('s3-dialup-zone');
+    bodyHost.innerHTML = '';
+    // Remove any prior sub-rows appended to the zone
+    var priorSubs = zone.querySelectorAll('.mb-sub-row');
+    for (var i = 0; i < priorSubs.length; i++) priorSubs[i].parentNode.removeChild(priorSubs[i]);
 
-    // Pull-from
-    var pfhost = document.getElementById('s3-pullfrom');
-    pfhost.innerHTML = '';
-    var pf = selectPullfrom(state.picks);
-    var pick1Name = CONTENT[state.picks[0].key].name;
+    if (state.picks.length > 0) {
+      var gb = buildGrowthBlock(state.picks[0]);
+      gb.bodyNodes.forEach(function(n) { bodyHost.appendChild(n); });
+      gb.subRows.forEach(function(r) { zone.appendChild(r); });
+    }
 
-    // Anchor line
-    var anchor = document.createElement('p');
-    anchor.className = 'pullfrom-anchor';
-    anchor.textContent = 'Energy has to come from somewhere. Based on the board you built, here are a few areas where you might naturally have some to draw from right now — but you know your life best. These are not prescriptions. They\u2019re suggestions to hold loosely.';
-    pfhost.appendChild(anchor);
-
-    pf.categories.forEach(function(key, pfIdx) {
-      // Sable revision: separator between pull-from paragraphs
-      if (pfIdx > 0) {
-        var pfsep = document.createElement('span');
-        pfsep.className = 'pullfrom-separator';
-        pfsep.setAttribute('aria-hidden', 'true');
-        pfsep.textContent = '\u00B7';
-        pfhost.appendChild(pfsep);
-      }
-      var cat = CONTENT[key];
-      var para = document.createElement('p');
-      para.className = 'pullfrom-para';
-      // Bold the leading category name only (2026-04-21 patch per Scott
-      // feedback). Every framing string begins with cat.name followed by
-      // " showed up..." — wrap that leading token in <strong> using DOM
-      // construction so we never inject unescaped user-adjacent text.
-      var framingText = cat.pull_from.framing.replace(/\{PICK1\}/g, pick1Name);
-      if (framingText.indexOf(cat.name) === 0) {
-        var strong = document.createElement('strong');
-        strong.textContent = cat.name;
-        para.appendChild(strong);
-        para.appendChild(document.createTextNode(framingText.slice(cat.name.length)));
-      } else {
-        // Defensive fallback: framing didn't start with the name for some
-        // reason — render plain rather than break the paragraph.
-        para.textContent = framingText;
-      }
-      pfhost.appendChild(para);
-
-      if (cat.pull_from.soft_notice && cat.pull_from.soft_notice.length) {
+    // Section 3 — Dial down (NEW: top-2 HIGH-weighted unpicked categories, descending sort)
+    var ddHost = document.getElementById('s3-dialdown');
+    if (ddHost) {
+      ddHost.innerHTML = '';
+      var ddKeys = selectDialDown(state.picks);
+      ddKeys.forEach(function(key) {
+        var cat = CONTENT[key];
+        if (!cat || !cat.dial_down) return;
+        var block = document.createElement('div');
+        block.className = 'mb-dialdown-block';
+        var title = document.createElement('h3');
+        title.className = 'mb-dialdown-title';
+        title.textContent = cat.name;
+        block.appendChild(title);
         var ul = document.createElement('ul');
-        ul.className = 'pullfrom-notice';
-        cat.pull_from.soft_notice.forEach(function(item) {
+        ul.className = 'mb-dialdown-list';
+        cat.dial_down.bullets.forEach(function(b) {
           var li = document.createElement('li');
-          li.textContent = item;
+          li.textContent = b;
           ul.appendChild(li);
         });
-        pfhost.appendChild(ul);
-      }
-    });
+        block.appendChild(ul);
+        ddHost.appendChild(block);
+      });
+    }
   }
 
-  function renderGrowthBlock(pick) {
+  // v5: build a growth block and return two lists — bodyNodes go inside the
+  // first .mb-row's body-col; subRows are siblings appended to the dial-up
+  // section so their labels align with the margin grid.
+  function buildGrowthBlock(pick) {
     var cat = CONTENT[pick.key];
     var tag = pick.tag || 'exploring';
     var tagData = cat.increase.tags[tag];
     var questionText = tagData.question_override || cat.increase.question;
 
-    var block = document.createElement('div');
-    block.className = 'growth-block';
-
-    var anchor = document.createElement('div');
-    anchor.className = 'anchor-line';
-    anchor.textContent = 'You named ' + cat.name + ' as one of the areas asking for your energy this week.';
-    block.appendChild(anchor);
+    var bodyNodes = [];
 
     var title = document.createElement('h2');
-    title.className = 'section-title';
+    title.className = 'mb-growth-title';
     title.textContent = tagData.title;
-    block.appendChild(title);
+    bodyNodes.push(title);
 
     var framing = document.createElement('p');
-    framing.className = 'body';
+    framing.className = 'mb-growth-framing';
     framing.textContent = cat.increase.framing;
-    block.appendChild(framing);
+    bodyNodes.push(framing);
 
+    var move = document.createElement('p');
+    move.className = 'mb-growth-framing';
+    move.style.marginTop = '20px';
+    move.textContent = tagData.move;
+    bodyNodes.push(move);
+
+    // Sub-row: Notice this week
+    var noticeRow = document.createElement('div');
+    noticeRow.className = 'mb-sub-row';
     var noticeLabel = document.createElement('div');
-    noticeLabel.className = 'notice-label';
+    noticeLabel.className = 'mb-sub-label';
     noticeLabel.textContent = 'Notice this week';
-    block.appendChild(noticeLabel);
-
+    noticeRow.appendChild(noticeLabel);
     var noticeList = document.createElement('ul');
-    noticeList.className = 'notice-list';
+    noticeList.className = 'mb-notice-list';
     cat.increase.notice_this_week.forEach(function(item) {
       var li = document.createElement('li');
       li.textContent = item;
       noticeList.appendChild(li);
     });
-    block.appendChild(noticeList);
+    noticeRow.appendChild(noticeList);
 
-    var move = document.createElement('p');
-    move.className = 'body move-body';
-    move.textContent = tagData.move;
-    block.appendChild(move);
+    // Sub-row: To sit with
+    var sitRow = document.createElement('div');
+    sitRow.className = 'mb-sub-row';
+    var sitLabel = document.createElement('div');
+    sitLabel.className = 'mb-sub-label';
+    sitLabel.textContent = 'To sit with';
+    sitRow.appendChild(sitLabel);
+    var invitation = document.createElement('p');
+    invitation.className = 'mb-invitation';
+    invitation.textContent = questionText;
+    sitRow.appendChild(invitation);
 
-    var q = document.createElement('p');
-    q.className = 'question-line';
-    q.textContent = questionText;
-    block.appendChild(q);
-
-    return block;
+    return { bodyNodes: bodyNodes, subRows: [noticeRow, sitRow] };
   }
 
   // ============================================================
