@@ -472,6 +472,51 @@ body {
   opacity: 0.92;
 }
 
+/* Back button — secondary sibling of .advance-btn.
+   Mirrors shape/typography but stays in the muted register so Continue
+   reads as the primary affordance. Mirrors the pattern shipped on
+   Enneagram Sliders (2026-04-24). */
+.back-btn {
+  font: 600 15px/1.2 var(--font-body);
+  letter-spacing: 0.01em;
+  padding: 14px 28px;
+  border: 1px solid var(--ink-ghost);
+  background: transparent;
+  color: var(--ink-muted);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 160ms ease, color 160ms ease;
+}
+.back-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.back-btn:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Pair container for Back + Continue (Screen 2). */
+.nav-pair {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+@media (max-width: 640px) {
+  .nav-pair { gap: 10px; }
+  .back-btn { padding: 12px 22px; }
+}
+
+/* Screen 3 back row — standalone, aligned centered below colophon,
+   quieter than the Screen 2 pair because nothing competes with it. */
+.s3-back-row {
+  margin: 48px 0 24px;
+  display: flex;
+  justify-content: center;
+}
+
 /* ============================================================
    SCREEN 2 — Play (cards)
    ============================================================ */
@@ -1290,7 +1335,7 @@ body {
 @media print {
   body { background: #fff; }
   .screen { display: block !important; padding: 24px !important; opacity: 1 !important; page-break-after: always; }
-  .advance-row, .nudge-zone, .fader-descriptor, .descriptor-scrim { display: none !important; }
+  .advance-row, .nudge-zone, .fader-descriptor, .descriptor-scrim, .s3-back-row { display: none !important; }
 }
 </style>
 </head>
@@ -1340,7 +1385,10 @@ body {
 
       <div class="nudge-zone">
         <span class="nudge nudge-text" id="nudgeText">Pick one to keep going.</span>
-        <button class="advance-btn" id="advanceBtn2" type="button">Continue</button>
+        <div class="nav-pair">
+          <button class="back-btn" id="backBtn2" type="button" aria-label="Back to your board">Back</button>
+          <button class="advance-btn" id="advanceBtn2" type="button">Continue</button>
+        </div>
         <div class="nudge-toast" id="nudgeToast" role="status" aria-live="polite"></div>
       </div>
     </div>
@@ -1395,6 +1443,10 @@ body {
       <div class="colophon">
         <div class="colophon-wordmark" aria-label="Veris">v</div>
         <div class="colophon-tagline" id="colophonTagline">A reflection tool, made at Veris Coaching.</div>
+      </div>
+
+      <div class="s3-back-row">
+        <button class="back-btn" id="backBtn3" type="button" aria-label="Back to area pick">Back</button>
       </div>
     </section>
   </section>
@@ -2472,6 +2524,21 @@ body {
     goToScreen(2);
   });
   document.getElementById('advanceBtn1').disabled = true;
+
+  // ============================================================
+  // BACK NAVIGATION (added 2026-04-24, sanctioned freeze exemption)
+  // Module-scoped `state` never resets on screen toggle, so going back
+  // preserves slider values (Screen 1) and picks/cardOrder (Screen 2).
+  // initScreen2() is guarded by SCREEN2_INITIALIZED so the card shuffle
+  // and selections are preserved on re-entry. renderScreen3() reads live
+  // state on each call, so re-entering Screen 3 reflects any edits.
+  // ============================================================
+  (function wireBackNav() {
+    var b2 = document.getElementById('backBtn2');
+    if (b2) b2.addEventListener('click', function() { goToScreen(1); });
+    var b3 = document.getElementById('backBtn3');
+    if (b3) b3.addEventListener('click', function() { goToScreen(2); });
+  })();
 
   // ============================================================
   // SCREEN TRANSITIONS
