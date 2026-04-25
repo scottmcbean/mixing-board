@@ -2558,7 +2558,14 @@ body {
       current.classList.remove('active', 'fading');
       screens[n].classList.add('active');
       window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
-      if (n === 2) initScreen2();
+      if (n === 2) {
+        initScreen2();
+        // Re-entry refresh: card order and picks are preserved by the
+        // SCREEN2_INITIALIZED guard, but card tick positions read from
+        // state.values at render time. Re-run renderCards() so ticks
+        // reflect any slider edits made via back-nav (1->2->back->edit->2).
+        renderCards();
+      }
       if (n === 3) renderScreen3();
     }, dur);
   }
