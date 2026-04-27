@@ -4,12 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Veris Mixing Board — A Reflection Tool</title>
-<meta name="mb-version" content="v5">
+<meta name="mb-version" content="v5.3">
 
 <!--
   ============================================================
-  Mixing Board — Path C (v5 — Margin Grid + single growth pick + Dial up/down)
-  Build: Linden, 2026-04-21
+  Mixing Board — Path C (v5.3 — Screen 3 calm pass)
+  Build: Linden, 2026-04-21 / v5.3 patch 2026-04-27
+  v5.3 deltas (Sable layout v2 + Marlowe content patch — webinar 2026-04-28):
+  - Screen 3: section labels 11px → 13px, --ink-ghost → --ink-muted,
+    letter-spacing 0.18em → 0.16em (Sable §3.2)
+  - Screen 3: zone padding rebalanced for symmetric breath post-cut
+    (.mb-hero-zone +8 bottom, .mb-growth-zone 64/24 → 88/88, .mb-dialdown-zone
+    56 → 72, .mb-whatsnext-zone -8 top); mobile re-tuned (Sable §3.1, §6)
+  - Screen 3: .mb-growth-title 30px → 32px, margin-bottom 24 → 28 (Sable §3.3)
+  - Screen 3: NEW closing hairline above What's next zone — single 64px
+    --sage-quiet at 25%, paper-on-paper transition mark (Sable §3.4)
+  - Screen 3: "Notice this week" sub-row removed from buildGrowthBlock()
+    (render off, data preserved in CONTENT) — Marlowe Cut #2
+  - Screen 3: "To sit with" sub-row removed from buildGrowthBlock()
+    (render off, data preserved) — Marlowe Cut #1
+  - Screen 3: Dial down condensed from 2 areas to 1; selectDialDown() still
+    returns 2 (cheap v6 optionality), renderScreen3() takes ddKeys[0] only.
+    Zero-result guard hides .mb-dialdown-zone if no candidate (Marlowe Cut #3)
+  - Screen 3: Dial up intro retoned ("a few moves" → "one move"); Dial down
+    intro retoned (plural "Areas" → "One area", invitational register)
+  v5.2 deltas (2026-04-24):
+  - Screens 2/3 back-nav refresh + Screen 2 tick refresh on re-entry.
   v5 deltas (from v4):
   - Screen 2: single forced growth pick (not two). Header + nudge copy updated.
   - Screen 2: locked tag order Exploring → Bothering me → Ready.
@@ -736,14 +756,14 @@ body {
   align-items: start;
 }
 .mb-label {
-  font: 600 11px/1.4 var(--font-body);
-  color: var(--ink-ghost);
+  font: 600 13px/1.4 var(--font-body);   /* v5.3: was 11px */
+  color: var(--ink-muted);                /* v5.3: was --ink-ghost */
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;                 /* v5.3: was 0.18em */
   padding-top: 12px;
 }
-.mb-label-align-display { padding-top: 16px; }
-.mb-label-align-body    { padding-top: 4px; }
+.mb-label-align-display { padding-top: 18px; }  /* v5.3: was 16px */
+.mb-label-align-body    { padding-top: 6px; }   /* v5.3: was 4px */
 
 .mb-body-col { max-width: var(--mb-body-col); }
 
@@ -756,7 +776,7 @@ body {
 /* Section 1 — Reflection questions */
 .mb-hero-zone {
   background: var(--paper-inset);
-  padding: 96px 0 48px;
+  padding: 96px 0 56px;   /* v5.3: was 96px 0 48px */
 }
 .mb-hero-q {
   font: 400 italic 18px/1.5 var(--font-display);
@@ -778,12 +798,12 @@ body {
 
 /* Section 2 — Dial up */
 .mb-growth-zone {
-  padding: 64px 0 24px;
+  padding: 88px 0 88px;   /* v5.3: was 64px 0 24px — symmetric breath post-cut */
 }
 .mb-growth-title {
-  font: 500 italic 30px/1.2 var(--font-display);
+  font: 500 italic 32px/1.2 var(--font-display);  /* v5.3: was 30px */
   color: var(--ink);
-  margin-bottom: 24px;
+  margin-bottom: 28px;                              /* v5.3: was 24px */
   letter-spacing: -0.005em;
 }
 .mb-growth-framing {
@@ -833,7 +853,7 @@ body {
 
 /* Section 3 — Dial down. Subordinate to Dial up. */
 .mb-dialdown-zone {
-  padding: 56px 0;
+  padding: 72px 0;   /* v5.3: was 56px 0 — +16px each side */
   background: var(--paper-inset-quiet);
 }
 .mb-dialdown-block {
@@ -870,7 +890,18 @@ body {
 
 /* Section IV — What's next */
 .mb-whatsnext-zone {
-  padding: 64px 0 56px;
+  padding: 56px 0 56px;   /* v5.3: was 64px 0 56px — hairline takes top breath */
+}
+
+/* v5.3: NEW — closing hairline above What's next zone (Sable spec) */
+.mb-closing-rule {
+  display: block;
+  width: 64px;
+  height: 1px;
+  background: var(--sage-quiet);
+  opacity: 0.25;
+  border: 0;
+  margin: 64px auto 0;
 }
 .mb-whatsnext-paragraph {
   font: 400 17px/1.65 var(--font-body);
@@ -906,18 +937,19 @@ body {
   }
   .mb-label, .mb-sub-label { padding-top: 0; }
   .mb-body-col, .mb-notice-list, .mb-invitation, .mb-dialdown-list { max-width: 100%; }
-  .mb-hero-zone      { padding: 64px 0 32px; }
-  .mb-growth-zone    { padding: 48px 0 16px; }
-  .mb-growth-title   { font-size: 24px; }
+  .mb-hero-zone      { padding: 64px 0 40px; }   /* v5.3: was 64px 0 32px */
+  .mb-growth-zone    { padding: 64px 0 64px; }   /* v5.3: was 48px 0 16px */
+  .mb-growth-title   { font-size: 26px; }        /* v5.3: was 24px */
   .mb-growth-framing { font-size: 16px; }
   .mb-hero-q         { font-size: 17px; padding-left: 28px; text-indent: -28px; }
   .mb-hero-q .mb-hero-n { width: 28px; }
-  .mb-dialdown-zone  { padding: 44px 0; }
+  .mb-dialdown-zone  { padding: 56px 0; }        /* v5.3: was 44px 0 */
   .mb-dialdown-title { font-size: 20px; }
   .mb-dialdown-block { margin-top: 32px; }
-  .mb-whatsnext-zone { padding: 48px 0 48px; }
+  .mb-whatsnext-zone { padding: 40px 0 48px; }   /* v5.3: was 48px 0 48px */
   .mb-whatsnext-lead { font-size: 18px; }
   .mb-section-intro  { font-size: 15px; margin-bottom: 24px; }
+  .mb-closing-rule   { width: 48px; margin: 48px auto 0; }   /* v5.3: NEW */
 }
 
 .growth-block {
@@ -1413,7 +1445,7 @@ body {
       <div class="mb-row">
         <div class="mb-label mb-label-align-display">Dial up</div>
         <div class="mb-body-col">
-          <p class="mb-section-intro">Based on where you want your energy to go, a few moves worth trying this week.</p>
+          <p class="mb-section-intro">Based on where you want your energy to go, one move worth trying this week.</p>
           <div id="s3-growth-picks"></div>
         </div>
       </div>
@@ -1424,11 +1456,14 @@ body {
       <div class="mb-row">
         <div class="mb-label mb-label-align-body">Dial down</div>
         <div class="mb-body-col">
-          <p class="mb-section-intro">Areas where easing the grip a little might free up the capacity you're trying to send somewhere else.</p>
+          <p class="mb-section-intro">One area where easing your grip a little might free up energy for the thing you actually want to grow.</p>
           <div id="s3-dialdown"></div>
         </div>
       </div>
     </section>
+
+    <!-- v5.3: closing hairline above What's next (Sable) — paper-on-paper transition mark -->
+    <hr class="mb-closing-rule" aria-hidden="true">
 
     <!-- Section IV — What's next + colophon -->
     <section class="mb-whatsnext-zone">
@@ -2991,30 +3026,42 @@ body {
       gb.subRows.forEach(function(r) { zone.appendChild(r); });
     }
 
-    // Section 3 — Dial down (NEW: top-2 HIGH-weighted unpicked categories, descending sort)
+    // Section 3 — Dial down
+    // v5.3 (2026-04-27): condensed from 2 areas to 1 (Marlowe spec). selectDialDown()
+    // still returns top 2 — we render only ddKeys[0]. Cheap optionality for v6.
+    // Zero-result guard: hide the entire zone (and the closing hairline above
+    // What's next still renders — the closing arc holds with or without the dim zone).
     var ddHost = document.getElementById('s3-dialdown');
+    var ddZone = document.getElementById('s3-dialdown-zone');
     if (ddHost) {
       ddHost.innerHTML = '';
       var ddKeys = selectDialDown(state.picks);
-      ddKeys.forEach(function(key) {
-        var cat = CONTENT[key];
-        if (!cat || !cat.dial_down) return;
-        var block = document.createElement('div');
-        block.className = 'mb-dialdown-block';
-        var title = document.createElement('h3');
-        title.className = 'mb-dialdown-title';
-        title.textContent = cat.name;
-        block.appendChild(title);
-        var ul = document.createElement('ul');
-        ul.className = 'mb-dialdown-list';
-        cat.dial_down.bullets.forEach(function(b) {
-          var li = document.createElement('li');
-          li.textContent = b;
-          ul.appendChild(li);
-        });
-        block.appendChild(ul);
-        ddHost.appendChild(block);
-      });
+      var ddKey = ddKeys[0];
+      var rendered = false;
+      if (ddKey) {
+        var cat = CONTENT[ddKey];
+        if (cat && cat.dial_down) {
+          var block = document.createElement('div');
+          block.className = 'mb-dialdown-block';
+          var title = document.createElement('h3');
+          title.className = 'mb-dialdown-title';
+          title.textContent = cat.name;
+          block.appendChild(title);
+          var ul = document.createElement('ul');
+          ul.className = 'mb-dialdown-list';
+          cat.dial_down.bullets.forEach(function(b) {
+            var li = document.createElement('li');
+            li.textContent = b;
+            ul.appendChild(li);
+          });
+          block.appendChild(ul);
+          ddHost.appendChild(block);
+          rendered = true;
+        }
+      }
+      if (ddZone) {
+        ddZone.style.display = rendered ? '' : 'none';
+      }
     }
   }
 
@@ -3022,10 +3069,12 @@ body {
   // first .mb-row's body-col; subRows are siblings appended to the dial-up
   // section so their labels align with the margin grid.
   function buildGrowthBlock(pick) {
+    // v5.3 (2026-04-27): Notice + To-sit-with sub-rows removed per Marlowe's
+    // patch. Underlying CONTENT data (notice_this_week, question,
+    // question_override) preserved as inert JSON for v6 optionality.
     var cat = CONTENT[pick.key];
     var tag = pick.tag || 'exploring';
     var tagData = cat.increase.tags[tag];
-    var questionText = tagData.question_override || cat.increase.question;
 
     var bodyNodes = [];
 
@@ -3045,35 +3094,7 @@ body {
     move.textContent = tagData.move;
     bodyNodes.push(move);
 
-    // Sub-row: Notice this week
-    var noticeRow = document.createElement('div');
-    noticeRow.className = 'mb-sub-row';
-    var noticeLabel = document.createElement('div');
-    noticeLabel.className = 'mb-sub-label';
-    noticeLabel.textContent = 'Notice this week';
-    noticeRow.appendChild(noticeLabel);
-    var noticeList = document.createElement('ul');
-    noticeList.className = 'mb-notice-list';
-    cat.increase.notice_this_week.forEach(function(item) {
-      var li = document.createElement('li');
-      li.textContent = item;
-      noticeList.appendChild(li);
-    });
-    noticeRow.appendChild(noticeList);
-
-    // Sub-row: To sit with
-    var sitRow = document.createElement('div');
-    sitRow.className = 'mb-sub-row';
-    var sitLabel = document.createElement('div');
-    sitLabel.className = 'mb-sub-label';
-    sitLabel.textContent = 'To sit with';
-    sitRow.appendChild(sitLabel);
-    var invitation = document.createElement('p');
-    invitation.className = 'mb-invitation';
-    invitation.textContent = questionText;
-    sitRow.appendChild(invitation);
-
-    return { bodyNodes: bodyNodes, subRows: [noticeRow, sitRow] };
+    return { bodyNodes: bodyNodes, subRows: [] };
   }
 
   // ============================================================
